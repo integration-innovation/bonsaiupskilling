@@ -17,7 +17,7 @@ Run it headless:
 blender -b --python exercises/01-massing/build_massing.py
 ```
 
-It writes `01-massing/bungalow_massing.blend` relative to the repository root. It is plain Blender
+It writes `exercises/01-massing/bungalow_massing.blend`. It is plain Blender
 mesh — deliberately not IFC, because Stage 02 classifies nothing.
 
 Use it to check your own massing against a known-good one, or as a starting point if you would
