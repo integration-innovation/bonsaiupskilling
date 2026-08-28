@@ -72,8 +72,21 @@ what it means in Bonsai, is on the [IFC+SG page]({{ '/ifc-sg/' | relative_url }}
 **Block mechanism** — how a development is decomposed into blocks for IFC+SG submission, and how the
 architectural, structural and MEP models align across them.
 
-**SVY21** — Singapore's projected coordinate system, and the basis for geo-referencing a model that
-will be federated or submitted.
+**SVY21** — Singapore's projected coordinate system, used for Easting (X) and Northing (Y). With
+**SHD** and True North it is what CORENET X requires a model to be geo-referenced to.
+
+**SHD** — Singapore Height Datum, the vertical reference for elevation (Z).
+
+**DG · PG · CG** — the CORENET X Design, Piling and Construction gateways. Each has its own expected
+level of modelling detail: design intent, foundation scope, buildable model.
+
+**Coordination matrix** — CORENET X's table of element type against element type that decides whether
+a clash is a Fail, an Alert or a Pass. Clash detection there is rule-based, not merely geometric, so
+the outcome of a clash is a decision — resolve, accept or alert — not automatically a defect.
+
+**Federation** — combining discipline models for review while they remain separate IFC files. It
+requires the same origin, orientation, True North and survey reference, and the same site, building
+and storey names and elevations.
 
 **Predefined type / USERDEFINED** — every IFC type carries a predefined type from a standard
 enumeration. Where IFC+SG needs a subtype the enumeration does not offer, the predefined type

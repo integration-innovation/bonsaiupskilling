@@ -58,11 +58,29 @@ Pre-Design is.
 | Roof | simple pitched, **25°–30°** |
 | Orientation | main entrance faces the north arrow you set — record the assumption |
 
-**Programme:** 3 bedrooms · 2 bathrooms · kitchen · living/dining · utility · covered entry · one
-shaded outdoor room or small courtyard.
+**Programme:** 3 bedrooms · 2 bathrooms · kitchen · living/dining · utility · covered entry ·
+**household shelter** · one shaded outdoor room or small courtyard.
 
 **Accessibility:** the grandparent's bedroom and one bathroom must be reachable without a step, from
 the car to the bed.
+
+<div class="warn" markdown="1">
+#### The household shelter is not optional, and not late
+
+A Singapore landed house has a household shelter. It is a reinforced enclosure with prescribed
+construction and minimum internal dimensions, and it cannot be trimmed to fit once the plan is
+resolved — it is one of the few rooms whose walls you do not get to move.
+
+[IFC+SG]({{ '/ifc-sg/' | relative_url }}) is blunt about the timing: **construction method, internal
+length and internal width are required model data from the conceptual stage**, earlier than almost
+anything else in the standard. That is a regulator saying, in data, that this is a
+massing-stage decision.
+
+So: find the current requirement yourself in [Stage 01]({{ '/stages/pre-design/' | relative_url }}),
+put it in your control sheet with its source and date, and place the shelter in the mass in
+[Stage 02]({{ '/stages/concept-design/' | relative_url }}) — not in Design Development, by which point
+you will have planned around a room that was not there.
+</div>
 
 ## Success criteria
 

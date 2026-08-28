@@ -47,9 +47,9 @@ all read `No IFC Project` and nothing you draw is a building.
    already a tree: `IfcProject → IfcSite → IfcBuilding → IfcStorey`. You did not have to build it, and
    every element you make from now on has to live somewhere in it.
 
-5. **Rename the storey and set its elevation.** Not `Level 1`. Call it **`Ground`** and give it a real
-   elevation. [CORENET X's first general modelling practice]({{ '/ifc-sg/' | relative_url }}) is level naming, because after
-   export a checker has only the name and the number.
+5. **Rename the storey and set its elevation.** Not `Level 1`. Call it **`1st Storey`** and give it a real elevation.
+
+   The name is not arbitrary. [CORENET X's first general modelling practice]({{ '/ifc-sg/' | relative_url }}) is level naming, and it publishes valid and invalid examples: `1st Storey` and `Storey 1` are valid, `1st Floor`, `Level one` and `2nd Story` are not. After export a checker has only the name and the Z value to work with.
 
 6. **Save immediately.** <span class="k">Ctrl</span>+<span class="k">S</span>, or **`File` → `Save IFC
    Project`**. You will be asked where to put the `.ifc`. Call it `kickstart.ifc`.
@@ -82,7 +82,7 @@ Now the other half. Go to the **`Sketch`** tab.
 
    **From the BIM tab:** `Properties → Object Information` → the **Products** dropdown → choose a category, then a class → **Assign IFC Class**.
 
-3. **Check where it landed.** `Properties → Object Information → Spatial Container`. It should be inside your `Ground` storey. An element with no container is invisible to half of every downstream tool and is the most common defect in a first model.
+3. **Check where it landed.** `Properties → Object Information → Spatial Container`. It should be inside your `1st Storey`. An element with no container is invisible to half of every downstream tool and is the most common defect in a first model.
 
 4. **Now try to push it.** Press <span class="k">P</span> and hover a face of the element you just classified. **It refuses.**
 

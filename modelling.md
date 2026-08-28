@@ -81,19 +81,24 @@ For the bungalow, four levels and no more:
 
 ```text
 IfcProject          Courtyard Bungalow
-  IfcSite           Plot
+  IfcSite           Plot          <- one IfcSite per file; its Name carries the block
     IfcBuilding     House
-      IfcBuildingStorey   Ground  (+0.150)
-      IfcBuildingStorey   Roof    (+3.150)
+      IfcBuildingStorey   1st Storey  (+0.150)
+      IfcBuildingStorey   Attic       (if the design has one)
+      IfcBuildingStorey   Roof        (+3.150)
 ```
 
-Name storeys for what they are, and give them real elevations. Check an element's container in
-`Properties → Object Information → Spatial Container`.
+**Use the CORENET X names.** `1st Storey` and `Storey 1` are valid; `1st Floor`, `Level one` and
+`2nd Story` are not. `Attic` is valid; `Attic 1` is not. Different physical levels get different
+names, and names and Z values must stay consistent across every discipline — where the structural
+floor level differs, structural adds a `_SFL` suffix rather than changing the number. Full table on
+the [IFC+SG page]({{ '/ifc-sg/' | relative_url }}).
 
-**What goes wrong.** Leaving `Level 1`, `Level 2` behind — CORENET X's first general modelling
-practice exists because after export the name and the elevation are all a checker has. Elements
-sitting loose at project level with no storey. Inventing a fifth and sixth level for things that are
-not storeys.
+Check an element's container in `Properties → Object Information → Spatial Container`.
+
+**What goes wrong.** Leaving `Level 1`, `Level 2` behind. Elements sitting loose at project level
+with no storey. Inventing a fifth and sixth level for things that are not storeys. Renaming a storey
+after other people have modelled against it.
 
 *Bonsai's "Basic Spatial Objects" documentation page is marked incomplete; the panel above is the
 reliable route.*
@@ -107,17 +112,23 @@ reliable route.*
 modelling practice 03
 </div>
 
-**How.** Model near the origin and record the georeferencing in the project settings — the projected
-CRS and the map conversion — rather than dragging the building to real-world coordinates. Singapore's
-projected system is **SVY21**.
+**What CORENET X requires.** Three things together: **SVY21** for Easting (X) and Northing (Y),
+**SHD — Singapore Height Datum** for elevation (Z), and **real-world orientation to True North**.
+One shared coordinate reference, taken from the licensed land surveyor's data, used by every
+discipline model.
 
-Record the coordinate basis, the datum and north in the same [decision log]({{ '/standards/' | relative_url }}) entry at
-[Stage 01]({{ '/stages/pre-design/' | relative_url }}).
+**How.** Set the projected CRS and map conversion in the project's georeferencing settings rather
+than dragging geometry to real-world coordinates. IFC's map conversion is exactly the mechanism that
+lets you author at a workable origin while the file still declares its true easting, northing,
+height datum and rotation.
 
-**What goes wrong.** Authoring ten kilometres from the origin, which costs precision and makes the
-model unpleasant to work in. No georeferencing at all, which makes federation with another
-discipline impossible. North set in the viewport but never written down, which invalidates every
-daylight and ventilation claim you make afterwards.
+Record the coordinate basis, the datum and north in the same
+[decision log]({{ '/standards/' | relative_url }}) entry at [Stage 01]({{ '/stages/pre-design/' | relative_url }}).
+
+**What goes wrong.** Models not aligned to SVY21. Elevation referenced to a site datum rather than
+SHD. Orientation not aligned to True North. No georeferencing at all, which makes federation
+impossible. **Late coordinate changes causing rework** — CORENET X lists this explicitly, and it is
+the expensive one.
 
 ---
 
@@ -128,12 +139,16 @@ daylight and ventilation claim you make afterwards.
 export gridlines to all storeys
 </div>
 
-**How.** Grids are model objects, not drawing decoration. Create them in the model so they export,
-and so they appear on every storey rather than only the one you drew them on.
+**How.** Four steps, per CORENET X: create the gridlines → **associate them to storeys**, exporting
+to *every* required storey → export the IFC with gridlines enabled → **check them in an IFC viewer**,
+across multiple levels, before you rely on them.
 
-**What goes wrong.** Skipping the grid because a bungalow is small. Setting out, coordination and
-every dimension check afterwards hang off it, and adding one at Stage 05 means re-dimensioning
-everything.
+Grids are model objects, not drawing decoration.
+
+**What goes wrong.** Skipping the grid because a bungalow is small — setting out, coordination and
+every dimension check afterwards hang off it. Gridlines exported at only one level. Missing storey
+association. And the one that catches everybody: **grids visible in the authoring tool but missing
+from the IFC**, which is only ever discovered by opening the export.
 
 ---
 
@@ -150,6 +165,17 @@ practice — use correct IFC entities
 - **BIM tab** — `Properties → Object Information` → **Products** dropdown → category, then class → **Assign IFC Class**.
 
 Then confirm the spatial container in the same panel.
+
+**Classification is three things.** CORENET X's workflow is: identify the component → check the COP,
+Mapping File and Glossary → assign the **IFC entity** → apply the **IFC subtype** if applicable →
+apply the **property sets** and populate them → validate the IFC. Assigning the class is the third
+of six steps, not the finish line.
+
+**Subtypes, in short.** Some entities need none (`IfcWall`, `IfcColumn`, `IfcBeam` — `N.A.` or
+blank). Some take a predefined value from the Mapping File (`IfcDoor` gives `DOOR`, `GATE`). Some
+take `USERDEFINED` plus an exact value, marked with an asterisk in the Mapping File (`IfcSpace` gives
+`AREA_GFA`, `IfcDoor` gives `BLASTDOOR`). Never invent a `USERDEFINED` value that is not in the
+guidance, and never put spaces in one.
 
 **When to do it.** Only when the decision behind the geometry is stable. Massing at
 [Stage 02]({{ '/stages/concept-design/' | relative_url }}) stays plain mesh on purpose; classification begins at
@@ -380,6 +406,8 @@ detection, design resolution and compliance checks* — at four separate gateway
 **How.**
 
 - **Clash** — run Bonsai's clash tooling after every substantial change, not once at the end. Architecture against assumed structure; roof against wall heads; fittings against door swings; beam zone against every window head.
+
+  Under CORENET X, clash detection is **rule-based, not merely geometric**: a coordination matrix decides whether a given pair is a Fail, an Alert or a Pass. An architectural door intersecting a structural beam is not allowed at all; an MEP pipe against a beam passes at 100 mm or under, alerts between 100 and 200 mm, and fails at 200 mm or over. **A clash is not always a failure** — every entry needs a decision: resolve, accept, or alert. Record which.
 - **IDS** — an Information Delivery Specification states, in a form software can test, what the model must contain: every `IfcWall` has a type, every `IfcDoor` has a host and a mark, every element has a storey, every `IfcSpace` has a name and a number. Write it once at [Stage 04]({{ '/stages/design-development/' | relative_url }}); every gate afterwards is a button press.
 - **BCF** — an issue with a viewpoint attached, so "the window head clashes with the beam" arrives with the camera already pointing at it. BCF travels between applications; a CSV does not. Keep both.
 
@@ -412,8 +440,14 @@ thing.
 **Unique GUIDs.** Branch revisions; never duplicate a file and call the copy a different block. Every
 element in the copy now shares a `GlobalId` with its twin, and that is a submission-level defect.
 
-**File size.** Parametric elements driven by types are small; tessellated meshes and imported
-high-poly content are not.
+**File size.** Keep each IFC within **800 MB** (CORENET X's recommendation), split by block, zone or
+discipline, and never merge multiple buildings into one file. Parametric elements driven by types are
+small; tessellated meshes and imported high-poly content are not.
+
+**Model to the gateway.** Over-modelling increases file size without improving the submission
+outcome. The Design Gateway wants design intent and simplified geometry; the Piling Gateway wants
+foundation and piling only; the Construction Gateway wants buildable elements, with detail added only
+where required and nothing at fabrication or as-built level.
 
 **What goes wrong.** Overwriting `T01` instead of issuing `T02`, which makes "what was priced" a
 matter of opinion. Shipping an `X-` object in an issued model — an unexplained hole nobody can

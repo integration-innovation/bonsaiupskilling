@@ -43,7 +43,9 @@ adopted mass is about to become scaffolding: you will build over it, then hide i
 *Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
 
 {: .steps}
-1. **Create the storeys.** In Bonsai's `BIM` tab, set up the spatial structure from Stage 01's decision: `IfcProject → IfcSite → IfcBuilding → IfcBuildingStorey`. Two storeys — `Ground` at your FFL, `Roof` at FFL + 3.150. Every element from now on belongs to one of them.
+1. **Create the storeys, and name them to the convention.** Creating the project already generated `IfcProject → IfcSite → IfcBuilding → IfcStorey`; adjust it in `Properties → Project Overview → Spatial Decomposition`. Two storeys — **`1st Storey`** at your FFL, **`Roof`** at FFL + 3.150, plus **`Attic`** if the design has one. Every element from now on belongs to one of them.
+
+   Those names come from [CORENET X's level-naming practice]({{ '/ifc-sg/' | relative_url }}), which publishes valid and invalid examples: `1st Storey` valid, `1st Floor` invalid; `Attic` valid, `Attic 1` invalid. Names and Z values must stay consistent across every discipline, so agree them now rather than after someone else has modelled against them.
 
 2. **Make the types before the elements.** Create an `IfcWallType` for the 200 mm external wall and one for the 100 mm partition, each with its material layers, and an `IfcSlabType` for the ground slab. Three types, made once. Forty individually drawn walls are a drawing; one type used forty times is a schedule, a quantity and a specification simultaneously.
 
@@ -53,7 +55,9 @@ adopted mass is about to become scaffolding: you will build over it, then hide i
 
 5. **Place the ground slab and the roof.** Slab from its type, aligned to the wall centre lines you decided — record which face the slab edge follows, because Stage 04's junctions depend on it. The roof stays a simple pitched form; its construction is Stage 04's problem, but its shape must now be a real element rather than a stacked box.
 
-6. **Zone the rooms as `IfcSpace`.** Three bedrooms, two bathrooms, kitchen, living/dining, utility, covered entry, courtyard. Each gets a name and a number. Then read the areas out of the model. Compare them against the brief's 120 m² target and against your Stage 02 estimate. Where they differ, the model is right and your estimate was wrong — write down by how much.
+6. **Zone the rooms as `IfcSpace`.** Three bedrooms, two bathrooms, kitchen, living/dining, utility, covered entry, household shelter, courtyard. Each gets a name and a number. Then read the areas out of the model. Compare them against the brief's 120 m² target and against your Stage 02 estimate. Where they differ, the model is right and your estimate was wrong — write down by how much.
+
+   **GFA areas are spaces too.** Under [IFC+SG]({{ '/ifc-sg/' | relative_url }}) a gross floor area is an `IfcSpace` with subtype `USERDEFINED` and the value `AREA_GFA`, carrying its own `AGF_` properties — name, development use, use quantum. From schematic onward, the GFA you quote in a submission is a modelled object, not a number in a spreadsheet beside the model.
 
 7. **Place the principal doors and windows.** Bonsai's door and window tools cut a real opening in a host wall — an `IfcOpeningElement` with a relationship, not a hole. Mark each one (`D01`, `W01`…) now, because Stage 05's schedules are generated from these marks and renaming later is how marks and drawings drift apart.
 

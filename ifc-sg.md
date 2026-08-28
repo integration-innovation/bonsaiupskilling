@@ -1,21 +1,23 @@
 ---
 layout: default
 title: IFC+SG and CORENET X
-strap: What Singapore's regulatory submission expects of your model, and how to satisfy it in Bonsai.
+strap: What Singapore's regulatory submission expects of your model, practice by practice, and how to satisfy each one in Bonsai.
 permalink: /ifc-sg/
 ---
 
-The [SIA scope]({{ '/sia-mapping/' | relative_url }}) says what you deliver. The [VAF]({{ '/vaf/' | relative_url }}) says what it costs. **IFC+SG
-says what the model itself must contain**, and CORENET X is the process that reads it. This page
-captures both, and turns them into things you do in Bonsai.
+The [SIA scope]({{ '/sia-mapping/' | relative_url }}) says what you deliver. The [VAF]({{ '/vaf/' | relative_url }})
+says what it costs. **IFC+SG says what the model itself must contain**, and CORENET X is the process
+that reads it. This is the page that turns all of that into things you do in Bonsai.
 
 <div class="warn" markdown="1">
-**Read the source.** This is our summary for teaching, and regulatory requirements change. The
-authority is [info.corenet.gov.sg](https://info.corenet.gov.sg/) — in particular
+**Read the source; this is a teaching summary.** Regulatory requirements change and this page will
+go stale. The authority is [info.corenet.gov.sg](https://info.corenet.gov.sg/) — in particular
 [What is IFC+SG](https://info.corenet.gov.sg/ifc-sg/start-here/WhatIsIFCSG),
 the [IFC+SG Excel Mapping File](https://info.corenet.gov.sg/ifc-sg/requirements---submission/ifc-sg-excel-mapping-file),
-and the [General Modelling Practices](https://info.corenet.gov.sg/ifc-sg/modelling---authoring/GeneralModellingPractices).
-Check the current version before any real submission.
+the [Glossary of Identified Components](https://info.corenet.gov.sg/ifc-sg/glossary-of-identified-components),
+and the [General Modelling Practices](https://info.corenet.gov.sg/ifc-sg/modelling---authoring/GeneralModellingPractices),
+each of which links to an illustrated guide worth reading in full. Summarised here as at
+**August 2026**. Check the current version before any real submission.
 </div>
 
 ## What IFC+SG is
@@ -27,12 +29,8 @@ values, plus validation checks the submission runs against.
 
 Two consequences for how you model:
 
-- **The class is the interface.** An agency's check finds your household shelter because it is
-  classified and propertied as one, not because a drawing labels it. Geometry that looks right and
-  classifies wrong fails silently.
-- **Data is required by stage, not all at once.** IFC+SG states which parameters are needed at
-  which stage of the project, so a conceptual model is not expected to carry as-built detail. That
-  staging is the reason this course can be a course rather than one enormous checklist.
+- **The class is the interface.** An agency's check finds your household shelter because it is classified and propertied as one, not because a drawing labels it. Geometry that looks right and classifies wrong fails silently.
+- **Data is required by stage, not all at once.** IFC+SG states which parameters are needed at which stage, so a conceptual model is not expected to carry as-built detail. That staging is why this can be a course rather than one enormous checklist.
 
 ## The IFC+SG stages
 
@@ -49,167 +47,339 @@ stages — a third vocabulary, and the one your *model* is measured against.
 | As-Built | Completion | [Stage 07]({{ '/stages/completion/' | relative_url }}) |
 | O&M / Asset Information | Post Completion | [Stage 08]({{ '/stages/post-completion/' | relative_url }}) |
 
-Note the shape of it: **Pre-Design has no IFC+SG stage**, because there is no model yet, and
-**O&M / Asset Information does** — the data outlives the project. Most practices resource the first
-five and are surprised by the last two.
+Note the shape: **Pre-Design has no IFC+SG stage**, because there is no model yet, and **O&M / Asset
+Information does** — the data outlives the project. Most practices resource the first five and are
+surprised by the last two.
 
-## CORENET X General Modelling Practices
+Alongside these sit the submission **gateways**, which is where modelling effort is actually
+governed: **Design Gateway (DG)**, **Piling Gateway (PG)** where applicable, and **Construction
+Gateway (CG)**, then Completion.
 
-CORENET X publishes twelve general modelling practices in four groups. They are illustrated guides,
-best read at the source; what follows is each practice, why it bites, and **what it means in
-Bonsai** for this project.
+---
 
-### 01 · Model setup and structure
+# The twelve General Modelling Practices
 
-<div class="sia" markdown="1">
-#### Level naming and organisation
-**CORENET X:** organise levels clearly so storeys can be understood and checked correctly after IFC
-export.
+CORENET X publishes twelve modelling practices in four groups. Each one below gives what CORENET X
+requires, **what it means in Bonsai**, and where this course exercises it.
 
-**In Bonsai:** storeys live in `Properties → Project Overview → Spatial Decomposition`. Name them for
-what they are and set real elevations — `Ground` at your FFL, `Roof` at FFL + 3.150, and `Attic` if
-you have one. Do not leave `Level 1`, `Level 2`, `Level 3` behind: a checker reading your IFC has
-only the name and the elevation to work with.
+## 01 · Model setup and structure
 
-**In this course:** [Stage 03, step 1]({{ '/stages/schematic-design/' | relative_url }}), and the four-level structure in the
-[model standard]({{ '/standards/' | relative_url }}).
-</div>
+### Applying consistent level naming
 
 <div class="sia" markdown="1">
-#### Block mechanism
-**CORENET X:** understand how architectural, structural and MEP models align with the IFC+SG block
-mechanism.
+**CORENET X.** Different physical levels must use different names, and **names and Z values must
+remain consistent across all disciplines**. Where the structural floor level sits at a different
+elevation from the architectural one, structural levels may use a suffix — `_SFL` — to say so.
 
-**In Bonsai:** the bungalow is a single block with one submitting discipline, so this is the one
-practice the course exercises least. Know it exists before your first multi-block project: blocks
-are how a development is decomposed for submission, and getting them wrong is a resubmission, not a
-correction.
+Their worked example: architectural and MEP both call it `1st Storey` at Z = 3.000; structural calls
+it `1st Storey_SFL` at Z = 2.950, because the structural slab underside is 50 mm lower. Same
+physical level, deliberately different name, because the elevation genuinely differs.
 </div>
 
-### 02 · Element modelling and data
+The naming conventions are specific enough to be worth learning once:
+
+| Storey type | Valid | Invalid |
+| --- | --- | --- |
+| Above-ground floors | `Storey 1` · `Level 20` · `1st Storey` · `20th Level` | `Storey 1st Level MPL` · `20 Level` · `Loft Storey` · `2nd Story` · `1st Floor` · `Level one` |
+| Mezzanine | `Storey 1 Mezzanine 2` · `1st Storey Mezzanine 2` · `20th Level Mezzanine` | `Mezzanine Level 1` · `4th Storey Mezzanine A` |
+| Split floor, multi-storey car park | `2nd Storey 2A` | `2nd Storey 3A` · `2nd Storey A` |
+| Below ground | `Basement 1` | `Upper basement` · `Basement A` · `1st Basement` · `B1` · `Basement mezzanine` · `Basement carpark` |
+| Attic | `Attic` · `Attic Storey` | `Attic A` · `Attic 1` · `1st Storey Attic` · `Lower Attic` |
+| Roof | `Roof` · `Upper Roof` · `Lower Roof Storey` | `Upper Roof 1` · `Roof Lower` |
+| Distinguishing blocks or datum | `1st Storey_club house` · `4th Storey_Tower A` · `1st Storey_SFL` · `1st Storey_MPL` | `Block 1 - 2nd Storey` · `2nd Storey Block A&C` |
+
+**In Bonsai.** Storeys live in `Properties → Project Overview → Spatial Decomposition`. Name and
+elevate them there. For this bungalow that means **`1st Storey`** at your finished floor level and
+**`Roof`** — not `Ground`, not `Level 1`, and never `1st Floor`.
+
+**Good practice, per CORENET X:** agree naming and Z values at project start; use consistent names
+across disciplines; use suffixes only where elevations genuinely differ; coordinate and verify levels
+against the same reference model. **Common issues:** different names for the same physical level;
+different Z values for the same level; missing suffix where structural sits lower; changing names or
+Z values without telling anybody.
+
+**In this course.** [Stage 03]({{ '/stages/schematic-design/' | relative_url }}), and the spatial structure
+in the [model standard]({{ '/standards/' | relative_url }}).
+
+### Block mechanism
 
 <div class="sia" markdown="1">
-#### Use the correct IFC entities
-**CORENET X:** select the correct IFC entity so each element is recognised and reviewed properly
-after export.
+**CORENET X.** Architectural models are **split by block, one file per block**. A development with
+two towers, a podium and a basement produces four architectural IFC files, plus a separate file for
+site elements — roads, landscape, external works.
 
-**In Bonsai:** `Properties → Object Information → Products` dropdown → choose the class → **Assign
-IFC Class**. Or, from the Sketch tab, the `IFC` panel in the sidebar does the same for a finished
-sketch. A wall drawn as a mesh and left unclassified is, to a checker, nothing at all.
-
-**In this course:** the whole reason classification is deferred until [Stage 03]({{ '/stages/schematic-design/' | relative_url }})
-and then done deliberately — see [the recipes]({{ '/modelling/' | relative_url }}).
+And the rule that catches people: **each IFC file has only one `IfcSite`, and the block name appears
+under that `IfcSite`'s Name.** The block identity is not a property you invent; it is where the site
+is named.
 </div>
+
+**In Bonsai.** One `IfcProject → IfcSite` per file, with the site named for the block. The bungalow
+is a single block with one submitting discipline, so this is the practice the course exercises least
+— but the *habit* it teaches, one site per file and the site named deliberately, costs nothing to
+adopt now and is a resubmission to learn later.
+
+## 02 · Element modelling and data
+
+### Use the correct IFC entities
 
 <div class="sia" markdown="1">
-#### Predefined Type vs USERDEFINED
-**CORENET X:** know when a standard predefined type is right and when `USERDEFINED` is needed for
-IFC+SG subtype requirements.
+**CORENET X.** Three things have to be right on every element, using COP Section 4 and the IFC+SG
+Excel Mapping File to identify them:
 
-**In Bonsai:** every type carries a predefined type. Use the standard enumeration where one fits —
-an external wall is not a "custom" thing. Where IFC+SG needs a subtype the enumeration does not
-offer, set the predefined type to `USERDEFINED` and give the object type the required name. A
-`USERDEFINED` with no object type name is the most common way a model passes visual inspection and
-fails a data check.
+1. **IFC Entity** — what the object *is*
+2. **IFC SubType** — if applicable
+3. **Property Sets** (SGPsets / Psets) — what data it must carry
+
+Their examples across disciplines: a louvred window is `IfcWindow` · subtype `LOUVER` ·
+`SGPset_Material`. A column is `IfcColumn` · subtype N.A. · `SGPset_ColumnReinforcement`. A flexible
+pipe is `IfcPipeSegment` · subtype `FLEXIBLESEGMENT` · `PipeSegmentDimension`.
+
+The workflow is six steps: **identify the component → check COP Section 4, the Mapping File and the
+Glossary → assign the IFC entity → apply the subtype if applicable → apply the property sets and
+populate them → validate the IFC.**
 </div>
+
+**In Bonsai.** `Properties → Object Information → Products` dropdown → choose the class → **Assign
+IFC Class**. From the Sketch tab, the `IFC` panel in the sidebar does the same for a finished sketch.
+A wall drawn as a mesh and left unclassified is, to a checker, nothing at all.
+
+Note that steps four and five have no shortcut: assigning the class is a third of the job.
+
+### IFC SubType — predefined vs USERDEFINED
 
 <div class="sia" markdown="1">
-#### When to use the COP, the Excel Mapping File and the Glossary
-**CORENET X:** three documents, three jobs — the Code of Practice for the submission process, the
-IFC+SG Excel Mapping File for what data each element carries, and the Glossary of Identified
-Components for what an element *is*.
+**CORENET X.** The Mapping File drives this, and there are four cases.
 
-**In practice:** the Mapping File is the one you keep open while modelling. It is the authority for
-the parameter tables further down this page, and it is versioned — check it, do not remember it.
+**N.A.** — no subtype required. You may fill in `N.A.` or leave it blank. Examples: `IfcWall`,
+`IfcColumn`, `IfcPile`, `IfcBeam`.
+
+**Predefined type** — use one of the values listed in the Mapping File, marked without an asterisk.
+For example `IfcSpace` → `SPACE`; `IfcDoor` → `DOOR`, `GATE`; `IfcAirTerminal` → `GRILLE`.
+
+**USERDEFINED** — indicated by an asterisk (`*`) in the Mapping File. Set the subtype to
+`USERDEFINED` **and provide the actual value**. For example `IfcSpace` → `AREA_GFA`; `IfcDoor` →
+`BLASTDOOR`; `IfcAlarm` → `FIREALAMPANEL`; `IfcCivilElement` → `GUTTER`; `IfcPipeFitting` →
+`DRAINCHANNELBEND`.
+
+**Mixed** — some components allow both. `IfcDoor` lists `DOOR, GATE, BLASTDOOR, ROLLERSHUTTER`:
+predefined for the standard types (`DOOR`, `GATE`), `USERDEFINED` for the specific ones (`BLASTDOOR`,
+`ROLLERSHUTTER`).
+
+**Common issues:** misspelling a predefined or USERDEFINED value; putting spaces in the value;
+**inventing a USERDEFINED value that is not in the mapping guidance**.
 </div>
+
+**In Bonsai.** Every type carries a predefined type. Use the standard enumeration where one fits, and
+where IFC+SG asks for a value the enumeration does not offer, set `USERDEFINED` and carry the
+required name on the object type. A `USERDEFINED` with no name passes visual inspection and fails a
+data check.
+
+`AREA_GFA` is the one to notice: the GFA areas your planning submission depends on are `IfcSpace`
+elements with a USERDEFINED subtype, carrying the `AGF_` properties listed further down this page.
+
+### COP, Excel Mapping File and Glossary — which to use when
 
 <div class="sia" markdown="1">
-#### Can I use a different element representation?
-**CORENET X:** an alternative representation may be used while modelling, provided it maintains the
-intended IFC+SG submission requirements.
+**CORENET X.** Three documents, three distinct jobs:
 
-**In Bonsai:** this is the permission that makes [Stage 02]({{ '/stages/concept-design/' | relative_url }}) legitimate. Sketch
-geometry, study masses and `X-` cutters are fine while the intent is preserved and the submitted
-model carries the right entities and data. It is not permission to submit a mesh box called a wall.
+| Document | Answers | Used for |
+| --- | --- | --- |
+| **Industry Mapping File** (.xlsx) | **HOW** IFC+SG data should be structured and populated | Mapping between components, IFC entities, property sets, property names and data types. Model authoring, data population, QA |
+| **Code of Practice (COP)** | **WHAT** is required for submission, per gateway and agency | Submission requirements, modelling expectations, required information and documents |
+| **Glossary of Identified Components** | Finding a component and understanding it | Definitions, IFC representation, required properties, examples. Learning and quick look-up |
+
+Their worked example of the three together: the COP confirms that *Beam Depth* is required for the
+relevant gateway and agency → the Glossary locates the component and shows its IFC entity, property
+set, property name, description and example → the Mapping File gives the exact mapping (`IfcBeam`,
+Pset `OSPref_BeamDimension`, property `Depth`, data type Length, unit mm) → populate the model with
+that value in that property in that unit → validate against the COP before submission.
 </div>
 
-### 03 · Project coordinates and alignment
+**In practice.** The Mapping File is the one you keep open while modelling. All three are versioned;
+check them, do not remember them.
+
+### Can I use a different element representation?
 
 <div class="sia" markdown="1">
-#### Project coordinates and geo-referencing
-**CORENET X:** coordinates and geo-referencing directly affect model placement, IFC export accuracy
-and downstream review. Singapore's projected system is **SVY21**.
+**CORENET X: yes, you can.** The Mapping File and COP give *suggested* element representations per
+element type. A different element may be used when appropriate, provided **two requirements** are
+met:
 
-**In Bonsai:** set georeferencing in the project settings rather than dragging the model to real-world
-coordinates. Model near the origin; record the map conversion. A model authored ten kilometres from
-its own origin loses geometric precision and is miserable to work in, and one with no georeferencing
-at all cannot be federated with anybody else's.
+1. **Assign the correct IFC entity and IFC SubType before IFC export.**
+2. **Add and populate all required IFC+SG properties** as defined in the COP for that entity.
 
-**In this course:** [Stage 01]({{ '/stages/pre-design/' | relative_url }}) sets the datum and north; record the coordinate
-basis in the same decision-log entry.
+Their example: the Mapping File suggests modelling a ramp with a Ramp element, but you would rather
+use a floor slab. That is allowed — model it as a slab, then export it as `IfcRamp` with subtype
+`STRAIGHT_RUN_RAMP`, and supply everything `IfcRamp` requires: Gradient (text, e.g. `1:16`), Width
+(length, mm, e.g. `1200`), BarrierFreeAccessibility, TransitionRamp, Accessway, Egress, Ingress,
+Vehicular (booleans), Material (text).
+
+Their warning is the important part: because the authored element was a slab and not a ramp, **some
+IFC+SG properties will not be populated automatically.** You have to add the missing ones yourself.
 </div>
+
+**In Bonsai.** This is the permission that makes [Stage 02]({{ '/stages/concept-design/' | relative_url }})
+legitimate: sketch geometry, study masses and `X-` cutters are fine while the intent is preserved.
+It is *not* permission to submit a mesh box called a wall — the two conditions are the price, and the
+second one is real work.
+
+## 03 · Project coordinates and alignment
+
+### Project coordinates and geo-referencing
 
 <div class="sia" markdown="1">
-#### Ensure models align correctly in federation
-**CORENET X:** check that architectural, structural and MEP models align when federated in an IFC
-viewer or coordination tool.
+**CORENET X.** All models must align to **SVY21** for Easting (X) and Northing (Y), **SHD — Singapore
+Height Datum** for elevation (Z), and **real-world orientation (True North)**.
 
-**In Bonsai:** export and open the result somewhere that is not Blender before you believe it. This is
-a habit worth forming on a project with no other disciplines, because it is unforgiving on one that
-has them.
+The sequence is: take the survey reference from the licensed land surveyor → establish one shared
+coordinate reference for the project from it, with a consistent origin and orientation → make every
+discipline model use that same reference, so they align in 3D when federated.
+
+**Good practice:** establish coordinates from survey data at project start; same reference in every
+model; keep it consistent when linking or federating; verify coordinates and orientation before
+export and submission. **Common issues:** models not aligned to SVY21; elevation not referenced to
+SHD; misalignment between disciplines at federation; orientation not aligned to True North; late
+coordinate changes causing rework.
 </div>
 
-### 04 · Model quality and coordination
+**In Bonsai.** Set the projected CRS and map conversion in the project's georeferencing settings
+rather than dragging geometry to real-world coordinates — IFC's map conversion is exactly the
+mechanism that lets you author near the origin while the file still declares its true position and
+rotation. What must be true is that the file *states* its SVY21 easting and northing, its SHD
+elevation and its True North rotation. What must not be true is a model floating 30 km from its own
+origin, losing precision and patience.
+
+**In this course.** [Stage 01]({{ '/stages/pre-design/' | relative_url }}) sets datum and north; record the
+coordinate basis in the same decision-log entry, and note that the brief's `+0.15 m` is a
+site-relative assumption until it is tied to SHD.
+
+### Ensure models align correctly in federation
 
 <div class="sia" markdown="1">
-#### Maintain unique GUIDs across models
-**CORENET X:** prevent duplicated IFC GUIDs when creating multiple blocks, copying templates, or
-managing linked discipline models.
+**CORENET X.** **Federation means multiple models aligned, not merged** — the models stay separate
+IFC files and are combined for review and coordination.
 
-**In Bonsai:** every IFC element has a `GlobalId`, and Bonsai assigns them. The way you break this is
-copying a file and calling the copy a different block — every element in it now shares a GUID with
-its twin. The [model standard's]({{ '/standards/' | relative_url }}) rule of branching *revisions* rather than duplicating
-*blocks* keeps you out of this.
+For that to work, two things must match across every discipline:
+
+- **Coordinate system** — same origin (0,0,0), same orientation, same True North, same survey reference.
+- **Spatial structure** — same site, same building structure, **same storey names and elevations**.
+
+The alignment check runs three times: **pre-check in the native software** (coordinates, origin,
+spatial structure) → **after export in an IFC viewer** (overlay the models, verify orientation and
+scale, check storey alignment, confirm no unexpected offsets) → **during submission in the portal
+viewer**, before confirming.
 </div>
+
+**In Bonsai.** Export, then open the result somewhere that is not Blender, before you believe it.
+Worth forming as a habit on a project with no other disciplines, because it is unforgiving on one
+that has them.
+
+## 04 · Model quality and coordination
+
+### Maintain unique GUIDs across models
 
 <div class="sia" markdown="1">
-#### Manage file size for performance
-**CORENET X:** reduce unnecessary complexity and optimise file size for export, loading, federation
-and review.
+**CORENET X.** Every IFC element must have a unique GUID so it can be identified, tracked and
+compared across models and submissions.
 
-**In Bonsai:** parametric elements driven by types are small; tessellated meshes are not. Every time
-Push/Pull refuses an IFC element, it is protecting both the parametric definition and the file size.
-Detailed manufacturers' furniture, imported blocks and high-poly vegetation are where a house-sized
-model becomes a tower-sized file.
+The clarification matters: **repeated or similar elements are perfectly acceptable** — forty
+identical windows are forty distinct GUIDs. Duplicate GUIDs arise when *files or elements are reused
+incorrectly*: duplicating a completed model file and using it as a new project or block file gives
+every element in the copy the same GUID as its twin.
+
+**Good practice:** do not duplicate completed model files to create new projects or blocks; follow
+the recommended workflow for preset elements and templates; **check for duplicate GUIDs before
+submission**.
 </div>
+
+**In Bonsai.** Bonsai assigns `GlobalId`s. The [model standard's]({{ '/standards/' | relative_url }}) rule of
+branching *revisions* rather than duplicating *blocks* is what keeps you out of this.
+
+### Manage file size for performance
 
 <div class="sia" markdown="1">
-#### Clash detection and coordination
-**CORENET X:** review clashes and coordination issues early, before IFC export and submission.
+**CORENET X.** Keep each IFC file within **800 MB** (recommended). Split models by block, zone or
+discipline where appropriate, and avoid merging multiple buildings into a single file.
 
-**In Bonsai:** clash tooling is built in. Run it at [Stage 04]({{ '/stages/design-development/' | relative_url }}) and after
-every substantial change, not once at the end — the VAF prices coordination as a separate component
-at each of four gateways for exactly this reason.
+The reason this practice is really about *modelling*, not compression:
+
+> **Over-modelling increases file size without improving submission outcome.** Always model
+> proportionately to the requirements of each gateway.
+
+And the gateway guidance is the clearest level-of-detail statement in the whole of IFC+SG:
+
+| Gateway | Model |
+| --- | --- |
+| **DG · Design Gateway** | Design intent only. Simplified geometry. Include the elements required for submission. Avoid detailed modelling |
+| **PG · Piling Gateway** (if applicable) | Foundation and piling elements only. Keep geometry simple and focused on scope. Exclude unrelated elements |
+| **CG · Construction Gateway** | Buildable elements required for submission. Add detail only where required. Avoid fabrication-level or as-built detail |
+
 </div>
+
+**In Bonsai.** Parametric elements driven by types are small; tessellated meshes and imported
+high-poly content are not. Every time Push/Pull refuses an IFC element it is protecting both the
+parametric definition and the file size.
+
+**In this course.** This is the regulator saying, in its own words, what the stage gates say: build
+what the stage needs and no more. A 120 m² bungalow will never approach 800 MB — but the habit of
+asking *which gateway is this detail for?* is the transferable part.
+
+### Model coordination and clash detection
 
 <div class="sia" markdown="1">
-#### Export gridlines to all storeys
-**CORENET X:** ensure gridlines export across all storeys to maintain spatial reference and support
-coordination.
+**CORENET X.** Clash detection here is **rule-based, not merely geometry-based**, and it is governed
+by a coordination matrix of element type against element type.
 
-**In Bonsai:** grids are model objects, not drawing decoration. A bungalow can be built without a grid
-and should still have one, because setting out, coordination and every later dimension check hang
-off it.
+> **Clash ≠ always fail.** Determine the action: **Resolve / Accept / Alert.**
+
+Some clashes are simply not allowed — an architectural **door intersecting a structural beam** is a
+design clash and should not occur. Others are conditional, judged on size. Their MEP example, a pipe
+clashing with a structural beam:
+
+| Pipe diameter / width | Result |
+| --- | --- |
+| ≤ 100 mm | **Pass** |
+| > 100 mm and ≤ 200 mm | **Alert** |
+| ≥ 200 mm | **Fail** |
+
+**How to apply:** run clash detection on the coordinated IFC models → review results against the
+coordination matrix → resolve, accept or escalate according to the rules and requirements of the
+submission.
 </div>
+
+**In Bonsai.** Clash tooling is built in. Run it at
+[Stage 04]({{ '/stages/design-development/' | relative_url }}) and after every substantial change — the
+[VAF]({{ '/vaf/' | relative_url }}) prices coordination as a separate component at each of four gateways for
+exactly this reason.
+
+The transferable lesson is the triage. A clash list is not a defect list: every entry needs a
+decision, and "accepted" is a legitimate answer that has to be recorded.
+
+### Export gridlines to all storeys
+
+<div class="sia" markdown="1">
+**CORENET X.** Four steps: create gridlines in the authoring tool → **associate them to storeys**,
+exporting them to *every* required storey → export the IFC with gridlines enabled → **check the
+gridlines in an IFC viewer** across multiple levels before submission.
+
+**Common mistakes:** gridlines exported at only one level; hidden in the export view; missing storey
+association; incorrect export settings; **visible in the BIM tool but missing from the IFC**.
+</div>
+
+**In Bonsai.** Grids are model objects, not drawing decoration. A bungalow can be built without one
+and should still have one — setting out, coordination and every later dimension check hang off it.
+The last common mistake is the one to internalise: grids that look right in the authoring tool prove
+nothing about the exported file.
+
+---
 
 ## What the data actually looks like
 
 The IFC+SG model content requirements list, per element, which parameters are needed at which stage
-and which discipline owns them. The tables below are the bungalow-relevant extract, showing the
-stages at which each parameter is expected.
+and which discipline owns them. Below is the bungalow-relevant extract.
 
 Legend: **C** conceptual · **S** schematic · **D** detailed · **T** tender · **X** construction ·
-**A** as-built · **O** operation.
+**A** as-built.
 
 ### Doors — Architectural
 
@@ -222,10 +392,10 @@ Legend: **C** conceptual · **S** schematic · **D** detailed · **T** tender ·
 | Overall Width · Overall Height | | | ● | ● | ● | ● |
 | One Way Locking Device | | | ● | ● | ● | ● |
 
-Twenty-six parameters in total for doors and their sub-elements, including blast doors. Note what
+Twenty-six parameters in total across doors and their sub-elements, blast doors included. Note what
 is required from **schematic**: whether a door is the main entrance. That is a data decision made at
-[Stage 03]({{ '/stages/schematic-design/' | relative_url }}), which is why the course asks you to mark doors then rather
-than at documentation.
+[Stage 03]({{ '/stages/schematic-design/' | relative_url }}), which is why the course asks you to mark doors
+then rather than at documentation.
 
 ### Windows — Architectural
 
@@ -238,8 +408,8 @@ than at documentation.
 | Structural Height · Structural Width | | | ● | ● | ● | ● |
 | Fire Access Opening | | | ● | ● | ● | ● |
 
-**Percentage of opening** is the ventilation requirement expressed as model data. The brief's
-"cool without machines" success criterion stops being rhetoric and becomes a number a checker reads.
+**Percentage of opening** is the ventilation requirement expressed as model data. The brief's "cool
+without machines" success criterion stops being rhetoric and becomes a number a checker reads.
 
 ### Spaces and spatial allocation — Architectural
 
@@ -257,6 +427,9 @@ than at documentation.
 | Space: ventilation mode and type, smoke control, fire detection and suppression | Detailed |
 | Accessible Route: barrier-free accessibility | Detailed |
 
+Remember from the subtype guidance above: a GFA area is an `IfcSpace` with subtype `USERDEFINED` and
+the value `AREA_GFA`. The `AGF_` properties hang off that.
+
 <div class="warn" markdown="1">
 #### The household shelter is a conceptual-stage requirement
 
@@ -264,8 +437,9 @@ Its construction method and internal dimensions are expected in the model from t
 stage — earlier than almost anything else in the list. A Singapore landed house has one, and if it
 appears at Design Development you have already planned around a room that was not there.
 
-Add it to the brief and to [Stage 02]({{ '/stages/concept-design/' | relative_url }}). It is the clearest example in the whole
-of IFC+SG of a data requirement that is really a design requirement wearing a data costume.
+It is in the [brief]({{ '/brief/' | relative_url }}) and in
+[Stage 02]({{ '/stages/concept-design/' | relative_url }}) for that reason. It is the clearest example in
+the whole of IFC+SG of a data requirement that is really a design requirement wearing a data costume.
 </div>
 
 ### Walls
@@ -274,10 +448,10 @@ Wall carries twenty-four parameters — and all but one are **C&S discipline**: 
 material grade, load bearing, working loads, precaster accreditation, prefinished and double-bay
 façade, shelter usage. The architect's own is **construction method**.
 
-That single fact is worth more than it looks. It says plainly that the wall in an IFC+SG submission
-is a shared object with divided ownership, and that "the architect models the walls" is a sentence
-about geometry, not about data. Under the [VAF]({{ '/vaf/' | relative_url }}), coordinating that division is a priced
-component at every gateway.
+That single fact is worth more than it looks. It says plainly that a wall in an IFC+SG submission is
+a shared object with divided ownership, and that "the architect models the walls" is a sentence about
+geometry, not about data. Under the [VAF]({{ '/vaf/' | relative_url }}), coordinating that division is a
+priced component at every gateway.
 
 ### Building and storey
 
@@ -287,31 +461,42 @@ component at every gateway.
 | Attic level | Building Storey | Schematic |
 
 **Attic level** matters for a bungalow: if the design has an attic, the storey has to say so from
-schematic onwards.
+schematic onwards — and per the level-naming practice, that storey is called `Attic`, not `Attic 1`.
 
-## How the course uses this
+## How the course uses all of this
 
-You are not submitting anything. What you are doing is building the habits that make a submission
+You are not submitting anything. What you are building are the habits that make a submission
 survivable:
 
 {: .steps}
-1. **Classify deliberately** ([Stage 03]({{ '/stages/schematic-design/' | relative_url }})) — the correct entity, not the convenient one.
-2. **Name storeys and set elevations properly** ([Stage 03]({{ '/stages/schematic-design/' | relative_url }})) — level naming is practice number one for a reason.
-3. **Mark data at the stage it is required, not later** — main entrance at schematic, clear widths at detailed, as-built provenance at as-built.
-4. **Write the IDS** ([Stage 04]({{ '/stages/design-development/' | relative_url }})) — an IDS is how you make an IFC+SG-shaped requirement machine-checkable on your own model, before anyone else checks it.
-5. **Coordinate four times, not once** ([Stages 03, 04, 06, 07]({{ '/vaf/' | relative_url }})) — matching the VAF's four BIM gateway components.
-6. **Keep GUIDs and coordinates clean from the start** — both are cheap at Stage 01 and expensive at Stage 07.
+1. **Name storeys to the convention from day one** ([Stage 03]({{ '/stages/schematic-design/' | relative_url }})) — `1st Storey`, `Attic`, `Roof`. Renaming later breaks every drawing reference.
+2. **Classify deliberately, then subtype, then propertise** ([Stage 03]({{ '/stages/schematic-design/' | relative_url }})) — the entity is only the first of three.
+3. **Mark data at the stage it is required** — main entrance at schematic, clear widths at detailed, as-built provenance at as-built.
+4. **Model to the gateway, not to your enthusiasm** ([Stage 04]({{ '/stages/design-development/' | relative_url }})) — design intent at DG, buildable at CG, and over-modelling helps nobody.
+5. **Write the IDS** ([Stage 04]({{ '/stages/design-development/' | relative_url }})) — an IDS makes an IFC+SG-shaped requirement machine-checkable on your own model, before anyone else checks it.
+6. **Triage clashes rather than counting them** — resolve, accept or alert, and record which.
+7. **Verify after export, every time** — in a viewer, not in Blender. Three of the twelve practices end with this instruction.
+8. **Keep GUIDs and coordinates clean from the start** — both are cheap at Stage 01 and expensive at Stage 07.
 
 <div class="note" markdown="1">
-#### Where the data in this page came from
+#### Where the material on this page came from
+
+The twelve practices are summarised from the illustrated guides published under
+[CORENET X → IFC+SG → Modelling & Authoring → General Modelling Practices](https://info.corenet.gov.sg/ifc-sg/modelling---authoring/GeneralModellingPractices),
+read in August 2026. Each guide is worth opening in full; the diagrams carry more than a summary can.
 
 The parameter tables are extracted from **IFC+SG Model Content Requirements V2.0 (20 March 2026)**,
 as shipped in [Bonsai Sketch Mode's](https://github.com/integrations-space/BonsaiSketch)
-`data/ifc_sg.json`. The extract covers 21 element groups; this page shows only those a small landed
+`data/ifc_sg.json`. That extract covers 21 element groups; this page shows only those a small landed
 house touches.
 
 The standard's own mechanism for recording an element's class is a parameter named `IfcExportAs` —
 that is, the modeller declares it. Any mapping from an IFC+SG element name to an IFC class is
 therefore a judgement, which is why the add-on keeps it as editable data rather than code, and why
 unmapped elements attach nothing rather than attaching requirements that might be wrong.
+
+CORENET X also publishes a [BIM Authoring Tools](https://info.corenet.gov.sg/ifc-sg/modelling---authoring/bim-authoring-tools)
+guide with tool-specific steps, and a [Plug-in & 3rd Party Tools](https://info.corenet.gov.sg/ifc-sg/modelling---authoring/3rdpartytools)
+page listing IFC viewers and checkers. Bonsai is not among the tools they document; the translations
+on this site are ours.
 </div>

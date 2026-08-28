@@ -51,21 +51,25 @@ constraining anything.
 
 4. **Cut the courtyard with a regional push.** Draw the courtyard outline on the roof face with <span class="k">L</span>, which divides that face into regions. Press <span class="k">P</span>, hover the courtyard region and push *down*. Only that region moves; walls form along the lines dividing it from the rest. A courtyard is now a line and a drag.
 
-5. **Option B — the L around a court.** Build it independently, in its own collection, from the same footprint area. Resist copying Option A and nudging it: two options that differ by 300 mm are one option and a distraction.
+5. **Place the household shelter in both options.** Not as a detail — as a fixed volume with the internal dimensions from your Stage 01 control sheet, positioned where it can be a useful room rather than a leftover. It has prescribed construction, so its walls are among the few in the house you cannot later move by 200 mm to make a corridor work.
 
-6. **Use inference rather than arithmetic.** When you push the porch roof, drag until the header reads `(aligned)` against the main roof line instead of typing a number. Sketch Mode reads every visible mesh once as the push begins and offers the distances that bring the face level with something. Typing a value overrides it; use the type-in when the dimension is a decision and the inference when it is a relationship.
+   This is the earliest piece of pure [IFC+SG]({{ '/ifc-sg/' | relative_url }}) data in the whole course: construction method, internal length and internal width are expected from the **conceptual** stage. An option that does not accommodate the shelter is not an option.
 
-7. **Study the roof as mass, not as construction.** A pitched roof at this stage is a stacked solid pushed to the ridge height, or a sheet pushed along its normal. It is a shape being tested for a shadow and a silhouette. Do not build rafters. There is no `IfcRoof` in this stage, and that is deliberate.
+6. **Option B — the L around a court.** Build it independently, in its own collection, from the same footprint area. Resist copying Option A and nudging it: two options that differ by 300 mm are one option and a distraction.
 
-8. **Measure what you made.** Press <span class="k">T</span> and check the dimensions you believe are true. Then write down, per option: footprint area, GFA, courtyard area, covered outdoor area, and the number of rooms that get cross-ventilation. Numbers you measured, not numbers you intended.
+7. **Use inference rather than arithmetic.** When you push the porch roof, drag until the header reads `(aligned)` against the main roof line instead of typing a number. Sketch Mode reads every visible mesh once as the push begins and offers the distances that bring the face level with something. Typing a value overrides it; use the type-in when the dimension is a decision and the inference when it is a relationship.
 
-9. **Test each option against the envelope and the four success criteria.** Cool without machines; loud and quiet separated; no steps where they matter; priceable. Score each option out of the four in one line each. If both options score the same, one of them is not a real alternative.
+8. **Study the roof as mass, not as construction.** A pitched roof at this stage is a stacked solid pushed to the ridge height, or a sheet pushed along its normal. It is a shape being tested for a shadow and a silhouette. Do not build rafters. There is no `IfcRoof` in this stage, and that is deliberate.
 
-10. **Get an order-of-magnitude cost.** Area × a rate you can defend, or the QS's preliminary estimate if you have one. Compare it to Stage 01's budget. If it is 40% over, that is a Concept Design finding and the brief needs refining — which the SIA scope explicitly makes part of this stage.
+9. **Measure what you made.** Press <span class="k">T</span> and check the dimensions you believe are true. Then write down, per option: footprint area, GFA, courtyard area, covered outdoor area, and the number of rooms that get cross-ventilation. Numbers you measured, not numbers you intended.
 
-11. **Decide, and supersede.** Adopt one option. Rename the loser `Z-Massing-OptionA`, set `design_status = superseded`, move it to a hidden collection, and log both the decision and the reason. Deleting it destroys the only evidence that the choice was considered.
+10. **Test each option against the envelope and the four success criteria.** Cool without machines; loud and quiet separated; no steps where they matter; priceable. Score each option out of the four in one line each. If both options score the same, one of them is not a real alternative.
 
-12. **Export the concept baseline.** `export/BUNG-A-CON-P02-<date>.ifc`, one comparison sheet with both options side by side and the numbers under them, and the decision log rows.
+11. **Get an order-of-magnitude cost.** Area × a rate you can defend, or the QS's preliminary estimate if you have one. Compare it to Stage 01's budget. If it is 40% over, that is a Concept Design finding and the brief needs refining — which the SIA scope explicitly makes part of this stage.
+
+12. **Decide, and supersede.** Adopt one option. Rename the loser `Z-Massing-OptionA`, set `design_status = superseded`, move it to a hidden collection, and log both the decision and the reason. Deleting it destroys the only evidence that the choice was considered.
+
+13. **Export the concept baseline.** `export/BUNG-A-CON-P02-<date>.ifc`, one comparison sheet with both options side by side and the numbers under them, and the decision log rows.
 
 <div class="note" markdown="1">
 #### Optional · let Describe make the variant
@@ -102,6 +106,7 @@ stop using it.
 - An order-of-magnitude cost has been compared to the Stage 01 budget, and the variance is explained.
 - Nothing is classified as IFC except the site. Not one wall.
 - The entrance, the outdoor room and the accessible route are identifiable in the adopted mass.
+- The household shelter is placed in every option, at its real internal dimensions, with the requirement's source and date in the control sheet.
 </div>
 
 ## Where this goes wrong

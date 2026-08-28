@@ -91,11 +91,15 @@ Assign an IFC class only when the decision behind the geometry is stable. Early 
 **Types before occurrences.** One `IfcWallType` called `EXT-200-BRK` used forty times is a
 schedule; forty individually-drawn walls are a drawing. Stage 04 is where this becomes non-optional.
 
-If you are working to Singapore submission requirements, note that IFC-SG expects the element to
-declare its own class through an `IfcExportAs` parameter, and carries its own required parameter
-sets per element. Bonsai Sketch Mode ships the IFC-SG element list as data; the authoritative
-source is the [CORENET X](https://www.corenet.gov.sg/) submission requirements current at the time
-you submit.
+**Classification is three things, not one.** For a Singapore submission, IFC+SG expects every
+element to carry the correct **IFC entity**, its **IFC subtype** where one applies, and the
+**property sets** that entity requires — and the element declares its own class through an
+`IfcExportAs` parameter. A GFA area, for instance, is an `IfcSpace` with subtype `USERDEFINED` and
+the value `AREA_GFA`, carrying the `AGF_` properties.
+
+Bonsai Sketch Mode ships the IFC+SG element list as data, and the requirements are summarised on the
+[IFC+SG page]({{ '/ifc-sg/' | relative_url }}). The authoritative source is
+[info.corenet.gov.sg](https://info.corenet.gov.sg/) at the time you submit.
 
 ## 5 · Spatial structure
 
@@ -103,15 +107,27 @@ Four levels, no more:
 
 ```text
 IfcProject          Courtyard Bungalow
-  IfcSite           Plot
+  IfcSite           Plot            <- one IfcSite per file; its Name carries the block
     IfcBuilding     House
-      IfcBuildingStorey   Ground  (+0.150)
-      IfcBuildingStorey   Roof    (+3.150)
+      IfcBuildingStorey   1st Storey  (+0.150)
+      IfcBuildingStorey   Attic       (if the design has one)
+      IfcBuildingStorey   Roof        (+3.150)
 ```
 
 Every element belongs to exactly one storey. An element with no spatial container is invisible to
 half of every downstream tool, and it is the single most common defect found when a model is
 checked for the first time.
+
+**Storey names follow the CORENET X convention, not your habits.** `1st Storey` and `Storey 1` are
+valid; `1st Floor`, `Level one` and `2nd Story` are not. `Attic` is valid; `Attic 1` is not. `Roof`,
+`Upper Roof` and `Lower Roof Storey` are valid; `Roof Lower` is not. Different physical levels get
+different names, and names and Z values stay consistent across every discipline. The full table,
+including basements, mezzanines and block suffixes, is on the
+[IFC+SG page]({{ '/ifc-sg/' | relative_url }}).
+
+**One `IfcSite` per file**, named for the block. A bungalow has one block, so this costs nothing
+here — and on a development with towers, a podium and a basement it is four separate architectural
+files plus one for site works.
 
 ## 6 · The three registers
 
@@ -177,6 +193,9 @@ Run this before every gate. It catches most of what a formal model check would.
 - Every `IfcSpace` has a name, a number and an area that matches the schedule.
 - Wall, slab and roof quantities are within a few percent of a hand check.
 - Element count has changed only where the decision log says it should have.
+- No duplicate `GlobalId`s — which means no revision was made by duplicating a file and renaming it.
+- Storey names still match the convention, and their Z values have not drifted.
+- The export opens in an IFC viewer that is not Blender, at the right size and orientation.
 
 From Stage 04 onward, add Bonsai's own model-checking tools to this: an **IDS** file expresses these
 rules in a form the software can test, and running it beats reading a checklist. Write the IDS once,

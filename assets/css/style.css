@@ -90,6 +90,7 @@ img{max-width:100%; height:auto}
 .doc{min-width:0; max-width:74ch}
 .doc h1,.doc h2,.doc h3,.doc h4{line-height:1.22; letter-spacing:-0.015em}
 .page-h{font-size:2.35rem; margin:0 0 10px}
+.doc h1:not(.page-h){font-size:1.95rem; margin:3.2rem 0 .7rem; padding-top:1.9rem; border-top:2px solid var(--line)}
 .doc h2{font-size:1.42rem; margin:2.6rem 0 .7rem; padding-top:1.5rem; border-top:1px solid var(--line-soft)}
 .doc h3{font-size:1.1rem; margin:2rem 0 .5rem}
 .doc h4{font-size:.94rem; margin:1.5rem 0 .4rem; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint)}
