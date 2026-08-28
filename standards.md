@@ -197,6 +197,10 @@ Run this before every gate. It catches most of what a formal model check would.
 - Storey names still match the convention, and their Z values have not drifted.
 - The export opens in an IFC viewer that is not Blender, at the right size and orientation.
 
-From Stage 04 onward, add Bonsai's own model-checking tools to this: an **IDS** file expresses these
-rules in a form the software can test, and running it beats reading a checklist. Write the IDS once,
+Most of that list is already automated. `check_bungalow.py`, shipped with the
+[reference model]({{ '/reference-model/' | relative_url }}), runs 158 checks over any IFC you point it
+at and exits non-zero on failure — use it from Stage 03 onward.
+
+From Stage 04, add Bonsai's own model-checking tools as well: an **IDS** file expresses these rules
+in a form the software can test, and running it beats reading a checklist. Write the IDS once,
 at Stage 04, and every later gate is a button press.

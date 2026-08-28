@@ -170,3 +170,7 @@ and the rules rather than the building.
 
 **[Bonsai modelling recipes]({{ '/modelling/' | relative_url }})** — the same operations as reference, each tagged with the
 SIA stage and the IFC+SG data it serves, for when you need one step rather than a whole hour.
+
+**[The reference model]({{ '/reference-model/' | relative_url }})** — the finished Stage 03 bungalow as
+IFC4. Open it beside your own work when a relationship is not obvious, and run its check script
+against your model at each gate.

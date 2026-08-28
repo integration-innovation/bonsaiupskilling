@@ -105,7 +105,13 @@ number that will eventually disagree with the model, usually in front of an auth
 - The change event is modelled, logged, and has not destroyed the pre-change state.
 - No `X-` object is doing a building element's job.
 - An outline specification exists and matches the model.
+- `check_bungalow.py` runs clean against your export, or every failure is understood and logged.
 </div>
+
+Run the check from the [reference model]({{ '/reference-model/' | relative_url }}) against your own
+file — `python exercises/reference-model/check_bungalow.py my-bungalow.ifc`. It tests 158 rules
+drawn from this course's model standard and CORENET X's modelling practices, and most of them will
+fail on a first attempt. Each failure names a rule you have not yet applied.
 
 ## Where this goes wrong
 

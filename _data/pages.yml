@@ -9,6 +9,9 @@ start:
     title: The brief
     strap: Courtyard bungalow
 reference:
+  - url: /reference-model/
+    title: Reference model
+    strap: The bungalow, built as IFC4
   - url: /modelling/
     title: Modelling recipes
     strap: Fifteen operations, as reference

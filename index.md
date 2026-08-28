@@ -42,6 +42,11 @@ information rather than replacing the model, which is the habit that separates a
 4. **[Adopt the model standard]({{ '/standards/' | relative_url }})** — naming, status, decision log, issue register. Ten minutes now saves the whole of Stage 05.
 5. **[Stage 01 · Pre-Design]({{ '/stages/pre-design/' | relative_url }})** — begin.
 
+Want to see where this ends up first? The
+**[reference model]({{ '/reference-model/' | relative_url }})** is the finished Stage 03 bungalow as a
+downloadable IFC4 file — real types, real openings, SVY21 georeferencing, and a 158-check script
+you can run against your own model at every gate.
+
 </div>
 
 ## Who this is for
