@@ -84,6 +84,7 @@ img{max-width:100%; height:auto}
 .rail-ref{list-style:none; margin:0; padding:0}
 .rail-ref a{display:block; padding:4px 8px; margin-left:-8px; border-radius:6px; color:var(--ink-soft); text-decoration:none}
 .rail-ref a:hover{background:var(--bg-soft); color:var(--ink)}
+.rail-ref a.here{background:var(--bg-soft); color:var(--ink); font-weight:600}
 
 /* ---------- document ---------- */
 .doc{min-width:0; max-width:74ch}

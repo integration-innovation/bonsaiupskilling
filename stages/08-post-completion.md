@@ -42,6 +42,8 @@ Stage 07's gate is passed, the building is occupied, and the defects liability p
 
 ## Build it
 
+*Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
+
 {: .steps}
 1. **Open the defects register against the model.** Every reported defect gets an element reference, a date, a responsible party and a target. BCF viewpoints are worth their setup cost here: a defect reported by an occupant, located on an element, is findable a year later by someone who was not there.
 

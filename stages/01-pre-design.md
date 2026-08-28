@@ -40,6 +40,8 @@ in it.
 
 ## Build it
 
+*Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
+
 {: .steps}
 1. **Open a new Blender file and go to the `Sketch` tab.** Delete the default cube if your startup file has one. Press <span class="k">N</span> to show the sidebar and confirm the `IFC` panel is there.
 

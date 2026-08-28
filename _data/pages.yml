@@ -1,15 +1,29 @@
-- url: /setup/
-  title: Set up
-  strap: Blender, Bonsai and Sketch Mode
-- url: /brief/
-  title: The brief
-  strap: Kembangan Courtyard House
-- url: /standards/
-  title: Model standard
-  strap: Naming, status, registers
-- url: /sia-mapping/
-  title: SIA mapping
-  strap: Scope of Service and VAF
-- url: /glossary/
-  title: Glossary
-  strap: Terms and abbreviations
+start:
+  - url: /setup/
+    title: Set up
+    strap: Blender, Bonsai and Sketch Mode
+  - url: /kickstart/
+    title: Kickstart
+    strap: Your first hour, end to end
+  - url: /brief/
+    title: The brief
+    strap: Courtyard bungalow
+reference:
+  - url: /modelling/
+    title: Modelling recipes
+    strap: Fifteen operations, as reference
+  - url: /standards/
+    title: Model standard
+    strap: Naming, status, registers
+  - url: /ifc-sg/
+    title: IFC+SG and CORENET X
+    strap: What a submission expects
+  - url: /sia-mapping/
+    title: SIA mapping
+    strap: Scope of Service, stage by stage
+  - url: /vaf/
+    title: The VAF, captured
+    strap: Components, resources, hours
+  - url: /glossary/
+    title: Glossary
+    strap: Terms and abbreviations

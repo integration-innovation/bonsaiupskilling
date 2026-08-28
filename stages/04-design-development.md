@@ -41,6 +41,8 @@ you their sizes yet. Assume, model, label the assumption, and check it later.
 
 ## Build it
 
+*Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
+
 {: .steps}
 1. **Turn each type into a real build-up.** The 200 mm external wall becomes its layers — finish, blockwork, cavity or insulation, internal finish — each with a material and a thickness that sums to the nominal. Do the same for the partition, the ground slab and the roof. The type is the specification; get it right once and forty walls inherit it.
 

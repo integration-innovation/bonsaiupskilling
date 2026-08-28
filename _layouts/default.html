@@ -23,10 +23,11 @@
     </a>
     <nav class="topnav" aria-label="Sections">
       <a href="{{ '/setup/' | relative_url }}">Set up</a>
-      <a href="{{ '/brief/' | relative_url }}">Brief</a>
-      <a href="{{ '/standards/' | relative_url }}">Standard</a>
-      <a href="{{ '/sia-mapping/' | relative_url }}">SIA mapping</a>
-      <a href="{{ '/glossary/' | relative_url }}">Glossary</a>
+      <a href="{{ '/kickstart/' | relative_url }}">Kickstart</a>
+      <a href="{{ '/modelling/' | relative_url }}">Modelling</a>
+      <a href="{{ '/sia-mapping/' | relative_url }}">SIA</a>
+      <a href="{{ '/vaf/' | relative_url }}">VAF</a>
+      <a href="{{ '/ifc-sg/' | relative_url }}">IFC+SG</a>
     </nav>
   </div>
 </header>
@@ -34,6 +35,13 @@
 <div class="wrap shell">
 
   <aside class="rail" aria-label="Stages">
+    <p class="rail-h">Start here</p>
+    <ul class="rail-ref">
+      {% for p in site.data.pages.start %}
+      <li><a href="{{ p.url | relative_url }}"{% if p.url == page.url %} class="here"{% endif %}>{{ p.title }}</a></li>
+      {% endfor %}
+    </ul>
+
     <p class="rail-h">Stages</p>
     <ol class="rail-list">
       {% for s in site.data.stages %}
@@ -47,8 +55,8 @@
     </ol>
     <p class="rail-h">Reference</p>
     <ul class="rail-ref">
-      {% for p in site.data.pages %}
-      <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+      {% for p in site.data.pages.reference %}
+      <li><a href="{{ p.url | relative_url }}"{% if p.url == page.url %} class="here"{% endif %}>{{ p.title }}</a></li>
       {% endfor %}
     </ul>
   </aside>

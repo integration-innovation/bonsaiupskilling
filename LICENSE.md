@@ -29,8 +29,14 @@ the **SIA Value Articulation Framework / SIA BluePrint V.1** (2024) are publishe
 here. The stage descriptions on this site are our own paraphrase, written for teaching, and may be
 incomplete or out of date.
 
+**IFC+SG**, the **General Modelling Practices** and the **CORENET X Code of Practice** are published
+by the Government of Singapore via [CORENET X](https://info.corenet.gov.sg/). Nothing from those
+pages is reproduced here; the summaries are our own, written for teaching, and the source is
+authoritative.
+
 This project is not published by, endorsed by, or affiliated with the Singapore Institute of
-Architects, the Bonsai project, or the Blender Foundation.
+Architects, the Building and Construction Authority, the Government of Singapore, the Bonsai
+project, or the Blender Foundation.
 
 Nothing here is legal, contractual or regulatory advice. An architect's actual scope of service is
 whatever the consultancy agreement states, and authority requirements change. Work from the source

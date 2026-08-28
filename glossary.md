@@ -53,9 +53,35 @@ contain. Written once at Stage 04, run at every gate afterwards.
 **BCF** — BIM Collaboration Format: an issue with a viewpoint attached, so a comment arrives with the
 camera already pointing at the problem. Travels between applications; a CSV does not.
 
-**IFC-SG** — the Singapore IFC data requirements used for regulatory submission. Elements declare
-their class through an `IfcExportAs` parameter and carry required parameter sets. The authority is
-[CORENET X](https://www.corenet.gov.sg/) at the time you submit.
+**IFC+SG** — the Singapore IFC data structure used for regulatory submission: IFC4 plus **SGPsets**
+and standardised properties and values, with validation checks. Elements declare their class through
+an `IfcExportAs` parameter and carry required parameter sets, staged across seven model content
+stages. Captured on [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}); the authority is
+[info.corenet.gov.sg](https://info.corenet.gov.sg/) at the time you submit.
+
+**SGPset** — a Singapore property set: the container for the parameters IFC+SG requires on an
+element, such as a door's clear width or a space's purpose group.
+
+**CORENET X** — the Singapore regulatory submission process that reads IFC+SG models, organised
+around gateways (pre-submission consultation, design, piling, construction, completion).
+
+**General Modelling Practices** — CORENET X's twelve modelling rules in four groups: model setup and
+structure, element modelling and data, coordinates and alignment, and model quality. Each one, and
+what it means in Bonsai, is on the [IFC+SG page]({{ '/ifc-sg/' | relative_url }}).
+
+**Block mechanism** — how a development is decomposed into blocks for IFC+SG submission, and how the
+architectural, structural and MEP models align across them.
+
+**SVY21** — Singapore's projected coordinate system, and the basis for geo-referencing a model that
+will be federated or submitted.
+
+**Predefined type / USERDEFINED** — every IFC type carries a predefined type from a standard
+enumeration. Where IFC+SG needs a subtype the enumeration does not offer, the predefined type
+becomes `USERDEFINED` and the object type carries the required name. A `USERDEFINED` with no name
+passes visual inspection and fails a data check.
+
+**GUID / GlobalId** — the unique identifier on every IFC element. Duplicating a file to make a
+second "block" duplicates every GUID in it, which is a submission-level defect.
 
 **BEP** — BIM Execution Plan. In the VAF it appears as a named component at the Pre-Submission
 gateway, alongside constructing the model and coordinating it for clash detection and compliance

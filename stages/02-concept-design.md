@@ -40,6 +40,8 @@ constraining anything.
 
 ## Build it
 
+*Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
+
 {: .steps}
 1. **Make a working collection per option.** `A-Massing-OptionA`, `A-Massing-OptionB`. Two options minimum; three if the brief pulls in genuinely different directions, which this one does — a courtyard, a linear plan and an L both answer it.
 

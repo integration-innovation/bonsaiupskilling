@@ -38,8 +38,9 @@ information rather than replacing the model, which is the habit that separates a
 
 1. **[Set up]({{ '/setup/' | relative_url }})** — Blender 5.0 or 5.2, Bonsai 0.8.4 or 0.8.5, Bonsai Sketch Mode. About fifteen minutes.
 2. **[Read the brief]({{ '/brief/' | relative_url }})** — the client, the site, the money, and what you are not told.
-3. **[Adopt the model standard]({{ '/standards/' | relative_url }})** — naming, status, decision log, issue register. Ten minutes now saves the whole of Stage 05.
-4. **[Stage 01 · Pre-Design]({{ '/stages/pre-design/' | relative_url }})** — begin.
+3. **[Kickstart]({{ '/kickstart/' | relative_url }})** — one hour, from an empty Blender to a saved IFC with real walls, a door, a window and a named room.
+4. **[Adopt the model standard]({{ '/standards/' | relative_url }})** — naming, status, decision log, issue register. Ten minutes now saves the whole of Stage 05.
+5. **[Stage 01 · Pre-Design]({{ '/stages/pre-design/' | relative_url }})** — begin.
 
 </div>
 
@@ -68,6 +69,20 @@ goes further and breaks those services into individual components with the resou
 Every stage here borrows that structure: what the profession expects of you, then what the model
 has to contain for you to deliver it. See [SIA mapping]({{ '/sia-mapping/' | relative_url }}) for the full picture and the
 attribution.
+
+Three frameworks run underneath the course, and they use three different sets of stage names, which
+is confusing exactly once and then stops being:
+
+| | Answers | Captured here |
+| --- | --- | --- |
+| **SIA Scope of Service** | What is the architect responsible for? | [SIA mapping]({{ '/sia-mapping/' | relative_url }}) |
+| **SIA VAF / BluePrint** | What does doing it take — components, grades, hours? | [The VAF, captured]({{ '/vaf/' | relative_url }}) |
+| **IFC+SG · CORENET X** | What must the *model itself* contain? | [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}) |
+
+The third is the Singapore-specific one and the one most modelling courses skip: IFC+SG is built on
+IFC4 with Singapore property sets, states which parameters are required at which stage, and comes
+with twelve **General Modelling Practices** — level naming, coordinates, GUIDs, federation, clash,
+file size — that this course folds into the exercises rather than listing at the end.
 
 <div class="note" markdown="1">
 #### Singapore-shaped, not Singapore-only
@@ -103,6 +118,11 @@ Every one of the eight is laid out the same way, so you can find your place in i
 - **Deliverables** — the files you produce, named to the standard.
 - **The gate** — a checklist. Do not start the next stage until every line is true.
 - **Where this goes wrong** — the failures that recur, and how to see them early.
+
+The click-by-click detail sits beside the stages rather than inside them, so it stays findable:
+[Kickstart]({{ '/kickstart/' | relative_url }}) for your first hour, and
+[modelling recipes]({{ '/modelling/' | relative_url }}) for fifteen operations you can open one at a
+time — each tagged with the SIA stage, the VAF component and the IFC+SG data it serves.
 
 ## Rhythm and total time
 

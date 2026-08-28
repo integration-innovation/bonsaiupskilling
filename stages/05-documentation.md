@@ -43,6 +43,8 @@ change a dimension. If anything is still moving, it is not ready to be priced.
 
 ## Build it
 
+*Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
+
 {: .steps}
 1. **Freeze the baseline.** Export `export/BUNG-A-DD-P04-<date>.ifc` and treat it as immutable. Every change from now on is a change *to* the tender documents and gets a revision. This is a discipline, not a file permission — but a copy in `export/` makes it checkable.
 

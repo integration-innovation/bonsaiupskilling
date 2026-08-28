@@ -41,6 +41,8 @@ Stage 05's gate is passed, `T01` exists exactly as issued, and the contract is a
 
 ## Build it
 
+*Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
+
 {: .steps}
 1. **Branch the construction model.** Copy the tender baseline to `export/BUNG-A-CON-C01-<date>.ifc` and set `project_stage = 06 Construction` on the elements you touch. The tender model stays untouched forever: it is what was priced, and half of this stage's arguments are settled by pointing at it.
 

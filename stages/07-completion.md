@@ -42,6 +42,8 @@ check to site with you; without measurements this stage is fiction with confiden
 
 ## Build it
 
+*Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
+
 {: .steps}
 1. **Branch the as-built model.** From the last approved construction revision, to `export/BUNG-A-AB-AB01-<date>.ifc`. The construction revisions stay exactly as they were — they are the record of what was instructed, which is a different question from what was built.
 

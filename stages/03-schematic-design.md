@@ -40,6 +40,8 @@ adopted mass is about to become scaffolding: you will build over it, then hide i
 
 ## Build it
 
+*Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
+
 {: .steps}
 1. **Create the storeys.** In Bonsai's `BIM` tab, set up the spatial structure from Stage 01's decision: `IfcProject → IfcSite → IfcBuilding → IfcBuildingStorey`. Two storeys — `Ground` at your FFL, `Roof` at FFL + 3.150. Every element from now on belongs to one of them.
 

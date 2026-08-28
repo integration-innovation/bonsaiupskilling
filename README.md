@@ -18,9 +18,13 @@ Roughly 35–45 focused hours over 11–12 weeks.
 | --- | --- |
 | `index.md` | Programme home: the eight stages, the one-model rule, time and prerequisites |
 | `setup.md` | Installing Blender, Bonsai and Sketch Mode; the toolset; troubleshooting |
+| `kickstart.md` | One hour, empty Blender to a saved IFC with walls, a door, a window and a room |
 | `brief.md` | The client, the site, the requirement and the scripted change events |
+| `modelling.md` | Fifteen Bonsai recipes, each tagged with its SIA stage, VAF component and IFC+SG data |
 | `standards.md` | Naming, status, classification, spatial structure and the three registers |
-| `sia-mapping.md` | The SIA Scope of Service Matrix and the VAF, and how the course maps onto them |
+| `sia-mapping.md` | The SIA Scope of Service Matrix, the four roles, and the eight stages |
+| `vaf.md` | The SIA Value Articulation Framework captured — components, stages, resource grades |
+| `ifc-sg.md` | IFC+SG data requirements and CORENET X's twelve General Modelling Practices |
 | `glossary.md` | Terms, in the sense this course uses them |
 | `stages/` | The eight stage pages |
 | `exercises/` | Reference scripts |
@@ -54,8 +58,10 @@ See [LICENSE.md](LICENSE.md).
 
 The [SIA Scope of Service Matrix](https://sia.org.sg/architects-scope-of-service/) and the
 [SIA Value Articulation Framework](https://sia.org.sg/sia-value-articulation-framework-vaf/) are
-published by the Singapore Institute of Architects. Summaries here are our own paraphrase for
-teaching. This project is not published by, endorsed by or affiliated with SIA, and is not a
-substitute for the source documents, a consultancy agreement, or current authority requirements.
+published by the Singapore Institute of Architects. **IFC+SG** and the **General Modelling
+Practices** are published by [CORENET X](https://info.corenet.gov.sg/). Summaries here are our own
+paraphrase for teaching, not reproductions. This project is not published by, endorsed by or
+affiliated with SIA, BCA or the Government of Singapore, and is not a substitute for the source
+documents, a consultancy agreement, or current authority requirements.
 
 Not affiliated with the Bonsai project or the Blender Foundation.
