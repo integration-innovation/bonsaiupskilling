@@ -1,0 +1,19 @@
+title: Bonsai Upskilling
+tagline: Build a bungalow through the SIA stages, in Bonsai Sketch Mode
+description: >-
+  A free, project-based training programme. One bungalow, modelled once and
+  carried through every stage of the SIA Architect's Scope of Service using
+  Blender, Bonsai and Bonsai Sketch Mode.
+url: https://integration-innovation.github.io
+baseurl: /bonsaiupskilling
+lang: en
+
+sass:
+  style: compressed
+
+exclude:
+  - README.md
+  - LICENSE.md
+  - .gitignore
+
+plugins: []

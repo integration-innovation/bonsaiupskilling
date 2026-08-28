@@ -1,0 +1,61 @@
+# Bonsai Upskilling
+
+A free, project-based training programme: **build one bungalow through the eight stages of the SIA
+Architect's Scope of Service**, using Blender, [Bonsai](https://bonsaibim.org/) and
+[Bonsai Sketch Mode](https://github.com/integrations-space/BonsaiSketch).
+
+**→ [integration-innovation.github.io/bonsaiupskilling](https://integration-innovation.github.io/bonsaiupskilling)**
+
+One house. One IFC model. Eight stages — Pre-Design, Concept Design, Schematic Design, Design
+Development, Documentation, Construction, Completion, Post Completion — each with a timebox, a
+step-by-step exercise, a named deliverable and a gate you must pass before the next one.
+
+Roughly 35–45 focused hours over 11–12 weeks.
+
+## What is here
+
+| | |
+| --- | --- |
+| `index.md` | Programme home: the eight stages, the one-model rule, time and prerequisites |
+| `setup.md` | Installing Blender, Bonsai and Sketch Mode; the toolset; troubleshooting |
+| `brief.md` | The client, the site, the requirement and the scripted change events |
+| `standards.md` | Naming, status, classification, spatial structure and the three registers |
+| `sia-mapping.md` | The SIA Scope of Service Matrix and the VAF, and how the course maps onto them |
+| `glossary.md` | Terms, in the sense this course uses them |
+| `stages/` | The eight stage pages |
+| `exercises/` | Reference scripts |
+| `_layouts/`, `_data/`, `assets/` | The site itself — plain Jekyll, no theme gem, one stylesheet |
+
+## Running it locally
+
+The site is plain Markdown built by GitHub Pages. To preview it:
+
+```bash
+bundle exec jekyll serve
+```
+
+Or just read the Markdown — every page is written to be legible without the site around it.
+
+## Contributing
+
+Corrections, better exercises and translations are welcome. Two things to keep in mind:
+
+- **Accuracy about the tools.** Bonsai Sketch Mode is early software. If a step describes behaviour the add-on does not have, that is a bug in this course, not an aspiration. Say so.
+- **Accuracy about the profession.** The SIA summaries are paraphrases for teaching, prepared from the published documents. If one is wrong or out of date, please open an issue with the correction and the source.
+
+Bugs in the add-on itself belong in the
+[BonsaiSketch issue tracker](https://github.com/integrations-space/BonsaiSketch/issues) — include
+your Blender and Bonsai versions.
+
+## Licence and attribution
+
+Text and course material: **CC BY 4.0**. Example scripts: **GPL-3.0-or-later**, matching Bonsai.
+See [LICENSE.md](LICENSE.md).
+
+The [SIA Scope of Service Matrix](https://sia.org.sg/architects-scope-of-service/) and the
+[SIA Value Articulation Framework](https://sia.org.sg/sia-value-articulation-framework-vaf/) are
+published by the Singapore Institute of Architects. Summaries here are our own paraphrase for
+teaching. This project is not published by, endorsed by or affiliated with SIA, and is not a
+substitute for the source documents, a consultancy agreement, or current authority requirements.
+
+Not affiliated with the Bonsai project or the Blender Foundation.

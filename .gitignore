@@ -1,0 +1,7 @@
+*.blend1
+*.blend
+_site/
+.jekyll-cache/
+.DS_Store
+Thumbs.db
+__pycache__/

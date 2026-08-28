@@ -1,0 +1,183 @@
+---
+layout: default
+title: Model standard
+strap: Naming, classification, status and the three registers that make a model answerable.
+permalink: /standards/
+---
+
+A project information standard is normally a fifty-page document nobody reads. This is the smallest
+version that still works for one house, one modeller and eight stages. Adopt it before Stage 01;
+retrofitting it at Stage 05 costs a full session.
+
+## 1 · Files and revisions
+
+One IFC project. One working `.blend`. A dated export at every gate, never overwritten.
+
+```text
+bungalow/
+  bungalow.blend                      the working file
+  export/
+    BUNG-A-PRE-P01-2026-09-04.ifc     Pre-Design baseline
+    BUNG-A-CON-P02-2026-09-18.ifc     Concept, option A approved
+    BUNG-A-SCH-P03-2026-10-09.ifc     Schematic, for planning
+    BUNG-A-DD-P04-2026-10-30.ifc      Design Development, coordinated
+    BUNG-A-TEN-T01-2026-11-20.ifc     Tender issue
+    BUNG-A-CON-C01-2026-12-11.ifc     Construction issue
+    BUNG-A-AB-AB01-2027-01-15.ifc     As-built
+```
+
+`PROJECT-DISCIPLINE-STAGE-REVISION-DATE`. Revision prefixes: **P** preliminary, **T** tender,
+**C** construction, **AB** as-built. The prefix is the contractual status; the number is the
+sequence within it. `P03` never becomes `P03a` — if it changed, it is `P04`.
+
+<div class="note" markdown="1">
+**Why export at gates rather than continuously.** A gate export is evidence: it is the model as it
+was when a decision was made. Continuous exports are just backups, and backups answer no questions.
+Keep both if you like, but only the gate exports go in `export/`.
+</div>
+
+## 2 · Object naming
+
+Sketch geometry and IFC elements alike:
+
+```text
+A-Walls-Ext-North          discipline - system - subtype - location
+A-Slabs-Ground
+A-Roof-Main
+A-Openings-W03            matches the window schedule mark
+A-Massing-OptionB         study geometry
+X-Cutter-W03              temporary, non-issued, to be deleted or explained
+```
+
+| Prefix | Meaning |
+| --- | --- |
+| `A-` | Architectural, intended to be issued |
+| `X-` | Working geometry: studies, cutters, setting-out aids. Never issued, never left unexplained |
+| `Z-` | Superseded. Kept for the record, moved to a hidden collection |
+
+The rule that matters: **anything called `X-` must be gone or documented before a gate**. A stray
+cutter that survives into a tender model is a hole nobody can account for.
+
+## 3 · Status properties
+
+Every element carries two custom properties from the moment it is created. Bonsai can hold these as
+IFC property sets; while geometry is still plain Sketch mesh, Blender custom properties are fine.
+
+| Property | Values |
+| --- | --- |
+| `project_stage` | `01 Pre-Design` … `08 Post Completion` — the stage the element was last touched in |
+| `design_status` | `provisional` · `approved` · `superseded` |
+
+Three values, not thirty. `provisional` means it may still change without anyone being told;
+`approved` means changing it now requires a decision-log entry; `superseded` means it is history,
+retained deliberately.
+
+## 4 · Classification
+
+Assign an IFC class only when the decision behind the geometry is stable. Early massing is
+`X-Massing` mesh and nothing more.
+
+| Element | Class | Typed? |
+| --- | --- | --- |
+| External and internal walls | `IfcWall` | Yes — `IfcWallType` with material layers |
+| Ground slab, roof slab | `IfcSlab` | Yes — `IfcSlabType` |
+| Pitched roof | `IfcRoof` with `IfcSlab` covering | Yes |
+| Doors and windows | `IfcDoor`, `IfcWindow` | Yes, with a mark that matches the schedule |
+| Openings in walls | `IfcOpeningElement` via Bonsai's void workflow | n/a |
+| Rooms and the courtyard | `IfcSpace` | Named and numbered |
+| Site | `IfcSite` | One only |
+| Kitchen and sanitary fittings | `IfcFurniture`, `IfcSanitaryTerminal` | From Stage 04 |
+
+**Types before occurrences.** One `IfcWallType` called `EXT-200-BRK` used forty times is a
+schedule; forty individually-drawn walls are a drawing. Stage 04 is where this becomes non-optional.
+
+If you are working to Singapore submission requirements, note that IFC-SG expects the element to
+declare its own class through an `IfcExportAs` parameter, and carries its own required parameter
+sets per element. Bonsai Sketch Mode ships the IFC-SG element list as data; the authoritative
+source is the [CORENET X](https://www.corenet.gov.sg/) submission requirements current at the time
+you submit.
+
+## 5 · Spatial structure
+
+Four levels, no more:
+
+```text
+IfcProject          Courtyard Bungalow
+  IfcSite           Plot
+    IfcBuilding     House
+      IfcBuildingStorey   Ground  (+0.150)
+      IfcBuildingStorey   Roof    (+3.150)
+```
+
+Every element belongs to exactly one storey. An element with no spatial container is invisible to
+half of every downstream tool, and it is the single most common defect found when a model is
+checked for the first time.
+
+## 6 · The three registers
+
+Plain CSV in `registers/`. Open them in anything. They are the deliverable that survives the
+software.
+
+### decision-log.csv
+
+```csv
+date,author,decision,reason,affects,status
+2026-09-04,AT,North arrow set to +Y,Road frontage is south,A-Site;all plans,approved
+2026-09-18,AT,Option B adopted,Courtyard gives afternoon shade to living,A-Massing-OptionB,approved
+2026-09-18,AT,Option A superseded,Not deleted; see Z-Massing-OptionA,Z-Massing-OptionA,superseded
+```
+
+### issues.csv
+
+```csv
+id,raised,stage,element,description,owner,due,status,closed
+I-001,2026-10-09,03,A-Walls-Ext-North,Window W03 head clashes with roof beam zone,AT,2026-10-16,open,
+I-002,2026-10-11,03,A-Slabs-Ground,Slab edge does not meet wall centre line,AT,2026-10-16,closed,2026-10-14
+```
+
+From Stage 04 onward, keep this in **BCF** as well, using Bonsai's own BCF tools. BCF travels
+between applications; a CSV does not. The CSV stays because it is readable in ten years.
+
+### deliverables.csv
+
+```csv
+stage,item,file,issued,revision,status
+02,Concept option comparison,02-concept/options.pdf,2026-09-18,P02,issued
+02,Concept IFC,export/BUNG-A-CON-P02-2026-09-18.ifc,2026-09-18,P02,issued
+```
+
+## 7 · The gate rule
+
+<div class="gate" markdown="1">
+#### A stage is complete when three things agree
+
+1. **The model** contains what the stage requires, classified and contained.
+2. **The exported deliverable** was produced from that model, not assembled beside it.
+3. **The registers** explain every difference from the previous gate.
+
+If a screenshot, a schedule and the model disagree, the stage is not finished — whichever one is
+wrong, you do not yet know which.
+</div>
+
+Two habits make this survivable:
+
+- **Never promote an unverified sketch into an IFC element because it looks right in the viewport.** Look at it in plan, in section, and in the schedule it will appear in.
+- **Never fix a problem by deleting the evidence.** Supersede, record, move on.
+
+## 8 · A checking pass, in five minutes
+
+Run this before every gate. It catches most of what a formal model check would.
+
+{: .check}
+- One `IfcProject`, one `IfcSite`, one `IfcBuilding`, storeys at the levels you intended.
+- Every element has a storey. Nothing sits loose at project level.
+- No object still named `X-…` except ones the decision log explains.
+- Every `IfcDoor` and `IfcWindow` has a host wall and an opening — not a mesh hole.
+- Types exist and are used; no one-off element that should have been a type.
+- Every `IfcSpace` has a name, a number and an area that matches the schedule.
+- Wall, slab and roof quantities are within a few percent of a hand check.
+- Element count has changed only where the decision log says it should have.
+
+From Stage 04 onward, add Bonsai's own model-checking tools to this: an **IDS** file expresses these
+rules in a form the software can test, and running it beats reading a checklist. Write the IDS once,
+at Stage 04, and every later gate is a button press.

@@ -1,0 +1,64 @@
+- num: "01"
+  slug: pre-design
+  title: Pre-Design
+  strap: Brief, site and the rules you must design inside
+  hours: "3–4"
+  weeks: "1 week"
+  project: Site set-up and design brief
+  colour: "#e8449b"
+- num: "02"
+  slug: concept-design
+  title: Concept Design
+  strap: Massing options that answer the brief
+  hours: "3–4"
+  weeks: "1 week"
+  project: Massing design planning
+  colour: "#e5197f"
+- num: "03"
+  slug: schematic-design
+  title: Schematic Design
+  strap: One scheme, resolved enough to submit for planning
+  hours: "6–8"
+  weeks: "2 weeks"
+  project: Preliminary design
+  colour: "#f0511e"
+- num: "04"
+  slug: design-development
+  title: Design Development
+  strap: Real construction, coordinated and classified
+  hours: "6–8"
+  weeks: "2 weeks"
+  project: Design development
+  colour: "#f2892b"
+- num: "05"
+  slug: documentation
+  title: Documentation
+  strap: Drawings, schedules and quantities a contractor can price
+  hours: "6–8"
+  weeks: "2 weeks"
+  project: Tender documentation
+  colour: "#f5c542"
+- num: "06"
+  slug: construction
+  title: Construction
+  strap: Administering a contract with the model as evidence
+  hours: "4–6"
+  weeks: "2 weeks"
+  project: Construction and contract administration
+  colour: "#8bc34a"
+- num: "07"
+  slug: completion
+  title: Completion
+  strap: Inspection, as-built record and handover
+  hours: "3–4"
+  weeks: "1 week"
+  project: As-built update and hand-over
+  colour: "#16a075"
+- num: "08"
+  slug: post-completion
+  title: Post Completion
+  strap: Defects, final account and what the model taught you
+  hours: "2–3"
+  weeks: "1 week"
+  project: Post-occupancy and close-out
+  colour: "#1f8ac0"

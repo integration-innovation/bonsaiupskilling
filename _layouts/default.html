@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.title and page.url != "/" %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }} · {{ site.tagline }}{% endif %}</title>
+<meta name="description" content="{{ page.strap | default: site.description | strip_newlines }}">
+<meta property="og:title" content="{% if page.url != '/' %}{{ page.title }} · {% endif %}{{ site.title }}">
+<meta property="og:description" content="{{ page.strap | default: site.description | strip_newlines }}">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127968;</text></svg>">
+</head>
+<body{% if page.stage_num %} class="is-stage"{% endif %}>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text"><b>Bonsai Upskilling</b><span>Bungalow, stage by stage</span></span>
+    </a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="{{ '/setup/' | relative_url }}">Set up</a>
+      <a href="{{ '/brief/' | relative_url }}">Brief</a>
+      <a href="{{ '/standards/' | relative_url }}">Standard</a>
+      <a href="{{ '/sia-mapping/' | relative_url }}">SIA mapping</a>
+      <a href="{{ '/glossary/' | relative_url }}">Glossary</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap shell">
+
+  <aside class="rail" aria-label="Stages">
+    <p class="rail-h">Stages</p>
+    <ol class="rail-list">
+      {% for s in site.data.stages %}
+      <li{% if s.num == page.stage_num %} class="here"{% endif %}>
+        <a href="{{ '/stages/' | append: s.slug | append: '/' | relative_url }}">
+          <span class="rail-num" style="--c:{{ s.colour }}">{{ s.num }}</span>
+          <span class="rail-t">{{ s.title }}<em>{{ s.strap }}</em></span>
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+    <p class="rail-h">Reference</p>
+    <ul class="rail-ref">
+      {% for p in site.data.pages %}
+      <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </aside>
+
+  <main id="main" class="doc">
+    {% if page.stage_num %}
+      {% assign stages = site.data.stages %}
+      {% for s in stages %}{% if s.num == page.stage_num %}{% assign idx = forloop.index0 %}{% assign me = s %}{% endif %}{% endfor %}
+      <div class="stage-head" style="--c:{{ me.colour }}">
+        <p class="eyebrow">Stage {{ me.num }} of 08 · SIA Scope of Service</p>
+        <h1>{{ me.title }}</h1>
+        <p class="lede">{{ page.strap }}</p>
+        <ul class="facts">
+          <li><b>Course project</b>{{ me.project }}</li>
+          <li><b>Timebox</b>{{ me.weeks }}, {{ me.hours }} hours</li>
+          <li><b>Model state on exit</b>{{ page.exit_state }}</li>
+        </ul>
+      </div>
+    {% else %}
+      <h1 class="page-h">{{ page.title }}</h1>
+      {% if page.strap %}<p class="lede">{{ page.strap }}</p>{% endif %}
+    {% endif %}
+
+    {{ content }}
+
+    {% if page.stage_num %}
+      {% assign pi = idx | minus: 1 %}
+      {% assign ni = idx | plus: 1 %}
+      <nav class="pager" aria-label="Stage navigation">
+        {% if idx > 0 %}{% assign prev = stages[pi] %}
+        <a class="pager-prev" href="{{ '/stages/' | append: prev.slug | append: '/' | relative_url }}"><span>Previous</span><b>{{ prev.num }} · {{ prev.title }}</b></a>
+        {% else %}<span></span>{% endif %}
+        {% if ni < stages.size %}{% assign next = stages[ni] %}
+        <a class="pager-next" href="{{ '/stages/' | append: next.slug | append: '/' | relative_url }}"><span>Next</span><b>{{ next.num }} · {{ next.title }}</b></a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  </main>
+</div>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p><b>Bonsai Upskilling</b> — an open training programme for
+      <a href="https://bonsaibim.org/">Bonsai</a> and
+      <a href="https://github.com/integrations-space/BonsaiSketch">Bonsai Sketch Mode</a>.
+      Text CC BY 4.0; example scripts GPL-3.0-or-later.</p>
+    <p class="disclaim">Stage names and service descriptions are summarised from the
+      <a href="https://sia.org.sg/architects-scope-of-service/">SIA Scope of Service Matrix</a> and the
+      <a href="https://sia.org.sg/sia-value-articulation-framework-vaf/">SIA Value Articulation Framework</a>
+      for teaching purposes. This site is not published by, endorsed by or affiliated with the Singapore
+      Institute of Architects, and it is not a substitute for a consultancy agreement, the SIA Conditions
+      of Appointment, or current authority requirements. Always work from the source documents.</p>
+    <p class="disclaim">Not affiliated with the Bonsai project or the Blender Foundation.
+      <a href="https://github.com/integration-innovation/bonsaiupskilling">Source and corrections on GitHub</a>.</p>
+  </div>
+</footer>
+</body>
+</html>
