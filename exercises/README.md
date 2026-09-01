@@ -57,6 +57,31 @@ Three groups matter more than the rest:
 CLOSURE now includes the paving: the travertine module is derived from the 220 pieces documented on
 the terrace, and the gate tests that all six principal dimensions are whole numbers of pavers.
 
+## `reference-model/build_gcb_house.py`
+
+Builds the **Pinwheel House** — a Good Class Bungalow on a 1,600 m² plot, at **three stages from one
+script**, because a model gains information across stages rather than being replaced.
+
+```bash
+python exercises/reference-model/build_gcb_house.py --all
+python exercises/reference-model/check_gcb_house.py
+```
+
+| Stage | Output | What exists |
+| --- | --- | --- |
+| `concept` | `GCB-A-CON-P02.ifc` | Masses, shelter volume, spaces. No openings, no glazing |
+| `dd` | `GCB-A-DD-P04.ifc` | Steel frame, glazed envelope, openings, quantities |
+| `asbuilt` | `GCB-A-AB-AB01.ifc` | Plus `verified` / `assumed` on every element |
+
+The parti takes Wright's pinwheel from the public-domain Wasmuth Portfolio and Mies's elevated steel
+frame from public-domain HABS IL-1105 — as **concept only**, no drawing traced or reproduced. The
+household shelter stands where Wright would have put the hearth, and because everything else is on
+steel, it is the only part of the house that touches the ground.
+
+**1,093 checks** across the three models. The ones worth stealing: setbacks and coverage are
+measured *from the geometry*, the shelter's declared internal size must multiply out to its own
+NetFloorArea, the shelter's walls must start at z=0, and a Concept model containing doors **fails**.
+
 ## `reference-model/build_servant_house.py`
 
 Builds the course's own building — the **Servant and Served House** — as IFC4 at Stage 03: two

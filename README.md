@@ -32,9 +32,10 @@ Roughly 35–45 focused hours over 11–12 weeks.
 | `sources.md` | Which master architects' drawings are royalty-free, which are not, and how to tell |
 | `glossary.md` | Terms, in the sense this course uses them |
 | `reference-model.md` | The Farnsworth House as downloadable IFC4, its 286-check gate, and why it is free to ship |
-| `servant-house.md` | The course's own building: a household shelter as a Kahn servant tower, and the IFC+SG / VAF example |
+| `pinwheel-house.md` | A Good Class Bungalow through three stages: Wright's pinwheel, Mies's elevated steel, the shelter at the pivot |
+| `servant-house.md` | The alternative parti: a household shelter as a Kahn servant tower |
 | `stages/` | The eight stage pages |
-| `exercises/` | Reference scripts: two model builders and their 286- and 322-check gates |
+| `exercises/` | Reference scripts: three model builders and their 286-, 322- and 1,093-check gates |
 | `_layouts/`, `_data/`, `assets/` | The site itself — plain Jekyll, no theme gem, one stylesheet |
 
 ## Running it locally

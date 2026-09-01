@@ -289,11 +289,17 @@ roughly **2093**.
 
 <div class="big-note" markdown="1">
 
-### This is now settled — see [the Servant and Served House]({{ '/servant-house/' | relative_url }})
+### This is now settled — see [the Pinwheel House]({{ '/pinwheel-house/' | relative_url }})
 
-The course took this route. Its second worked example is designed for the course and owned by it,
-with the household shelter as a Louis Kahn **servant tower** — an idea, and therefore free, under
-[17 U.S.C. §102(b)](https://www.law.cornell.edu/uscode/text/17/102).
+The course took this route, twice. Both Singapore examples are designed for the course and owned by
+it, and both borrow only *ideas* — free under
+[17 U.S.C. §102(b)](https://www.law.cornell.edu/uscode/text/17/102):
+
+- **[The Pinwheel House]({{ '/pinwheel-house/' | relative_url }})** — Wright's pinwheel plan and
+  Mies's elevated steel frame, with the household shelter standing where Wright would have put the
+  hearth. Concept sources: the public-domain Wasmuth Portfolio and public-domain HABS IL-1105.
+- **[The Servant and Served House]({{ '/servant-house/' | relative_url }})** — Kahn's servant and
+  served spaces, with the shelter as the base of a servant tower.
 
 The rest of this section explains why.
 

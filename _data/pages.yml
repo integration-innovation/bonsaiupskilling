@@ -12,9 +12,12 @@ reference:
   - url: /reference-model/
     title: Farnsworth model
     strap: Measurement and provenance
+  - url: /pinwheel-house/
+    title: Pinwheel House
+    strap: A GCB through three stages
   - url: /servant-house/
     title: Servant and Served House
-    strap: The IFC+SG and VAF example
+    strap: The alternative parti
   - url: /modelling/
     title: Modelling recipes
     strap: Fifteen operations, as reference
