@@ -31,7 +31,7 @@ edit and a re-run.
 
 ## `reference-model/check_farnsworth.py`
 
-The gate. 244 checks, exits non-zero on any failure, so it works in CI.
+The gate. 247 checks, exits non-zero on any failure, so it works in CI.
 
 ```bash
 python exercises/reference-model/check_farnsworth.py            # the reference model

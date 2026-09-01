@@ -26,6 +26,7 @@ Licensed GPL-3.0-or-later, matching Bonsai.
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -36,6 +37,14 @@ import ifcopenshell.geom
 import ifcopenshell.util.element
 
 DEFAULT = Path(__file__).resolve().parent / "FARN-A-DD-P01.ifc"
+
+# CORENET X level naming: the valid forms for a low-rise building. The course
+# teaches this convention, so the reference model has to obey it even though
+# this building is in Illinois and would never be submitted through CORENET X.
+VALID_STOREY = re.compile(
+    r"^(Storey \d+|\d+(st|nd|rd|th) Storey|Level \d+|\d+(st|nd|rd|th) Level|"
+    r"Attic|Attic Storey|Roof|Upper Roof|Lower Roof Storey)(_[A-Za-z0-9]+)?$"
+)
 
 FT = 0.3048
 TOL = 0.002          # 2 mm. Tighter than the building was ever built.
@@ -104,13 +113,18 @@ def main(path: Path) -> int:
 
     # ---------------------------------------------------------------- storeys
     storeys = {s.Name: s for s in f.by_type("IfcBuildingStorey")}
-    for name in ("Terrace", "Main Floor", "Roof"):
+    wanted = ("1st Storey_Terrace", "1st Storey", "Roof")
+    for name in wanted:
         check(name in storeys, f"Storey {name!r} exists")
-    if {"Terrace", "Main Floor", "Roof"} <= set(storeys):
-        check(close(storeys["Terrace"].Elevation / 1000.0, 2 * FT),
-              "Terrace storey at 2'-0\"", feet(storeys["Terrace"].Elevation / 1000.0))
-        check(close(storeys["Main Floor"].Elevation / 1000.0, 5.25 * FT),
-              "Main Floor storey at 5'-3\"", feet(storeys["Main Floor"].Elevation / 1000.0))
+    for name in storeys:
+        check(bool(VALID_STOREY.match(name)),
+              f"Storey {name!r} matches CORENET X level naming", name)
+    if set(wanted) <= set(storeys):
+        check(close(storeys["1st Storey_Terrace"].Elevation / 1000.0, 2 * FT),
+              "Terrace storey at 2'-0\"",
+              feet(storeys["1st Storey_Terrace"].Elevation / 1000.0))
+        check(close(storeys["1st Storey"].Elevation / 1000.0, 5.25 * FT),
+              "1st Storey at 5'-3\"", feet(storeys["1st Storey"].Elevation / 1000.0))
         check(close(storeys["Roof"].Elevation / 1000.0, 16 * FT),
               "Roof storey at 16'-0\"", feet(storeys["Roof"].Elevation / 1000.0))
 

@@ -44,7 +44,7 @@ Stage 05's gate is passed, `T01` exists exactly as issued, and the contract is a
 *Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
 
 {: .steps}
-1. **Branch the construction model.** Copy the tender baseline to `export/BUNG-A-CON-C01-<date>.ifc` and set `project_stage = 06 Construction` on the elements you touch. The tender model stays untouched forever: it is what was priced, and half of this stage's arguments are settled by pointing at it.
+1. **Branch the construction model.** Copy the tender baseline to `export/FARN-A-CON-C01-<date>.ifc` and set `project_stage = 06 Construction` on the elements you touch. The tender model stays untouched forever: it is what was priced, and half of this stage's arguments are settled by pointing at it.
 
 2. **Produce the construction drawings.** They differ from tender drawings in purpose — setting out, levels, junctions, sequences, and the details a builder needs at 7am — not in the model they come from. Same rule as Stage 05: generated from the model, never edited afterwards.
 
@@ -84,7 +84,7 @@ construction.
 
 | Item | File |
 | --- | --- |
-| Construction model revisions | `export/BUNG-A-CON-C01…Cn-<date>.ifc` |
+| Construction model revisions | `export/FARN-A-CON-C01…Cn-<date>.ifc` |
 | Construction drawing set | `06-construction/`, issued with transmittals |
 | Shop-drawing review record | one worked example, with comments and outcome |
 | Variation record | the approved change, with original / proposed / approved states |

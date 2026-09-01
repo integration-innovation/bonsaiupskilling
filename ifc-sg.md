@@ -29,7 +29,7 @@ values, plus validation checks the submission runs against.
 
 Two consequences for how you model:
 
-- **The class is the interface.** An agency's check finds your household shelter because it is classified and propertied as one, not because a drawing labels it. Geometry that looks right and classifies wrong fails silently.
+- **The class is the interface.** An agency's check finds a household shelter because it is classified and propertied as one, not because a drawing labels it. Geometry that looks right and classifies wrong fails silently.
 - **Data is required by stage, not all at once.** IFC+SG states which parameters are needed at which stage, so a conceptual model is not expected to carry as-built detail. That staging is why this can be a course rather than one enormous checklist.
 
 ## The IFC+SG stages
@@ -89,8 +89,9 @@ The naming conventions are specific enough to be worth learning once:
 | Distinguishing blocks or datum | `1st Storey_club house` · `4th Storey_Tower A` · `1st Storey_SFL` · `1st Storey_MPL` | `Block 1 - 2nd Storey` · `2nd Storey Block A&C` |
 
 **In Bonsai.** Storeys live in `Properties → Project Overview → Spatial Decomposition`. Name and
-elevate them there. For this bungalow that means **`1st Storey`** at your finished floor level and
-**`Roof`** — not `Ground`, not `Level 1`, and never `1st Floor`.
+elevate them there. For this house that means **`1st Storey`** at your finished floor level,
+**`1st Storey_Terrace`** for the lower terrace datum and **`Roof`** — not `Ground`, not `Level 1`,
+not `Main Floor`, and never `1st Floor`.
 
 **Good practice, per CORENET X:** agree naming and Z values at project start; use consistent names
 across disciplines; use suffixes only where elevations genuinely differ; coordinate and verify levels
@@ -113,7 +114,7 @@ under that `IfcSite`'s Name.** The block identity is not a property you invent; 
 is named.
 </div>
 
-**In Bonsai.** One `IfcProject → IfcSite` per file, with the site named for the block. The bungalow
+**In Bonsai.** One `IfcProject → IfcSite` per file, with the site named for the block. The house
 is a single block with one submitting discipline, so this is the practice the course exercises least
 — but the *habit* it teaches, one site per file and the site named deliberately, costs nothing to
 adopt now and is a resubmission to learn later.
@@ -250,8 +251,10 @@ elevation and its True North rotation. What must not be true is a model floating
 origin, losing precision and patience.
 
 **In this course.** [Stage 01]({{ '/stages/pre-design/' | relative_url }}) sets datum and north; record the
-coordinate basis in the same decision-log entry, and note that the brief's `+0.15 m` is a
-site-relative assumption until it is tied to SHD.
+coordinate basis in the same decision-log entry, and note that the brief's `5'-3"` is a
+site-relative assumption until it is tied to a published vertical datum — which on this project is
+NAVD88 and a FEMA base flood elevation rather than SHD. The requirement CORENET X is really making
+is that the file *states* its datum; which datum follows the site.
 
 ### Ensure models align correctly in federation
 
@@ -321,7 +324,7 @@ high-poly content are not. Every time Push/Pull refuses an IFC element it is pro
 parametric definition and the file size.
 
 **In this course.** This is the regulator saying, in its own words, what the stage gates say: build
-what the stage needs and no more. A 120 m² bungalow will never approach 800 MB — but the habit of
+what the stage needs and no more. A one-room pavilion will never approach 800 MB — but the habit of
 asking *which gateway is this detail for?* is the transferable part.
 
 ### Model coordination and clash detection
@@ -366,7 +369,7 @@ gridlines in an IFC viewer** across multiple levels before submission.
 association; incorrect export settings; **visible in the BIM tool but missing from the IFC**.
 </div>
 
-**In Bonsai.** Grids are model objects, not drawing decoration. A bungalow can be built without one
+**In Bonsai.** Grids are model objects, not drawing decoration. This house can be built without one
 and should still have one — setting out, coordination and every later dimension check hang off it.
 The last common mistake is the one to internalise: grids that look right in the authoring tool prove
 nothing about the exported file.
@@ -376,7 +379,7 @@ nothing about the exported file.
 ## What the data actually looks like
 
 The IFC+SG model content requirements list, per element, which parameters are needed at which stage
-and which discipline owns them. Below is the bungalow-relevant extract.
+and which discipline owns them. Below is the extract relevant to this project.
 
 Legend: **C** conceptual · **S** schematic · **D** detailed · **T** tender · **X** construction ·
 **A** as-built.
@@ -437,9 +440,13 @@ Its construction method and internal dimensions are expected in the model from t
 stage — earlier than almost anything else in the list. A Singapore landed house has one, and if it
 appears at Design Development you have already planned around a room that was not there.
 
-It is in the [brief]({{ '/brief/' | relative_url }}) and in
-[Stage 02]({{ '/stages/concept-design/' | relative_url }}) for that reason. It is the clearest example in
-the whole of IFC+SG of a data requirement that is really a design requirement wearing a data costume.
+It is the clearest example in the whole of IFC+SG of a data requirement that is really a design
+requirement wearing a data costume.
+
+The course project is an Illinois house and has no household shelter, so this one is reference
+rather than exercise. The transferable habit is the point: find the requirements your jurisdiction
+expects at **conceptual** stage, and put them in the massing — because the ones demanded earliest
+are almost always the ones that cannot be fitted in later.
 </div>
 
 ### Walls
@@ -460,7 +467,7 @@ priced component at every gateway.
 | Project development type · owner built / owner stay | Building | Detailed |
 | Attic level | Building Storey | Schematic |
 
-**Attic level** matters for a bungalow: if the design has an attic, the storey has to say so from
+**Attic level** matters here: if the design has an attic, the storey has to say so from
 schematic onwards — and per the level-naming practice, that storey is called `Attic`, not `Attic 1`.
 
 ## How the course uses all of this

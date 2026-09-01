@@ -46,9 +46,9 @@ change a dimension. If anything is still moving, it is not ready to be priced.
 *Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
 
 {: .steps}
-1. **Freeze the baseline.** Export `export/BUNG-A-DD-P04-<date>.ifc` and treat it as immutable. Every change from now on is a change *to* the tender documents and gets a revision. This is a discipline, not a file permission — but a copy in `export/` makes it checkable.
+1. **Freeze the baseline.** Export `export/FARN-A-DD-P04-<date>.ifc` and treat it as immutable. Every change from now on is a change *to* the tender documents and gets a revision. This is a discipline, not a file permission — but a copy in `export/` makes it checkable.
 
-2. **Decide the drawing list before drawing anything.** Site plan, ground floor plan, roof plan, four elevations, two sections, a stair or threshold detail if one exists, the roof eaves detail, a wet-area detail. Write the list, with a sheet number for each. A drawing set assembled by accident always has both gaps and duplicates.
+2. **Decide the drawing list before drawing anything.** Site plan, floor plan, roof plan, four elevations, two sections, the column-to-slab weld detail, a mullion and glazing detail, the stair and threshold, and a core detail. Write the list, with a sheet number for each. A drawing set assembled by accident always has both gaps and duplicates.
 
 3. **Set up sheets and drawings in Bonsai.** Bonsai generates plans, sections and elevations from the model and places them on sheets. Set your scales, title block and sheet numbers, then generate. Where the output is not what you want, fix the *model or the view*, not the exported drawing — a drawing edited after export is a drawing that will disagree with the model on its next issue.
 
@@ -64,7 +64,7 @@ change a dimension. If anything is still moving, it is not ready to be priced.
 
 9. **Decide what is priced how.** Which items are provisional sums, which are prime cost, what the contingency is, what is a nominated or designated sub-contract. This is Contract Administrator work and it changes the documents: a provisional sum item needs a different level of drawing than a fully specified one.
 
-10. **Issue with a revision and a transmittal.** `export/BUNG-A-TEN-T01-<date>.ifc`, the PDF set, the schedules, the specification. Record in `deliverables.csv` what was issued, when, at which revision, and to whom. A tender issue with no transmittal record cannot be defended later, and later is when it will be questioned.
+10. **Issue with a revision and a transmittal.** `export/FARN-A-TEN-T01-<date>.ifc`, the PDF set, the schedules, the specification. Record in `deliverables.csv` what was issued, when, at which revision, and to whom. A tender issue with no transmittal record cannot be defended later, and later is when it will be questioned.
 
 11. **Run the tender process and record the answers.** Every tenderer's query and every answer goes in writing to every tenderer. Each answer that changes a document produces a new revision — `T02` — not an edited `T01`.
 
@@ -81,8 +81,8 @@ drawing costume.
 
 | Item | File |
 | --- | --- |
-| Tender model | `export/BUNG-A-TEN-T01-<date>.ifc` |
-| Drawing set | `05-documentation/BUNG-TEN-T01.pdf`, every sheet numbered |
+| Tender model | `export/FARN-A-TEN-T01-<date>.ifc` |
+| Drawing set | `05-documentation/FARN-TEN-T01.pdf`, every sheet numbered |
 | Schedules | doors, windows, room finishes, sanitary |
 | Quantity take-off | by element type, with the independent check shown |
 | Specification | performance, materials, workmanship, standards |

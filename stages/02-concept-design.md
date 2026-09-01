@@ -35,7 +35,7 @@ the other consultants, the stakeholders and the public.
 ## Before you start
 
 Stage 01's gate is passed: site, north, datum, envelope, controls, budget, brief. Open
-`bungalow.blend` and hide nothing — the envelope must be visible while you work, or it is not
+`farnsworth.blend` and hide nothing — the envelope must be visible while you work, or it is not
 constraining anything.
 
 ## Build it
@@ -43,41 +43,50 @@ constraining anything.
 *Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
 
 {: .steps}
-1. **Make a working collection per option.** `A-Massing-OptionA`, `A-Massing-OptionB`. Two options minimum; three if the brief pulls in genuinely different directions, which this one does — a courtyard, a linear plan and an L both answer it.
+1. **Make a working collection per option.** `A-Massing-OptionA`, `A-Massing-OptionB`. Two options minimum. The brief has one binding requirement — a one-room house lifted clear of a floodplain — and at least two honest answers to it: a single pavilion held above grade on a frame, and a house on a raised podium or berm. Build both. You know which one Mies chose; you do not yet know why it was better, and Concept Design is where you earn that.
 
-2. **Option A — the compact block.** Press <span class="k">R</span>, draw the 12 × 10 footprint inside the envelope. Press <span class="k">P</span>, hover the face, drag up and type `3` <span class="k">Enter</span>. That is the house in twenty seconds, which is the correct amount of time to spend on a first idea.
+2. **Option A — the pavilion, in five moves.** Press <span class="k">R</span>, draw the 77'-0" × 28'-0" footprint. Press <span class="k">P</span>, hover the face, drag up and type the 15" structural depth. Duplicate it to 16'-0" for the roof plane. Add eight columns as 8" squares on the bay lines. Push the glazed enclosure up between the planes, stopping 22'-0" short of the west end. That is the house in about five minutes, which is the correct amount of time to spend on a first idea.
 
-3. **Add the covered entry by stacking.** Hover the face where the porch belongs, hold <span class="k">Ctrl</span> as the push begins, and drag. A new solid grows on the face and the original stays put as the join between them. Type the projection you want. Double-click another face to repeat the same distance — useful for a symmetrical pair.
+   `exercises/01-massing/build_massing.py` builds exactly this if you would rather spend the session on the comparison than on the geometry.
 
-4. **Cut the courtyard with a regional push.** Draw the courtyard outline on the roof face with <span class="k">L</span>, which divides that face into regions. Press <span class="k">P</span>, hover the courtyard region and push *down*. Only that region moves; walls form along the lines dividing it from the rest. A courtyard is now a line and a drag.
+3. **Add the terrace by stacking.** Hover the face where the terrace belongs, hold <span class="k">Ctrl</span> as the push begins, and drag. A new solid grows on the face and the original stays put as the join between them. Type `2'-0"` as its height above grade. Double-click another face to repeat the same distance — useful for the two flights that connect grade, terrace and porch.
 
-5. **Place the household shelter in both options.** Not as a detail — as a fixed volume with the internal dimensions from your Stage 01 control sheet, positioned where it can be a useful room rather than a leftover. It has prescribed construction, so its walls are among the few in the house you cannot later move by 200 mm to make a corridor work.
+4. **Cut the porch with a regional push.** Draw the glass line across the floor plane with <span class="k">L</span> at 22'-0" from the west end, which divides that face into regions. Press <span class="k">P</span>, hover the enclosed region and push *up* to 9'-6". Only that region moves; the western region stays open under the same roof. The porch is now a line and a drag — and moving that one line is the whole argument about how much of this building is inside.
 
-   This is the earliest piece of pure [IFC+SG]({{ '/ifc-sg/' | relative_url }}) data in the whole course: construction method, internal length and internal width are expected from the **conceptual** stage. An option that does not accommodate the shelter is not an option.
+5. **Place the core in both options.** Not as a detail — as a fixed volume, 20'-0" × 8'-0", carrying the kitchen, two bathrooms, the mechanical space and the fireplace. It is the only thing in the building that touches both planes and is not glass, and everything else in the plan is defined by where it sits. Put it asymmetrically and say why.
 
-6. **Option B — the L around a court.** Build it independently, in its own collection, from the same footprint area. Resist copying Option A and nudging it: two options that differ by 300 mm are one option and a distraction.
+   An option that has not decided where its services go has not decided anything: it is the one volume whose position you cannot revise later without redesigning the house around it.
 
-7. **Use inference rather than arithmetic.** When you push the porch roof, drag until the header reads `(aligned)` against the main roof line instead of typing a number. Sketch Mode reads every visible mesh once as the push begins and offers the distances that bring the face level with something. Typing a value overrides it; use the type-in when the dimension is a decision and the inference when it is a relationship.
+6. **Option B — the raised podium.** Build it independently, in its own collection, from the same enclosed area and the same flood clearance. Resist copying Option A and nudging it: two options that differ by 300 mm are one option and a distraction. Option B will cost less and look heavier; the comparison is the point.
 
-8. **Study the roof as mass, not as construction.** A pitched roof at this stage is a stacked solid pushed to the ridge height, or a sheet pushed along its normal. It is a shape being tested for a shadow and a silhouette. Do not build rafters. There is no `IfcRoof` in this stage, and that is deliberate.
+7. **Use inference rather than arithmetic.** When you push the roof plane, drag until the header reads `(aligned)` against the column tops instead of typing a number. Sketch Mode reads every visible mesh once as the push begins and offers the distances that bring the face level with something. Typing a value overrides it; use the type-in when the dimension is a decision and the inference when it is a relationship.
 
-9. **Measure what you made.** Press <span class="k">T</span> and check the dimensions you believe are true. Then write down, per option: footprint area, GFA, courtyard area, covered outdoor area, and the number of rooms that get cross-ventilation. Numbers you measured, not numbers you intended.
+   On this building the distinction is unusually sharp. `22'-0"` is a decision. The roof meeting the top of the columns at 16'-0" is a relationship, and if you type it you will eventually type it wrong.
 
-10. **Test each option against the envelope and the four success criteria.** Cool without machines; loud and quiet separated; no steps where they matter; priceable. Score each option out of the four in one line each. If both options score the same, one of them is not a real alternative.
+8. **Study the planes as mass, not as construction.** The roof at this stage is a solid 15" thick, pushed to 16'-0". It is a shape being tested for a shadow, a soffit and a silhouette. Do not build joists or channels. There is no `IfcSlab` in this stage, and that is deliberate.
+
+9. **Measure what you made.** Press <span class="k">T</span> and check the dimensions you believe are true — starting with whether the plan closes: three bays of 22'-0" plus two 5'-6" cantilevers must be 77'-0" exactly. Then write down, per option: enclosed area, covered external area, terrace area, glazed area, and the clearance from finished floor to the flood elevation you recorded at Stage 01. Numbers you measured, not numbers you intended.
+
+10. **Test each option against the flood plane and the four success criteria.** Priced before committed; dry; habitable; the module holds. Score each option out of the four in one line each. If both options score the same, one of them is not a real alternative.
 
 11. **Get an order-of-magnitude cost.** Area × a rate you can defend, or the QS's preliminary estimate if you have one. Compare it to Stage 01's budget. If it is 40% over, that is a Concept Design finding and the brief needs refining — which the SIA scope explicitly makes part of this stage.
 
+   Note what the frame does to the rate. An exposed, welded, ground-and-filled steel structure with no tolerance for a bad weld is not a normal residential rate, and pretending otherwise at Stage 02 is how a project arrives at Stage 05 thirty per cent over.
+
 12. **Decide, and supersede.** Adopt one option. Rename the loser `Z-Massing-OptionA`, set `design_status = superseded`, move it to a hidden collection, and log both the decision and the reason. Deleting it destroys the only evidence that the choice was considered.
 
-13. **Export the concept baseline.** `export/BUNG-A-CON-P02-<date>.ifc`, one comparison sheet with both options side by side and the numbers under them, and the decision log rows.
+13. **Export the concept baseline.** `export/FARN-A-CON-P02-<date>.ifc`, one comparison sheet with both options side by side and the numbers under them, and the decision log rows.
 
 <div class="note" markdown="1">
 #### Optional · let Describe make the variant
 
-If you have configured [Describe]({{ '/setup/' | relative_url }}), a sentence like *"a 12 by 10 metre single-storey block,
-3 metres high, with a 4 by 4 courtyard"* generates a starting point in seconds — real parametric
-walls, not a mesh box called a wall. Useful for a third option you would not otherwise have had time
-to draw.
+If you have configured [Describe]({{ '/setup/' | relative_url }}), a sentence like *"a single-storey
+glazed pavilion 23.5 by 8.5 metres, 2.9 metres floor to ceiling, raised 1.6 metres on eight
+columns"* generates a starting point in seconds — real parametric elements, not a mesh box called a
+wall. Useful for a third option you would not otherwise have had time to draw.
+
+Note that you have just had to translate the building into metric to ask for it, and that the
+numbers stopped closing when you did. That is worth noticing rather than working around.
 
 It edits the live model with no proposal step. Know what you asked for, check what you got, and
 remember <span class="k">Ctrl</span>+<span class="k">Z</span>. From Stage 04 the course asks you to
@@ -88,9 +97,9 @@ stop using it.
 
 | Item | File |
 | --- | --- |
-| Massing model with both options | `bungalow.blend`, `export/BUNG-A-CON-P02-<date>.ifc` |
+| Massing model with both options | `farnsworth.blend`, `export/FARN-A-CON-P02-<date>.ifc` |
 | Option comparison | `02-concept/options.pdf` — plan, 3D and numbers per option |
-| Area summary | footprint, GFA, courtyard, covered outdoor, per option |
+| Area summary | enclosed, covered external, terrace, glazed, per option |
 | Preliminary cost check | `02-concept/cost-check.md`, against the Stage 01 budget |
 | Refined brief | any change the client agreed as a result of seeing the options |
 | Decision log | option adopted, option superseded, reasons, and any brief change |
@@ -105,8 +114,9 @@ stop using it.
 - One option is adopted; the others are `Z-` named, `superseded`, and still in the file.
 - An order-of-magnitude cost has been compared to the Stage 01 budget, and the variance is explained.
 - Nothing is classified as IFC except the site. Not one wall.
-- The entrance, the outdoor room and the accessible route are identifiable in the adopted mass.
-- The household shelter is placed in every option, at its real internal dimensions, with the requirement's source and date in the control sheet.
+- The entrance, the porch, the terrace and the approach from grade are identifiable in the adopted mass.
+- The core is placed in every option, at 20'-0" × 8'-0", with its position argued rather than centred by default.
+- The plan closes: 3 × 22'-0" plus two 5'-6" cantilevers is 77'-0" exactly, measured in the model and not assumed.
 </div>
 
 ## Where this goes wrong

@@ -43,33 +43,41 @@ adopted mass is about to become scaffolding: you will build over it, then hide i
 *Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
 
 {: .steps}
-1. **Create the storeys, and name them to the convention.** Creating the project already generated `IfcProject → IfcSite → IfcBuilding → IfcStorey`; adjust it in `Properties → Project Overview → Spatial Decomposition`. Two storeys — **`1st Storey`** at your FFL, **`Roof`** at FFL + 3.150, plus **`Attic`** if the design has one. Every element from now on belongs to one of them.
+1. **Create the storeys, and name them to the convention.** Creating the project already generated `IfcProject → IfcSite → IfcBuilding → IfcStorey`; adjust it in `Properties → Project Overview → Spatial Decomposition`. Three storeys — **`1st Storey_Terrace`** at 2'-0", **`1st Storey`** at 5'-3", **`Roof`** at 16'-0". Every element from now on belongs to one of them.
+
+   Note that a one-storey house needs three storeys in the model, because the terrace and the roof plane are both levels that elements sit on. A storey is a datum, not a floor you walk on. Note too that `Main Floor` and `Terrace` are both *invalid* under the convention — the `_suffix` form is how you distinguish a datum without inventing a name.
 
    Those names come from [CORENET X's level-naming practice]({{ '/ifc-sg/' | relative_url }}), which publishes valid and invalid examples: `1st Storey` valid, `1st Floor` invalid; `Attic` valid, `Attic 1` invalid. Names and Z values must stay consistent across every discipline, so agree them now rather than after someone else has modelled against them.
 
-2. **Make the types before the elements.** Create an `IfcWallType` for the 200 mm external wall and one for the 100 mm partition, each with its material layers, and an `IfcSlabType` for the ground slab. Three types, made once. Forty individually drawn walls are a drawing; one type used forty times is a schedule, a quantity and a specification simultaneously.
+2. **Make the types before the elements.** Create an `IfcSlabType` for the floor plane and one for the roof plane, each with its material layers; an `IfcColumnType` for the W8×48; an `IfcCurtainWallType` with its `IfcPlateType` and `IfcMemberType`; and an `IfcWallType` for the primavera core partition. Six types, made once. Nineteen individually drawn glass panels are a drawing; one plate type used nineteen times is a schedule, a quantity and a specification simultaneously.
 
-3. **Trace the approved massing with Bonsai's wall tool.** Using the adopted mass as the reference, place external walls along its perimeter and partitions inside it. These are parametric `IfcWall`s driven by their type — not extruded meshes. Name them to the standard: `A-Walls-Ext-North` and so on.
+3. **Build the frame first, then the skin.** Place the eight columns on the bay lines from their type, then the two slabs, then the curtain walls between them, then the core partitions. These are parametric IFC elements driven by their types — not extruded meshes. Name them to the standard: `A-Columns-A1`, `A-Glazing-South`, `A-Walls-Core-West` and so on.
 
-4. **Discover that Push/Pull refuses them.** Try it. Hover an `IfcWall` face, press <span class="k">P</span>, and watch it decline. Its shape comes from material layers; overwriting that with a tessellated mesh would silently throw the parametric definition away. Height and thickness now belong to Bonsai's own controls. This is the moment the course's central rule stops being advice and becomes muscle memory.
+   Build in the order the building was built. A glass skin modelled before the frame it hangs between will be modelled to the wrong dimension.
 
-5. **Place the ground slab and the roof.** Slab from its type, aligned to the wall centre lines you decided — record which face the slab edge follows, because Stage 04's junctions depend on it. The roof stays a simple pitched form; its construction is Stage 04's problem, but its shape must now be a real element rather than a stacked box.
+4. **Discover that Push/Pull refuses them.** Try it. Hover an `IfcWall` or `IfcSlab` face, press <span class="k">P</span>, and watch it decline. Its shape comes from material layers; overwriting that with a tessellated mesh would silently throw the parametric definition away. Height and thickness now belong to Bonsai's own controls. This is the moment the course's central rule stops being advice and becomes muscle memory.
 
-6. **Zone the rooms as `IfcSpace`.** Three bedrooms, two bathrooms, kitchen, living/dining, utility, covered entry, household shelter, courtyard. Each gets a name and a number. Then read the areas out of the model. Compare them against the brief's 120 m² target and against your Stage 02 estimate. Where they differ, the model is right and your estimate was wrong — write down by how much.
+5. **Place the two planes, and get the columns right.** Both slabs from their types, 15" deep, tops at 5'-3" and 16'-0". Then check the thing this building will not forgive: the columns stand **outboard of the slab edges**, welded to them. They do not pass through. If your column penetrates a slab, you have modelled a different, more ordinary building, and every elevation will be subtly wrong.
+
+6. **Zone the rooms as `IfcSpace`.** Living, dining, kitchen, sleeping, two bathrooms, utility, west porch, terrace. Each gets a name and a number. Then read the areas out of the model. Compare them against the brief's ≈1,500 sq ft and against your Stage 02 estimate. Where they differ, the model is right and your estimate was wrong — write down by how much.
+
+   This house has one room. Zoning it is therefore an argument, not a measurement: you are asserting where dining stops and living starts in a space with no wall between them. Say so in the space's `LongName`, and expect to defend it.
 
    **GFA areas are spaces too.** Under [IFC+SG]({{ '/ifc-sg/' | relative_url }}) a gross floor area is an `IfcSpace` with subtype `USERDEFINED` and the value `AREA_GFA`, carrying its own `AGF_` properties — name, development use, use quantum. From schematic onward, the GFA you quote in a submission is a modelled object, not a number in a spreadsheet beside the model.
 
 7. **Place the principal doors and windows.** Bonsai's door and window tools cut a real opening in a host wall — an `IfcOpeningElement` with a relationship, not a hole. Mark each one (`D01`, `W01`…) now, because Stage 05's schedules are generated from these marks and renaming later is how marks and drawings drift apart.
 
-8. **Keep studying with Sketch, on separate geometry.** Sill recesses, the porch soffit, a step at the courtyard, a built-in niche — these are still questions, so they stay `X-` mesh where <span class="k">P</span> and regional pushes still work. Study freely, then rebuild the answer as a real element. Never leave a study object pretending to be a building element.
+8. **Keep studying with Sketch, on separate geometry.** The stair treads, the porch soffit, the wardrobe, the fireplace hearth — these are still questions, so they stay `X-` mesh where <span class="k">P</span> and regional pushes still work. Study freely, then rebuild the answer as a real element. Never leave a study object pretending to be a building element.
 
-9. **Absorb the change event.** *The client asks for a study/home-office, and the footprint cannot grow.* Do not start over. Work out what gives — the utility room shrinks, the third bedroom becomes a shared zone, the courtyard narrows by 600 mm. Model the answer, log the decision with its reason, and mark what it superseded. This is what "develop the design up to design sign-off" means when the design will not sit still.
+9. **Absorb the change event.** *The budget is challenged. The client approved about $58,400; the emerging cost is heading for $74,000.* Do not start over, and do not quietly absorb it. Work out what actually gives: fewer, larger panes or more, smaller ones; a shorter porch; a smaller terrace; a cheaper stone than travertine. Price each. Then notice which of them break the module — because "save money by moving the glass line 3 feet" costs nothing in steel and destroys the proportion the whole building is for.
 
-10. **Check compliance against your control sheet.** Setbacks, coverage, height, GFA, greenery — measured from the model, not from intent. Any breach found here is free; the same breach found at Stage 04 costs a resubmission.
+   Model the option you recommend, log the decision with its reason, and mark what it superseded. Write the note to the client. This is what "develop the design up to design sign-off" means when the design will not sit still — and on this project it is the conversation that eventually went to court.
 
-11. **Write the outline specification.** One page: external wall, internal wall, floor, roof, windows, doors, finishes — preferred material, quality level, construction method. It is the first document a QS can price and the first the Contract Administrator can read for contractual implications.
+10. **Check the model against your control sheet.** Flood clearance, enclosed area, glazed area, and the two closures — 77'-0" in plan and 16'-0" in section — measured from the model, not from intent. Any discrepancy found here is free; the same one found at Stage 04 costs a rebuild.
 
-12. **Run the first model check and export.** Every element in a storey; every opening with a host; every space named, numbered and measured; nothing left called `X-`. Then `export/BUNG-A-SCH-P03-<date>.ifc`, plus plan, elevations and a 3D view.
+11. **Write the outline specification.** One page: structural steel and its finish, glazing, floor and terrace paving, core lining, roof build-up — preferred material, quality level, construction method. Be specific about the steel: it is welded, ground flush, filled and painted white, and that specification is most of the cost difference between this building and a shed. It is the first document a QS can price and the first the Contract Administrator can read for contractual implications.
+
+12. **Run the first model check and export.** Every element in a storey; every opening with a host; every space named, numbered and measured; nothing left called `X-`. Then `export/FARN-A-SCH-P03-<date>.ifc`, plus plan, elevations and a 3D view.
 
 <div class="warn" markdown="1">
 #### The submission mindset
@@ -84,7 +92,7 @@ number that will eventually disagree with the model, usually in front of an auth
 
 | Item | File |
 | --- | --- |
-| Schematic model | `export/BUNG-A-SCH-P03-<date>.ifc` |
+| Schematic model | `export/FARN-A-SCH-P03-<date>.ifc` |
 | Plan, elevations, section, 3D | `03-schematic/` |
 | Space schedule | name, number, area, per room, out of the model |
 | Compliance check | each control from Stage 01 with the measured value beside it |
@@ -105,13 +113,18 @@ number that will eventually disagree with the model, usually in front of an auth
 - The change event is modelled, logged, and has not destroyed the pre-change state.
 - No `X-` object is doing a building element's job.
 - An outline specification exists and matches the model.
-- `check_bungalow.py` runs clean against your export, or every failure is understood and logged.
+- `check_farnsworth.py` runs clean against your export, or every failure is understood and logged.
 </div>
 
 Run the check from the [reference model]({{ '/reference-model/' | relative_url }}) against your own
-file — `python exercises/reference-model/check_bungalow.py my-bungalow.ifc`. It tests 158 rules
-drawn from this course's model standard and CORENET X's modelling practices, and most of them will
-fail on a first attempt. Each failure names a rule you have not yet applied.
+file — `python exercises/reference-model/check_farnsworth.py my-farnsworth.ifc`. It tests 247 rules
+drawn from this course's model standard, and most of them will fail on a first attempt. Each failure
+names a rule you have not yet applied.
+
+The three groups worth reading first are **CLOSURE** (your plan and section close exactly in feet),
+**FRAME** (eight columns, on the right lines, outboard of the slab edge) and **SOURCE** (every
+element declares where its dimensions came from). A model that passes everything except CLOSURE has
+a rounding error, and a rounding error in this building is a design error.
 
 ## Where this goes wrong
 

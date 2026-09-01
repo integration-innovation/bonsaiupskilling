@@ -5,7 +5,7 @@ strap: One hour, from an empty Blender to a saved IFC with real walls, a door, a
 permalink: /kickstart/
 ---
 
-Do this once before [Stage 01]({{ '/stages/pre-design/' | relative_url }}). It is not the bungalow — it is a single room,
+Do this once before [Stage 01]({{ '/stages/pre-design/' | relative_url }}). It is not the Farnsworth House — it is a single room,
 built the way every later stage will ask you to build. By the end you will have produced a valid
 IFC4 file and know which half of the interface does what.
 
@@ -69,7 +69,7 @@ Now the other half. Go to the **`Sketch`** tab.
 
 4. **Lock an axis.** Press <span class="k">L</span> for Line and use <span class="k">X</span>, <span class="k">Y</span> or <span class="k">Z</span> to lock direction, then type a distance. <span class="k">C</span> closes a loop; a closed coplanar loop becomes a face. <span class="k">Backspace</span> undoes a point, <span class="k">Esc</span> abandons.
 
-5. **Cut a notch with a regional push.** Draw a line across the top face of your box to divide it, then press <span class="k">P</span> and push one region down. Only that region moves; walls appear along the dividing line. This is how a courtyard, a step or a sill recess gets made in [Stage 02]({{ '/stages/concept-design/' | relative_url }}).
+5. **Cut a notch with a regional push.** Draw a line across the top face of your box to divide it, then press <span class="k">P</span> and push one region down. Only that region moves; walls appear along the dividing line. This is how the porch, a step or a terrace edge gets made in [Stage 02]({{ '/stages/concept-design/' | relative_url }}).
 
 6. **Notice what you have.** Plain Blender mesh. Not an `IfcProduct`. Sketch first, decide what it *is* second — which is the next block.
 
@@ -171,6 +171,6 @@ and the rules rather than the building.
 **[Bonsai modelling recipes]({{ '/modelling/' | relative_url }})** — the same operations as reference, each tagged with the
 SIA stage and the IFC+SG data it serves, for when you need one step rather than a whole hour.
 
-**[The reference model]({{ '/reference-model/' | relative_url }})** — the finished Stage 03 bungalow as
+**[The reference model]({{ '/reference-model/' | relative_url }})** — the Farnsworth House as
 IFC4. Open it beside your own work when a relationship is not obvious, and run its check script
 against your model at each gate.

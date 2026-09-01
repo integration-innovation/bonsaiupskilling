@@ -390,8 +390,13 @@ def build() -> ifcopenshell.file:
 
     site = api.root.create_entity(f, "IfcSite", name="Fox River Floodplain")
     building = api.root.create_entity(f, "IfcBuilding", name="Edith Farnsworth House")
-    terrace_storey = api.root.create_entity(f, "IfcBuildingStorey", name="Terrace")
-    storey = api.root.create_entity(f, "IfcBuildingStorey", name="Main Floor")
+    # Storey names follow CORENET X level naming even though the building is in
+    # Illinois. The convention is what the course teaches and a reference model
+    # that breaks it teaches the opposite. "Main Floor" and "Terrace" are both
+    # invalid forms; "1st Storey" and a "_suffix" datum variant are valid.
+    terrace_storey = api.root.create_entity(
+        f, "IfcBuildingStorey", name="1st Storey_Terrace")
+    storey = api.root.create_entity(f, "IfcBuildingStorey", name="1st Storey")
     roof_storey = api.root.create_entity(f, "IfcBuildingStorey", name="Roof")
     terrace_storey.Elevation = TERR_FFL * 1000.0
     storey.Elevation = FFL * 1000.0

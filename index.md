@@ -53,7 +53,7 @@ wrong — which is the part of practice a fictional brief can never teach.
 Want to see where this ends up first? The
 **[reference model]({{ '/reference-model/' | relative_url }})** is the Farnsworth House as a
 downloadable IFC4 file — a real steel frame, four curtain walls, every dimension carrying its
-source and confidence grade, and a 244-check script you can run against your own model at every
+source and confidence grade, and a 247-check script you can run against your own model at every
 gate.
 
 </div>

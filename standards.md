@@ -14,16 +14,16 @@ retrofitting it at Stage 05 costs a full session.
 One IFC project. One working `.blend`. A dated export at every gate, never overwritten.
 
 ```text
-bungalow/
-  bungalow.blend                      the working file
+farnsworth/
+  farnsworth.blend                      the working file
   export/
-    BUNG-A-PRE-P01-2026-09-04.ifc     Pre-Design baseline
-    BUNG-A-CON-P02-2026-09-18.ifc     Concept, option A approved
-    BUNG-A-SCH-P03-2026-10-09.ifc     Schematic, for planning
-    BUNG-A-DD-P04-2026-10-30.ifc      Design Development, coordinated
-    BUNG-A-TEN-T01-2026-11-20.ifc     Tender issue
-    BUNG-A-CON-C01-2026-12-11.ifc     Construction issue
-    BUNG-A-AB-AB01-2027-01-15.ifc     As-built
+    FARN-A-PRE-P01-2026-09-04.ifc     Pre-Design baseline
+    FARN-A-CON-P02-2026-09-18.ifc     Concept, option A approved
+    FARN-A-SCH-P03-2026-10-09.ifc     Schematic, for planning
+    FARN-A-DD-P04-2026-10-30.ifc      Design Development, coordinated
+    FARN-A-TEN-T01-2026-11-20.ifc     Tender issue
+    FARN-A-CON-C01-2026-12-11.ifc     Construction issue
+    FARN-A-AB-AB01-2027-01-15.ifc     As-built
 ```
 
 `PROJECT-DISCIPLINE-STAGE-REVISION-DATE`. Revision prefixes: **P** preliminary, **T** tender,
@@ -79,17 +79,26 @@ Assign an IFC class only when the decision behind the geometry is stable. Early 
 
 | Element | Class | Typed? |
 | --- | --- | --- |
-| External and internal walls | `IfcWall` | Yes — `IfcWallType` with material layers |
-| Ground slab, roof slab | `IfcSlab` | Yes — `IfcSlabType` |
-| Pitched roof | `IfcRoof` with `IfcSlab` covering | Yes |
-| Doors and windows | `IfcDoor`, `IfcWindow` | Yes, with a mark that matches the schedule |
+| Floor and roof planes | `IfcSlab` | Yes — `IfcSlabType` with material layers |
+| Steel columns | `IfcColumn` | Yes — `IfcColumnType`, one per section |
+| Edge channels | `IfcBeam` | Yes — `IfcBeamType` |
+| The glass skin | `IfcCurtainWall` aggregating `IfcPlate` and `IfcMember` | Yes — all three typed |
+| Core partitions | `IfcWall` | Yes — `IfcWallType` with material layers |
+| Doors | `IfcDoor` | Yes, with a mark that matches the schedule |
 | Openings in walls | `IfcOpeningElement` via Bonsai's void workflow | n/a |
-| Rooms and the courtyard | `IfcSpace` | Named and numbered |
+| Flue | `IfcChimney` | From Stage 04 |
+| Rooms, the porch and the terrace | `IfcSpace` | Named and numbered |
 | Site | `IfcSite` | One only |
+| Stairs | `IfcStair` | From Stage 04 |
 | Kitchen and sanitary fittings | `IfcFurniture`, `IfcSanitaryTerminal` | From Stage 04 |
 
-**Types before occurrences.** One `IfcWallType` called `EXT-200-BRK` used forty times is a
-schedule; forty individually-drawn walls are a drawing. Stage 04 is where this becomes non-optional.
+The glass is a **curtain wall**, not a wall with a glass material on it. That is the single most
+common classification error on this building, and it is the difference between being able to
+schedule nineteen panes and not.
+
+**Types before occurrences.** One `IfcPlateType` called `GL-PLATE-6MM` used nineteen times is a
+schedule; nineteen individually-drawn panes are a drawing. Stage 04 is where this becomes
+non-optional.
 
 **Classification is three things, not one.** For a Singapore submission, IFC+SG expects every
 element to carry the correct **IFC entity**, its **IFC subtype** where one applies, and the
@@ -103,15 +112,15 @@ Bonsai Sketch Mode ships the IFC+SG element list as data, and the requirements a
 
 ## 5 · Spatial structure
 
-Four levels, no more:
+Five levels, no more:
 
 ```text
-IfcProject          Courtyard Bungalow
-  IfcSite           Plot            <- one IfcSite per file; its Name carries the block
-    IfcBuilding     House
-      IfcBuildingStorey   1st Storey  (+0.150)
-      IfcBuildingStorey   Attic       (if the design has one)
-      IfcBuildingStorey   Roof        (+3.150)
+IfcProject          Edith Farnsworth House
+  IfcSite           Fox River Floodplain   <- one IfcSite per file; its Name carries the block
+    IfcBuilding     Edith Farnsworth House
+      IfcBuildingStorey   1st Storey_Terrace  (+0.610)   <- 2'-0"
+      IfcBuildingStorey   1st Storey          (+1.600)   <- 5'-3"
+      IfcBuildingStorey   Roof                (+4.877)   <- 16'-0"
 ```
 
 Every element belongs to exactly one storey. An element with no spatial container is invisible to
@@ -125,7 +134,7 @@ different names, and names and Z values stay consistent across every discipline.
 including basements, mezzanines and block suffixes, is on the
 [IFC+SG page]({{ '/ifc-sg/' | relative_url }}).
 
-**One `IfcSite` per file**, named for the block. A bungalow has one block, so this costs nothing
+**One `IfcSite` per file**, named for the block. This house has one block, so this costs nothing
 here — and on a development with towers, a podium and a basement it is four separate architectural
 files plus one for site works.
 
@@ -138,8 +147,8 @@ software.
 
 ```csv
 date,author,decision,reason,affects,status
-2026-09-04,AT,North arrow set to +Y,Road frontage is south,A-Site;all plans,approved
-2026-09-18,AT,Option B adopted,Courtyard gives afternoon shade to living,A-Massing-OptionB,approved
+2026-09-04,AT,North arrow set to +Y,True bearing unknown until HABS sheet 1,A-Site;all plans,provisional
+2026-09-18,AT,Bay spacing 22'-0" not 20'-0",20'-0" cannot close to 77'-0",A-Columns;A-Grid,approved
 2026-09-18,AT,Option A superseded,Not deleted; see Z-Massing-OptionA,Z-Massing-OptionA,superseded
 ```
 
@@ -159,7 +168,7 @@ between applications; a CSV does not. The CSV stays because it is readable in te
 ```csv
 stage,item,file,issued,revision,status
 02,Concept option comparison,02-concept/options.pdf,2026-09-18,P02,issued
-02,Concept IFC,export/BUNG-A-CON-P02-2026-09-18.ifc,2026-09-18,P02,issued
+02,Concept IFC,export/FARN-A-CON-P02-2026-09-18.ifc,2026-09-18,P02,issued
 ```
 
 ## 7 · The gate rule
@@ -197,8 +206,8 @@ Run this before every gate. It catches most of what a formal model check would.
 - Storey names still match the convention, and their Z values have not drifted.
 - The export opens in an IFC viewer that is not Blender, at the right size and orientation.
 
-Most of that list is already automated. `check_bungalow.py`, shipped with the
-[reference model]({{ '/reference-model/' | relative_url }}), runs 158 checks over any IFC you point it
+Most of that list is already automated. `check_farnsworth.py`, shipped with the
+[reference model]({{ '/reference-model/' | relative_url }}), runs 247 checks over any IFC you point it
 at and exits non-zero on failure — use it from Stage 03 onward.
 
 From Stage 04, add Bonsai's own model-checking tools as well: an **IDS** file expresses these rules

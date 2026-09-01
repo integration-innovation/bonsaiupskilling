@@ -95,7 +95,7 @@ Three things about **Push/Pull** are worth knowing on day one, because the cours
 three:
 
 - **It infers along its own axis.** As a face is dragged it stops where existing geometry already is — the top of the wall beside this one, the underside of the slab above — and the header reads `(aligned)` while it is held there. Typing a distance overrides the inference.
-- **<span class="k">Ctrl</span> stacks.** Holding Ctrl as the push starts builds a *new* solid on the face and leaves the original in place. That is how the porch mass and the roof mass get made in Stage 02.
+- **<span class="k">Ctrl</span> stacks.** Holding Ctrl as the push starts builds a *new* solid on the face and leaves the original in place. That is how the terrace mass and the roof plane get made in Stage 02.
 - **Regions push separately.** A surface divided by drawn lines can be pushed one region at a time; walls appear along the dividing lines and the rest of the surface stays put. A step, a notch or a sill recess is a line and a drag.
 
 <span class="k">F</span>, <span class="k">B</span> and <span class="k">E</span> do nothing **on
@@ -169,7 +169,7 @@ baseline from a script, so you can prove your written decisions actually reprodu
 Make this before Stage 01. The stage pages assume it.
 
 ```text
-bungalow/
+farnsworth/
   00-brief/          brief, site information, authority notes
   01-pre-design/
   02-concept/

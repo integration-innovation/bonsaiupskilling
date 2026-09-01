@@ -156,7 +156,7 @@ before design starts.
 
 ## Using it to resource this project
 
-The VAF's real utility is arithmetic. Do this once, for the bungalow, and the method transfers.
+The VAF's real utility is arithmetic. Do this once, for this house, and the method transfers.
 
 {: .steps}
 1. **List the components you will actually perform.** Take the tables above and strike out everything a 600 m² landed house does not need — no strata, no TIA, no rail protection, no PWCS. What remains is perhaps forty components, which is already more than most fee proposals itemise.

@@ -45,7 +45,7 @@ check to site with you; without measurements this stage is fiction with confiden
 *Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
 
 {: .steps}
-1. **Branch the as-built model.** From the last approved construction revision, to `export/BUNG-A-AB-AB01-<date>.ifc`. The construction revisions stay exactly as they were — they are the record of what was instructed, which is a different question from what was built.
+1. **Branch the as-built model.** From the last approved construction revision, to `export/FARN-A-AB-AB01-<date>.ifc`. The construction revisions stay exactly as they were — they are the record of what was instructed, which is a different question from what was built.
 
 2. **Walk the building and record deviations.** Measure. Every difference between model and reality gets a row: element, drawing dimension, measured dimension, difference, and — crucially — **how you know**. Tape, laser, survey report or contractor's statement are four different levels of confidence and the register should say which.
 
@@ -88,8 +88,8 @@ a number.
 
 | Item | File |
 | --- | --- |
-| As-built model | `export/BUNG-A-AB-AB01-<date>.ifc` |
-| As-built drawings | `07-completion/BUNG-AB-AB01.pdf` |
+| As-built model | `export/FARN-A-AB-AB01-<date>.ifc` |
+| As-built drawings | `07-completion/FARN-AB-AB01.pdf` |
 | Asset register | `registers/assets.csv` — mark, type, manufacturer, warranty, O&M reference |
 | Deviation and verification record | measured against drawn, with the method of measurement |
 | Final schedules | spaces, doors, windows, finishes |

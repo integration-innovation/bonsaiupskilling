@@ -3,7 +3,7 @@ layout: default
 stage_num: "01"
 title: Pre-Design
 strap: Before a line is drawn, establish what the client actually needs, what the site is, and which rules bind you.
-exit_state: Site, datum, north and a buildable envelope — nothing designed yet
+exit_state: Site, datum, north and a recorded flood elevation — nothing designed yet
 permalink: /stages/pre-design/
 ---
 
@@ -28,7 +28,7 @@ buying site information: topographical survey, site drawings, DIP, SIP, RLP and 
 
 - Blender navigation and view control without touching Blender's own interface.
 - Sketch Mode's Line and Tape tools, axis locks and typed dimensions.
-- Regional Push/Pull, used to build a setback envelope rather than a building.
+- Regional Push/Pull, used to build a flood plane rather than a building.
 - Creating an IFC project and an `IfcSite` in Bonsai, and why the site is the only thing classified at this stage.
 - The habit that carries the rest of the course: record the constraint, then design inside it.
 
@@ -45,33 +45,39 @@ in it.
 {: .steps}
 1. **Open a new Blender file and go to the `Sketch` tab.** Delete the default cube if your startup file has one. Press <span class="k">N</span> to show the sidebar and confirm the `IFC` panel is there.
 
-2. **Create the IFC project.** `IFC` panel → **New IFC Project**. Metric, millimetre precision. Name it `Courtyard Bungalow`. Everything else in the course is behind this gate — Bonsai's Wall, Slab, Door and Window tools all read `No IFC Project` until it exists.
+2. **Create the IFC project.** `IFC` panel → **New IFC Project**. Metric, millimetre precision. Name it `Edith Farnsworth House`. Everything else in the course is behind this gate — Bonsai's Wall, Slab, Door and Window tools all read `No IFC Project` until it exists.
 
-3. **Draw the site boundary with Line.** Press <span class="k">L</span>, click the origin, then build the 20 × 30 rectangle with axis locks and typed distances rather than by eye: press <span class="k">X</span>, type `20`, <span class="k">Enter</span>; <span class="k">Y</span>, `30`, <span class="k">Enter</span>; <span class="k">X</span>, `-20`, <span class="k">Enter</span>; then <span class="k">C</span> to close the loop back to the start. A closed coplanar loop becomes a face. Name it `A-Site-Boundary`.
+3. **Draw the site boundary with Line.** Press <span class="k">L</span>, click the origin, then build a rectangle around the building footprint with axis locks and typed distances rather than by eye — say 60 × 40 m, generous enough to hold the house, the terrace and the approach. Press <span class="k">X</span>, type `60`, <span class="k">Enter</span>; <span class="k">Y</span>, `40`, <span class="k">Enter</span>; <span class="k">X</span>, `-60`, <span class="k">Enter</span>; then <span class="k">C</span> to close the loop back to the start. A closed coplanar loop becomes a face. Name it `A-Site-Boundary`.
+
+   The real plot is larger and irregular. You are not surveying it; you are establishing a working extent you can put dimensions on.
 
 4. **Set and record north.** Draw a single line from the site centre along +Y and name it `A-Site-North`. Then write the assumption into the decision log — *why* that direction: the road frontage, the sun path, the neighbour you are shading. An unrecorded north arrow invalidates every daylight and ventilation claim you make later.
 
-5. **Find the real controls.** Leave Blender. For a landed-housing plot in your chosen locality, find and write down: plot ratio or GFA control, site coverage, storey height and overall height control, front/side/rear setbacks, the drainage reserve and minimum platform level, greenery provision, any tree conservation constraint, and the **household shelter** requirement — construction method and minimum internal dimensions. Sources: [URA](https://www.ura.gov.sg/), [BCA](https://www1.bca.gov.sg/), [PUB](https://www.pub.gov.sg/), [NParks](https://www.nparks.gov.sg/), [SCDF](https://www.scdf.gov.sg/). Record each with its source and the date you read it — controls change, and a parameter without a date is a rumour.
+5. **Find the real flood data.** Leave Blender. This site has one control that dominates every other: the Fox River. Find and write down the **base flood elevation** at or near 14520 River Road, Plano, Illinois, and the recorded flood history. Sources: the [FEMA Flood Map Service Center](https://msc.fema.gov/portal/home) for the effective flood map and BFE, and the [USGS National Water Information System](https://waterdata.usgs.gov/) for the Fox River gauge record. Record each with its source and the date you read it — flood maps are revised, and a parameter without a date is a rumour.
 
-6. **Build the buildable envelope.** Using the setbacks you just recorded, draw a second rectangle *inside* the site face with <span class="k">L</span> and typed offsets. The site face is now divided into two regions. Press <span class="k">P</span>, hover the inner region and drag upward — only that region rises, walls appear along the dividing lines, and the outer setback strip stays flat. Type the height control as an exact value. Name the result `X-Envelope`.
+   Then write down the design's answer: **finished floor at 5'-3" above grade**. The gap between those two numbers is the single most important thing Pre-Design produces on this project, and it is a number, not an opinion.
 
-   This is the single most useful thing Pre-Design produces: a volume you are allowed to build in. Every later stage tests against it.
+   If you would rather work in your own jurisdiction, do exactly the same with your own flood authority's data and your own local controls. The exercise is finding and recording the binding constraint before designing.
 
-7. **Set the datum.** Establish the finished floor level relative to your site datum, checked against the minimum platform level you found in step 5 — not against the brief's `+0.15`, which is an assumption to be tested. If the platform level forces a different FFL, that is a Pre-Design finding, and it is much cheaper here than at Stage 04.
+6. **Build the flood envelope.** Draw a second rectangle *inside* the site face with <span class="k">L</span> and typed offsets. The site face is now divided into two regions. Press <span class="k">P</span>, hover the inner region and drag upward — only that region rises, walls appear along the dividing lines, and the outer strip stays flat. Type the **base flood elevation** you found in step 5 as an exact value. Name the result `X-FloodLevel`.
 
-8. **Classify the site — and only the site.** Select `A-Site-Boundary`, and in the `IFC` panel assign it as `IfcSite`. Leave `X-Envelope` as plain mesh: it is a constraint, not a thing being built. This is the first application of the rule that classification follows decision.
+   This is the single most useful thing Pre-Design produces on this project: a horizontal plane the building has to clear. Every later stage tests against it — and at Stage 06 the river is forecast above it, which is a much more useful conversation when the plane is already in the model.
 
-9. **Decide the team.** List the consultants this project needs and the ones it does not — C&S certainly, M&E probably, QS if the client wants cost certainty, arborist if those rear trees are protected, landscape, surveyor. For each, note whether the service is inside an architect's basic scope or has to be separately procured. This is a five-minute exercise that clients routinely discover too late.
+7. **Set the datum.** Establish the finished floor level relative to your site datum and check it against the flood elevation from step 5 — do not simply accept the brief's `5'-3"`, which is the answer the building gives and therefore the thing under test. If the flood data says 5'-3" is not enough, that is a Pre-Design finding, and it is much cheaper here than at Stage 04. Record it either way, with the margin in feet and inches.
 
-10. **Set the budget and the programme.** A single figure and a single bar chart. Both will be wrong; both must exist, because Stage 02's cost estimate and Stage 05's tender are measured against them.
+8. **Classify the site — and only the site.** Select `A-Site-Boundary`, and in the `IFC` panel assign it as `IfcSite`. Leave `X-FloodLevel` as plain mesh: it is a constraint, not a thing being built. This is the first application of the rule that classification follows decision.
 
-11. **Export the baseline.** IFC out to `export/BUNG-A-PRE-P01-<date>.ifc`, one screenshot of the site with the envelope, and the decision log rows for north, datum, controls and team.
+9. **Decide the team.** List the consultants this project needs and the ones it does not — C&S certainly, because the entire building is an exposed welded steel frame; M&E for the radiant floor and the core; QS if the client wants cost certainty, which on this project she very much does; a surveyor for the flood levels; an arborist for the black sugar maple. For each, note whether the service is inside an architect's basic scope or has to be separately procured. This is a five-minute exercise that clients routinely discover too late.
+
+10. **Set the budget and the programme.** A single figure and a single bar chart. Both will be wrong; both must exist, because Stage 02's cost estimate and Stage 05's tender are measured against them — and on this project the budget is not a formality. The real one was agreed at about **$58,400** and the building came in near **$74,000**, which is where the relationship ended. Write your figure down now so that Stage 03 can challenge it.
+
+11. **Export the baseline.** IFC out to `export/FARN-A-PRE-P01-<date>.ifc`, one screenshot of the site with the flood plane, and the decision log rows for north, datum, flood elevation and team.
 
 ## Deliverables
 
 | Item | File |
 | --- | --- |
-| Site and envelope model | `bungalow.blend`, `export/BUNG-A-PRE-P01-<date>.ifc` |
+| Site and flood-plane model | `farnsworth.blend`, `export/FARN-A-PRE-P01-<date>.ifc` |
 | Control sheet | `00-brief/controls.md` — every parameter, its source, its date |
 | Design brief | `00-brief/brief.md` — agreed with the client, including the four success criteria |
 | Project budget and programme | `00-brief/budget.md`, `00-brief/programme.md` |
@@ -86,7 +92,7 @@ Do not start Stage 02 until every line is true.
 {: .check}
 - One `IfcProject` and exactly one `IfcSite` exist, at the right size.
 - North is set, drawn, and justified in writing.
-- The buildable envelope is modelled from recorded setbacks and a recorded height control, each with a source and a date.
+- The flood plane is modelled from a recorded base flood elevation, with its source and the date you read it, and the margin to the proposed finished floor level is written down in feet and inches.
 - The finished floor level has been tested against a platform or flood level, not assumed.
 - The budget exists as a number and the programme as dates.
 - The consultant list distinguishes basic scope from separately procured services.
@@ -107,8 +113,9 @@ somebody disputes it.
 guarantees you will be reluctant to throw it away at Stage 02, which is exactly when you should be
 throwing things away.
 
-**Treating the envelope as the design.** It is the boundary of the possible, not a proposal. The
-best schemes usually do not fill it.
+**Treating the flood plane as settled.** It is a constraint the building must clear, and this
+building clears it by a margin that has proved insufficient six times in sixty years. Recording the
+number is Pre-Design; deciding what to do about it is not, and it is not your call alone.
 
 <div class="note" markdown="1">
 #### Additional Service, if this were real

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: The reference model
-strap: Mies van der Rohe's Farnsworth House as IFC4 — every dimension carrying its source, and a 244-check gate you can run.
+strap: Mies van der Rohe's Farnsworth House as IFC4 — every dimension carrying its source, and a 247-check gate you can run.
 permalink: /reference-model/
 ---
 
@@ -69,7 +69,7 @@ and drawings you generate yourself*, never photographs.
 | Chimney | 1 — the flue, the only element that punctures the roof plane |
 | Stairs · Door · Furniture | 2 · 1 · 1 |
 | Spaces | 9 — seven internal zones, the west porch and the terrace |
-| Storeys | `Terrace` (+610), `Main Floor` (+1600), `Roof` (+4877) |
+| Storeys | `1st Storey_Terrace` (+610), `1st Storey` (+1600), `Roof` (+4877) |
 | Grid | 1–4 on the column lines, A–B on the column rows |
 | Extent | −38 to 77 ft east, −22 to 29 ft north, 0 to 18 ft up |
 | Enclosed area | **1,517 sq ft** (140.9 m²) against a published figure of about 1,500 |
@@ -167,7 +167,7 @@ python exercises/reference-model/build_farnsworth.py
 python exercises/reference-model/check_farnsworth.py
 ```
 
-244 checks, in three groups that matter more than the rest, because they are the ones a
+247 checks, in three groups that matter more than the rest, because they are the ones a
 hand-modelled copy of this house usually fails:
 
 | Group | What it proves |
@@ -186,6 +186,8 @@ python exercises/reference-model/check_farnsworth.py my-model.ifc
 
 | Convention | In the file |
 | --- | --- |
+| CORENET X level naming | `1st Storey`, `1st Storey_Terrace`, `Roof` — never `Main Floor`, never `Level 1`. The building is in Illinois and would never be submitted through CORENET X, but a reference model that breaks the convention the course teaches teaches the opposite |
+| Georeferenced to its own locale | EPSG:26916 (NAD83 / UTM 16N), not SVY21. What CORENET X actually requires is that the file *states* its CRS, datum and rotation — the specific system follows the site |
 | Author in the building's own units | Feet and inches throughout the script, stored as millimetres. Metric-first authoring invents precision the building never had |
 | Correct entity, correct subtype | `IfcCurtainWall` aggregating `IfcPlate` and `IfcMember` — not a wall with a glass material |
 | Types before instances | Every slab, column, beam, plate, mullion and wall comes from a type carrying its material or layer set |

@@ -55,7 +55,9 @@ Stage 07's gate is passed, the building is occupied, and the defects liability p
 
 5. **Close the contract.** Final certificate, retention release, and a note of anything unresolved and how it is being handled. Then stop touching the model.
 
-6. **Do a post-occupancy evaluation.** Go back after the first hot month. Does the courtyard work at 3pm? Is the cross-ventilation real or theoretical? Did the accessible route survive contact with furniture? Compare against the four success criteria from the [brief]({{ '/brief/' | relative_url }}), and write down which predictions were wrong and by how much.
+6. **Do a post-occupancy evaluation.** Go back after the first hot month, and after the first high river. Is the glass house habitable in July without mechanical cooling? Do the two hopper vents move enough air? Did the floor level clear the water? Compare against the four success criteria from the [brief]({{ '/brief/' | relative_url }}), and write down which predictions were wrong and by how much.
+
+   This is not a hypothetical on this project. The real house was criticised for overheating and for poor ventilation, and the river has risen above the finished floor level at least six times in sixty years. A post-occupancy evaluation that reports only successes has not been done.
 
    This is an **Additional Service** under the SIA matrix, along with building performance studies and gap analysis. It is also the only feedback loop the profession has.
 

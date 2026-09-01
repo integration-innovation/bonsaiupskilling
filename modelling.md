@@ -77,15 +77,15 @@ organisation — general modelling practice 01
 `IfcProject → IfcSite → IfcBuilding → IfcStorey`. Inspect and edit it at
 `Properties → Project Overview → Spatial Decomposition`.
 
-For the bungalow, four levels and no more:
+For this house, five levels and no more:
 
 ```text
-IfcProject          Courtyard Bungalow
-  IfcSite           Plot          <- one IfcSite per file; its Name carries the block
-    IfcBuilding     House
-      IfcBuildingStorey   1st Storey  (+0.150)
-      IfcBuildingStorey   Attic       (if the design has one)
-      IfcBuildingStorey   Roof        (+3.150)
+IfcProject          Edith Farnsworth House
+  IfcSite           Fox River Floodplain   <- one IfcSite per file; its Name carries the block
+    IfcBuilding     Edith Farnsworth House
+      IfcBuildingStorey   1st Storey_Terrace  (+0.610)   <- 2'-0"
+      IfcBuildingStorey   1st Storey          (+1.600)   <- 5'-3"
+      IfcBuildingStorey   Roof                (+4.877)   <- 16'-0"
 ```
 
 **Use the CORENET X names.** `1st Storey` and `Storey 1` are valid; `1st Floor`, `Level one` and
@@ -145,7 +145,7 @@ across multiple levels, before you rely on them.
 
 Grids are model objects, not drawing decoration.
 
-**What goes wrong.** Skipping the grid because a bungalow is small — setting out, coordination and
+**What goes wrong.** Skipping the grid because one room looks too simple to need one — setting out, coordination and
 every dimension check afterwards hang off it. Gridlines exported at only one level. Missing storey
 association. And the one that catches everybody: **grids visible in the authoring tool but missing
 from the IFC**, which is only ever discovered by opening the export.
@@ -253,10 +253,11 @@ would discard that. Use the parametric controls.
 </div>
 
 **How.** **Create Slab** from the toolbar, driven by an `IfcSlabType` in the same way walls are driven
-by an `IfcWallType`. A pitched roof is an `IfcRoof` with slab coverings.
+by an `IfcWallType`. A flat roof plane is an `IfcSlab` with `PredefinedType = ROOF`; where a roof has several coverings, an `IfcRoof` aggregates them.
 
-At [Stage 04]({{ '/stages/design-development/' | relative_url }}) develop the real edge: thickness, eaves overhang, gutter
-line, fascia, the wall-head junction, and where water goes after the gutter.
+At [Stage 04]({{ '/stages/design-development/' | relative_url }}) develop the real edge: the structural
+depth, the channel at the perimeter, the soffit, and where water goes when there is no gutter,
+no fascia and no overhang to take it.
 
 **What goes wrong.** Leaving the roof as the single surface it was in the massing. It is the junction
 most small-house models get wrong, and the one most likely to leak in reality.
@@ -430,7 +431,7 @@ practices 03 and 04 — federation alignment, unique GUIDs, file size
 the [model standard]({{ '/standards/' | relative_url }}):
 
 ```text
-BUNG-A-SCH-P03-2026-10-09.ifc     PROJECT-DISCIPLINE-STAGE-REVISION-DATE
+FARN-A-SCH-P03-2026-10-09.ifc     PROJECT-DISCIPLINE-STAGE-REVISION-DATE
 ```
 
 Then **open the export in something that is not Blender.** CORENET X asks for exactly this check, and

@@ -88,7 +88,7 @@ matrix calls one stage, that is usually why.
 
 **3 · It names the specialists.** The consultant list in the VAF runs to two dozen disciplines —
 C&S, M&E, DfS, ESD, façade, acoustic, landscape, arborist, ABC Waters, signage, FSE, traffic,
-lighting, QS and on. Stage 01 asks you to work out which of them this bungalow actually needs. The
+lighting, QS and on. Stage 01 asks you to work out which of them this project actually needs. The
 honest answer is fewer than a tower and more than none, and the exercise is knowing which.
 
 ## If you work to another framework
@@ -109,7 +109,7 @@ The stage boundaries are close enough to substitute directly.
 ## What the model must contain, stage by stage
 
 The framework asks *what is delivered*; this is the modelling translation. Treat it as the level of
-information need for this project — it is deliberately modest, because a bungalow does not justify
+information need for this project — it is deliberately modest, because a one-room house does not justify
 a tower's LOIN.
 
 | Stage | Geometry | Information | Classified as IFC? |
