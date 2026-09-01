@@ -1,8 +1,12 @@
 # Bonsai Upskilling
 
-A free, project-based training programme: **build one bungalow through the eight stages of the SIA
-Architect's Scope of Service**, using Blender, [Bonsai](https://bonsaibim.org/) and
-[Bonsai Sketch Mode](https://github.com/integrations-space/BonsaiSketch).
+A free, project-based training programme: **rebuild one documented masterwork through the eight
+stages of the SIA Architect's Scope of Service**, using Blender, [Bonsai](https://bonsaibim.org/)
+and [Bonsai Sketch Mode](https://github.com/integrations-space/BonsaiSketch).
+
+The building is Mies van der Rohe's **Edith Farnsworth House** (Plano, Illinois, 1945–51) — chosen
+because it is measured, in the public domain, and governed by a module strict enough that a
+modelling error shows up as a dimension that will not close.
 
 **→ [integration-innovation.github.io/bonsaiupskilling](https://integration-innovation.github.io/bonsaiupskilling)**
 
@@ -26,7 +30,7 @@ Roughly 35–45 focused hours over 11–12 weeks.
 | `vaf.md` | The SIA Value Articulation Framework captured — components, stages, resource grades |
 | `ifc-sg.md` | IFC+SG data requirements and CORENET X's twelve General Modelling Practices |
 | `glossary.md` | Terms, in the sense this course uses them |
-| `reference-model.md` | The finished Stage 03 bungalow as downloadable IFC4, and what it demonstrates |
+| `reference-model.md` | The Farnsworth House as downloadable IFC4, its 244-check gate, and why it is free to ship |
 | `stages/` | The eight stage pages |
 | `exercises/` | Reference scripts, including the model builder and its 158-check gate |
 | `_layouts/`, `_data/`, `assets/` | The site itself — plain Jekyll, no theme gem, one stylesheet |

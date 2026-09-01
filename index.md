@@ -6,18 +6,26 @@ permalink: /
 
 <div class="hero" markdown="1">
 
-# Build a bungalow, stage by stage
+# Rebuild a masterwork, stage by stage
 
 One house. One IFC model. Eight stages of the SIA Architect's Scope of Service, from the
 first site question to the last defect — modelled in **Blender**, **Bonsai** and
 **Bonsai Sketch Mode**, and free to work through at your own pace.
 
+The house is Mies van der Rohe's **Edith Farnsworth House**: measured, public domain, and
+unforgiving about dimensions that do not close.
+
 </div>
 
-This is not a tour of buttons. It is a project you carry: a small detached house that starts as a
-massing block and finishes as an as-built record with an asset register attached. Each stage adds
+This is not a tour of buttons. It is a project you carry: a real building that starts as a massing
+block and finishes as an as-built record with an asset register attached. Each stage adds
 information rather than replacing the model, which is the habit that separates a BIM model from a
 3D drawing.
+
+Working from a documented building rather than an invented one changes the exercise. You cannot
+quietly move a wall to make a problem go away, the module tells you immediately when you have
+rounded something, and at Stage 04 the measured drawings arrive and prove some of your dimensions
+wrong — which is the part of practice a fictional brief can never teach.
 
 <ul class="cards">
 {% for s in site.data.stages %}
@@ -43,9 +51,10 @@ information rather than replacing the model, which is the habit that separates a
 5. **[Stage 01 · Pre-Design]({{ '/stages/pre-design/' | relative_url }})** — begin.
 
 Want to see where this ends up first? The
-**[reference model]({{ '/reference-model/' | relative_url }})** is the finished Stage 03 bungalow as a
-downloadable IFC4 file — real types, real openings, SVY21 georeferencing, and a 158-check script
-you can run against your own model at every gate.
+**[reference model]({{ '/reference-model/' | relative_url }})** is the Farnsworth House as a
+downloadable IFC4 file — a real steel frame, four curtain walls, every dimension carrying its
+source and confidence grade, and a 244-check script you can run against your own model at every
+gate.
 
 </div>
 
@@ -134,9 +143,10 @@ time — each tagged with the SIA stage, the VAF component and the IFC+SG data i
 Three sessions a week of 45 to 60 minutes: one to read and plan, one to model, one to check and
 record. That puts the whole programme at **11 to 12 weeks and roughly 35 to 45 focused hours**.
 
-Going faster is possible and usually a mistake. The point of the exercise is not the geometry — a
-120 m² bungalow is an afternoon's modelling — it is the discipline of making each decision findable
-afterwards.
+Going faster is possible and usually a mistake. The point of the exercise is not the geometry — one
+room, eight columns and two slabs is an afternoon's modelling — it is the discipline of making each
+decision findable afterwards, and of knowing which of your dimensions you actually have a source
+for.
 
 ## What you need
 

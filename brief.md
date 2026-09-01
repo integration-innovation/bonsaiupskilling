@@ -1,128 +1,174 @@
 ---
 layout: default
 title: The brief
-strap: A courtyard bungalow for a family of four, on a fictional plot, with a real client's habits.
+strap: Reconstruct a documented masterwork through eight stages — with the client, the budget and the failures it actually had.
 permalink: /brief/
 ---
 
-Everything in this section is fictional and deliberately small. It is sized so that the *modelling*
-never becomes the hard part — the hard part is keeping the information honest across eight stages.
+Everything in this section is **real**. That is the point. You are not designing a house; you are
+taking a building that exists, that was measured, that overran its budget, that ended in court and
+that floods — and carrying it through the eight stages of the SIA Architect's Scope of Service as
+if you were delivering it.
+
+Modelling is never the hard part here. The hard part is keeping the information honest across eight
+stages when the building is real enough to contradict you.
+
+## The project
+
+**Ludwig Mies van der Rohe, Edith Farnsworth House.** 14520 River Road, Plano, Kendall County,
+Illinois. Commissioned 1945, designed 1945–47, built 1949–51.
+
+A one-room weekend house: 77'-0" × 28'-0", eight steel columns, two horizontal planes, a glass skin
+and a single service core, standing 5'-3" clear of the Fox River floodplain.
+
+The National Trust renamed it the **Edith Farnsworth House** in 2021, restoring the client to the
+building's name. This course uses that name, and treats her as the client she was.
 
 ## The client
 
-Mr and Mrs Tan, both in their forties, two children aged 9 and 13, and one grandparent who visits
-for weeks at a time and cannot manage stairs. They have owned the plot for two years. They have
-never built anything before and have opinions about kitchens.
+**Dr Edith Farnsworth**, a Chicago nephrologist and researcher — a translator of poetry, a
+violinist, and a single professional woman commissioning a weekend retreat for herself in 1945.
 
-What they say they want, in their words:
-
-> "Single storey if possible. Cross-ventilated — we don't want to live in air-conditioning. A place
-> outside that is usable at 3pm. Somewhere the kids can be loud that isn't the living room. And we
-> want to know what it costs before we're committed."
-
-What they have not said, and you will have to establish in Stage 01: the budget, the programme,
-who makes decisions when they disagree, and whether "single storey" is a requirement or a
-preference.
+She is not a passive patron in this story. She was closely involved, she changed her mind, she ran
+out of patience with the cost, and she was ultimately proved partly right about how the building
+performs. Read her as a demanding, informed, well-resourced client who is going to ask what things
+cost — because that is what she did.
 
 ## The site
 
-A **20 m × 30 m (600 m²)** rectangular plot in a landed-housing estate, level to within 300 mm,
-with a 6 m public road along one short edge. Neighbours on both long edges, an open drain reserve
-along the rear boundary. Mature trees near the rear corner.
+A wooded riverside plot on the **north bank of the Fox River**, downstream of Plano. Level, framed
+by a black sugar maple, and — the fact that governs everything — **inside the floodplain**.
+
+Mies's response is the whole building: lift the floor 5'-3" clear of grade on eight columns and let
+the water pass underneath.
 
 <div class="warn" markdown="1">
-#### The site is fictional; the controls are not
+#### The site constraint is real, and the design did not fully solve it
 
-This course does **not** hand you plot ratio, setbacks, height control, site coverage or greenery
-provision, because inventing them would teach you to trust invented numbers. In Stage 01 you will
-go and find the real ones — from [URA](https://www.ura.gov.sg/), [BCA](https://www1.bca.gov.sg/),
-[PUB](https://www.pub.gov.sg/), [NParks](https://www.nparks.gov.sg/) and
-[SCDF](https://www.scdf.gov.sg/) — for a landed-housing plot of your choosing, and record them in
-your own control sheet.
+Water has risen **above** the raised floor level at least six times in sixty years. In **1996** the
+river broke a plate-glass pane and put 5½ feet of water through the interior, causing about
+$500,000 of damage. In **2008**, after Hurricane Ike, it left two feet of water inside. There was
+major flooding again in 1954, 1997 and 2020.
 
-If you are outside Singapore, do exactly the same with your own jurisdiction's controls. The
-exercise is *finding and recording the binding constraints before designing*, which is what
-Pre-Design is.
+You are modelling a building whose principal site strategy is *partially successful*. In
+[Stage 01]({{ '/stages/pre-design/' | relative_url }}) you will go and find the actual flood data —
+FEMA flood maps, the USGS gauge history for the Fox River — and record the design flood elevation
+in your own control sheet, with its source and date. Then you will know, in a number, by how much
+the building is short.
+
+If you would rather work in your own jurisdiction, do exactly the same with your own flood
+authority's data. The exercise is *finding and recording the binding constraint before designing*,
+which is what Pre-Design is.
 </div>
 
 ## The requirement
 
 | | |
 | --- | --- |
-| Gross floor area target | approximately **120 m²** |
-| Main footprint target | **12 m × 10 m** |
-| Finished floor level | **+0.15 m** above site datum (revisit against flood/platform levels in Stage 01) |
-| Storey height | **3.00 m** floor to ceiling |
-| External wall | **200 mm** target thickness |
-| Internal partition | **100 mm** target thickness |
-| Roof | simple pitched, **25°–30°** |
-| Orientation | main entrance faces the north arrow you set — record the assumption |
+| Enclosed area | **≈ 1,500 sq ft** (139 m²) — one room |
+| Overall slab | **77'-0" × 28'-0"** |
+| Structural bays | three at **22'-0"**, cantilevered **5'-6"** each end |
+| Finished floor level | **5'-3"** above grade |
+| Floor to ceiling | **9'-6"** — and the same for every pane of glass |
+| Structural depth | **1'-3"** — 15" channels at floor and roof |
+| Terrace | **55'-0" × 22'-0"**, one step down at 2'-0" above grade |
+| External envelope | single-glazed plate glass, floor to ceiling, on all four sides |
+| Frame | 8 × W8×48 wide flange, welded, **outboard of the slab edges** |
 
-**Programme:** 3 bedrooms · 2 bathrooms · kitchen · living/dining · utility · covered entry ·
-**household shelter** · one shaded outdoor room or small courtyard.
+**Programme:** living · dining · kitchen · sleeping · two bathrooms · utility · fireplace ·
+covered west porch · lower terrace. **No internal doors except the core's.**
 
-**Accessibility:** the grandparent's bedroom and one bathroom must be reachable without a step, from
-the car to the bed.
-
-<div class="warn" markdown="1">
-#### The household shelter is not optional, and not late
-
-A Singapore landed house has a household shelter. It is a reinforced enclosure with prescribed
-construction and minimum internal dimensions, and it cannot be trimmed to fit once the plan is
-resolved — it is one of the few rooms whose walls you do not get to move.
-
-[IFC+SG]({{ '/ifc-sg/' | relative_url }}) is blunt about the timing: **construction method, internal
-length and internal width are required model data from the conceptual stage**, earlier than almost
-anything else in the standard. That is a regulator saying, in data, that this is a
-massing-stage decision.
-
-So: find the current requirement yourself in [Stage 01]({{ '/stages/pre-design/' | relative_url }}),
-put it in your control sheet with its source and date, and place the shelter in the mass in
-[Stage 02]({{ '/stages/concept-design/' | relative_url }}) — not in Design Development, by which point
-you will have planned around a room that was not there.
-</div>
+**The module:** everything obeys it. Three bays of 22'-0" plus two 5'-6" cantilevers is 77'-0"
+exactly; 5'-3" plus 9'-6" plus 1'-3" is 16'-0" exactly. If your model does not close, you have
+rounded something.
 
 ## Success criteria
 
-The client will judge the finished house on four things. Write them at the top of your decision log
-and test every option against them.
+The client judged this building on four things. Write them at the top of your decision log and test
+every stage against them.
 
-1. **Cool without machines.** Cross-ventilation through every habitable room; the outdoor room is usable in the afternoon.
-2. **Loud and quiet can coexist.** The children's zone and the living room are not the same acoustic space.
-3. **No steps where they matter.** Car to bed, and bed to bathroom, are level.
-4. **Priced before committed.** The tender at Stage 05 is within the budget agreed at Stage 01, or the variance is explained and was foreseen.
+1. **Priced before committed.** The budget was agreed and then exceeded by about 30%. Your Stage 05
+   tender is within the budget agreed at Stage 01, or the variance is explained *and was foreseen*.
+2. **Dry.** The floor clears the design flood level you established at Stage 01 — or you have said
+   in writing, at the stage it was decided, by how much it does not.
+3. **Habitable.** Cross-ventilation and solar gain are addressed in the model and in the register,
+   not left to the occupant. The real house was criticised for both.
+4. **The module holds.** Plan and section close exactly in feet at every gate. A gate that passes
+   with a rounded dimension has not passed.
 
 ## What you will not be given
 
 Real projects fail in the gaps, so this brief has some on purpose:
 
-- **No budget figure.** You establish one in Stage 01 and carry it as a project constraint.
-- **No survey.** You decide what survey information you would need, list it, and record what you assumed instead.
-- **No consultant team.** In Stage 01 you decide which consultants this project actually needs — and, crucially, which services are *not* in an architect's basic scope and therefore have to be procured by someone.
-- **No sample drawings.** The drawing set at Stage 05 is one you specify, not one you copy.
+- **No measured drawings in the repository.** The authoritative set is
+  [HABS IL-1105](https://www.loc.gov/resource/hhh.il0323.sheet) at the Library of Congress — eight
+  measured drawings, public domain. Fetching them, reading them and *correcting the model against
+  them* is a Stage 04 exercise, not something handed to you.
+- **No agreed flood datum.** You establish it in Stage 01 and carry it as a project constraint.
+- **No consultant team.** In Stage 01 you decide which consultants this project needs — and,
+  crucially, which services are *not* in an architect's basic scope and therefore have to be
+  procured by someone.
+- **No cost plan.** You build one, and you are going to be measured against it.
 
 ## Deliberate change events
 
 The course is not a straight line. Three changes are scripted in, because a model that has never
-been changed proves nothing:
+been changed proves nothing — and all three are things that actually happened.
 
 | Stage | Event |
 | --- | --- |
-| **03 · Schematic** | The client asks for a study/home-office at the last minute. It has to fit without growing the footprint |
-| **06 · Construction** | The contractor reports the rear drain reserve is wider on site than assumed. The rear setback moves |
-| **07 · Completion** | Survey finds one opening built 150 mm off. You decide whether it is a defect or an as-built condition |
+| **03 · Schematic** | The budget is challenged. The client has approved about **$58,400**; the emerging cost is heading for **$74,000**. Identify what you would change, price each option, and record what you recommend — without breaking the module |
+| **04 · Design Development** | The **HABS measured drawings** arrive. At least one dimension you carried since Stage 02 is wrong. Correct it and propagate the change through the model, the spaces and the schedules |
+| **06 · Construction** | The river is forecast above the finished floor level. Decide, in writing, whether this is a defect, an accepted design risk, or a variation — and what you tell the client |
 
 Each one has to land in the model, the register and the drawings *without* destroying what was
 approved before it. That is the actual skill.
+
+<div class="warn" markdown="1">
+#### How this project ended
+
+Dr Farnsworth refused to pay **$28,173** of the final cost. Mies sued her; she counter-sued for
+malpractice. Her counterclaim was dismissed and the court found largely for Mies, attributing the
+overrun to materials-price escalation outside the architect's control. The relationship did not
+survive it.
+
+This is on the syllabus deliberately. A course that only teaches you to produce a beautiful model
+has taught you the half of the job that does not end up in front of a judge. The registers you keep
+in Stages 01–07 are, in a real practice, the evidence.
+</div>
 
 ## Model rules
 
 Full detail on the [model standard]({{ '/standards/' | relative_url }}) page. In short:
 
-- Name objects by discipline and role: `A-Site`, `A-Massing`, `A-Walls`, `A-Slabs`, `A-Roof`, `A-Openings`, `A-Fixtures`, `A-Annotations`.
+- Name objects by discipline and role: `A-Site`, `A-Slabs`, `A-Columns`, `A-Beams`, `A-Glazing`,
+  `A-Walls`, `A-Stairs`, `A-Fixtures`, `A-Annotations`.
+- **Author in feet and inches.** The building was designed in them. Store millimetres; think
+  imperial. Metric-first authoring invents precision this building never had.
 - Use plain Sketch geometry for exploration. Assign IFC classes only when a decision is stable.
-- Once something is IFC, use Bonsai's native tools for it — walls, slabs, doors, windows, openings, types and spatial structure. Push/Pull will refuse it, correctly.
+- Once something is IFC, use Bonsai's native tools for it. Push/Pull will refuse it, correctly.
+- The glass is an `IfcCurtainWall` aggregating plates and mullions — not a wall with a glass
+  material on it.
 - Never delete a superseded option. Mark it superseded and move it out of the way.
+
+## The dimension rule
+
+<div class="big-note" markdown="1">
+
+**A dimension without a source is not a dimension.**
+
+Every element in the [reference model]({{ '/reference-model/' | relative_url }}) carries a
+`Farnsworth_Provenance` property set naming where its size came from and how confident that is:
+
+| **A** | Cross-checked, self-consistent, agreed by most sources |
+| **B** | Widely published, but sources differ — alternatives recorded |
+| **C** | Derived from A-grade figures and proportional logic; plausible, unverified |
+
+Do the same in your own model from Stage 02 onward. When the HABS drawings arrive at Stage 04, the
+grade-C figures are your worklist — and you will be able to see, at a glance, exactly which
+decisions were resting on a guess.
+
+</div>
 
 ## The decision log
 
@@ -130,6 +176,6 @@ Every stage adds rows. One row per decision, and a decision without a reason is 
 
 | Date | Author | Decision | Reason | Affects | Status |
 | --- | --- | --- | --- | --- | --- |
-| 2026-08-28 | AT | North arrow set to +Y | Road frontage is south; entrance faces road | `A-Site`, all plans | approved |
+| 2026-08-28 | AT | Bay spacing 22'-0", not 20'-0" | 20'-0" cannot close to 77'-0" with a credible cantilever | `A-Columns`, grid | approved |
 
 Status is one of **provisional**, **approved** or **superseded**. Nothing else.

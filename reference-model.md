@@ -1,23 +1,59 @@
 ---
 layout: default
 title: The reference model
-strap: A complete Courtyard Bungalow as IFC4, built to Singapore conventions — download it, open it, check it, argue with it.
+strap: Mies van der Rohe's Farnsworth House as IFC4 — every dimension carrying its source, and a 244-check gate you can run.
 permalink: /reference-model/
 ---
 
-The course describes a bungalow. This is that bungalow, built: a valid IFC4 file with real
-types, real openings, named spaces, a grid, and SVY21 georeferencing, at the state the model should
-be in at the end of [Stage 03 · Schematic Design]({{ '/stages/schematic-design/' | relative_url }}).
+The course rebuilds one documented masterwork through eight stages. This is that building,
+modelled: a valid IFC4 file with a real steel frame, four curtain walls, a primavera core and
+nine spaces, at the state the model should be in at the end of
+[Stage 04 · Design Development]({{ '/stages/design-development/' | relative_url }}).
 
 <div class="big-note" markdown="1">
 
 ### Download
 
-**[BUNG-A-SCH-P03.ifc]({{ '/exercises/reference-model/BUNG-A-SCH-P03.ifc' | relative_url }})** — 117 KB, IFC4
+**[FARN-A-DD-P01.ifc]({{ '/exercises/reference-model/FARN-A-DD-P01.ifc' | relative_url }})** — 117 KB, IFC4
 
-Built by **[build_bungalow.py](https://github.com/integration-innovation/bonsaiupskilling/blob/main/exercises/reference-model/build_bungalow.py)**,
-checked by **[check_bungalow.py](https://github.com/integration-innovation/bonsaiupskilling/blob/main/exercises/reference-model/check_bungalow.py)**.
+Built by **[build_farnsworth.py](https://github.com/integration-innovation/bonsaiupskilling/blob/main/exercises/reference-model/build_farnsworth.py)**,
+checked by **[check_farnsworth.py](https://github.com/integration-innovation/bonsaiupskilling/blob/main/exercises/reference-model/check_farnsworth.py)**.
 Both run on IfcOpenShell 0.8.x, the same library Bonsai ships.
+
+</div>
+
+## The building
+
+**Ludwig Mies van der Rohe, Edith Farnsworth House.** 14520 River Road, Plano, Kendall County,
+Illinois. Designed 1945–47, built 1949–51. One room, eight columns, two horizontal planes and a
+glass skin, standing 5'-3" clear of the Fox River floodplain.
+
+It is here because it is the clearest teaching object in modern architecture. Nothing is buried in
+a cavity. Every element you can see is a structural or spatial decision, and the whole building is
+governed by one module — which means a modelling mistake shows up immediately as a dimension that
+will not close.
+
+## Why we can ship it
+
+<div class="big-note" markdown="1">
+
+**The building is free to model, publish and teach from.** The US
+[Architectural Works Copyright Protection Act](https://www.copyright.gov/circs/circ41.pdf) took
+effect on **1 December 1990** and does not reach works constructed before that date. The Farnsworth
+House was completed in 1951, so as *architecture* it carries no US copyright that a model of it
+could infringe.
+
+**The measured record is public domain.** The Historic American Buildings Survey documented the
+house as **HABS IL-1105** — 32 photographs, **8 measured drawings**, 54 data pages — held by the
+Library of Congress. HABS documentation is prepared by the US National Park Service and is a work of
+the United States Government: no known restrictions on publication.
+
+- [Survey record](https://www.loc.gov/pictures/item/il0323/)
+- [The eight measured drawings](https://www.loc.gov/resource/hhh.il0323.sheet)
+
+**Photographs are a different question.** Photographs of the house are usually still in copyright,
+and being of a public-domain building does not change that. This course therefore ships *geometry
+and drawings you generate yourself*, never photographs.
 
 </div>
 
@@ -25,158 +61,149 @@ Both run on IfcOpenShell 0.8.x, the same library Bonsai ships.
 
 | | |
 | --- | --- |
-| Walls | 20 — external, internal, and four in 300 mm reinforced concrete around the shelter |
-| Slabs | 2 — ground slab and roof, each from a type with material layers |
-| Doors · Windows | 12 · 8, every one filling a real `IfcOpeningElement` |
-| Spaces | 13, named and numbered, including the courtyard and covered entry |
-| Storeys | `1st Storey` (+150) and `Roof` (+3150) |
-| Grid | A–D and 1–4 |
-| Extent | −0.6 to 12.6 m east, −1.3 to 10.6 m north, 0 to 3.275 m up |
-| GFA to outer face | **108.4 m²** — against a brief target of 120 m² |
-| Net internal area | **94.2 m²** from the space data |
-
-That GFA line is not an oversight. The [brief]({{ '/brief/' | relative_url }}) asks for approximately
-120 m² and the plan that satisfies the room list comes out at 108.4. The course's own rule applies:
-the model is right and the estimate was wrong. Write down by how much, and decide whether to grow
-the footprint or revise the brief — which is exactly the conversation
-[Stage 02]({{ '/stages/concept-design/' | relative_url }}) says belongs to Concept Design.
+| Columns | 8 — W8×48 wide flange, welded to the slab edges, grade to 16'-0" |
+| Slabs | 3 — floor and roof planes at 15" structural depth, plus the lower terrace |
+| Beams | 4 — 15" edge channels, the white band you read as the edge of each plane |
+| Curtain walls | 4 — one per elevation, aggregating **19 glass plates** and **24 mullions** |
+| Walls | 6 — the primavera core, and nothing else in the building |
+| Chimney | 1 — the flue, the only element that punctures the roof plane |
+| Stairs · Door · Furniture | 2 · 1 · 1 |
+| Spaces | 9 — seven internal zones, the west porch and the terrace |
+| Storeys | `Terrace` (+610), `Main Floor` (+1600), `Roof` (+4877) |
+| Grid | 1–4 on the column lines, A–B on the column rows |
+| Extent | −38 to 77 ft east, −22 to 29 ft north, 0 to 18 ft up |
+| Enclosed area | **1,517 sq ft** (140.9 m²) against a published figure of about 1,500 |
+| Glass | **1,544 sq ft** (143.4 m²) of single-glazed plate, 9'-6" floor to ceiling |
 
 ## The plan
 
-A 12 × 10 m rectangle with a 4 × 4 m courtyard notch cut from the south-east corner, so the outdoor
-room is formed by the building rather than carved out of the roof. Entry from the south, under a
-covered porch on two columns.
+A 77'-0" × 28'-0" slab. The eastern 55'-0" is glazed; the western 22'-0" is an open porch under the
+same roof. The core sits asymmetrically inside the glass, leaving a 12'-0" living band to the south
+and an 8'-0" kitchen run to the north. There are no internal doors except the core's.
 
 ```text
-        N
-  +---------------------------+
-  | Bed 1   | Bed 2  | Bed 3  |   y 7.0 – 10.0
-  +----+----+---+----+--------+
-  |Util| HS |Ba2|Ba1 | Kitchen|   y 5.5 – 7.0
-  +----+----+---+----+        |
-  |   Circulation    |        |   y 4.0 – 5.5
-  +--------+---------+--------+
-  | Living | Entry   |Courtyard|  y 0.0 – 4.0
-  | Dining |  ___    | (open) |
-  +--------+-|   |---+--------+
-             porch                y −1.5 – 0.0
-  x 0                    8    12
+                                         N
+   x -33                     0        22           38        58      77
+    +------------------------+--------+------------+---------+-------+  y 28
+    |                        |        |            | Kitchen |       |
+    |                        |  WEST  |   Dining   +---------+ Sleep |  y 20
+    |                        |  PORCH |            |  CORE   |  ing  |
+    |     (terrace below,    |        |            | Bw|U|Be |       |  y 12
+    |      2'-0" above       |        +------------+---------+-------+
+    |      grade)            |        |         Living               |
+    +------------------------+--------+------------------------------+  y 0
+    |                                 |
+    |            TERRACE              |   55'-0" x 22'-0", one step down
+    +---------------------------------+  y -22
+                              x 22
+
+    Bw  Bathroom W    U  Utility    Be  Bathroom E
 ```
 
-Household shelter at 2.0 × 1.5 m gross, 1.7 × 1.2 m internal, in the middle of the service band
-where its 300 mm walls do no harm.
+## The section, which is the point
 
-## The Singapore conventions it demonstrates
+Three dimensions from three different sources, and they close exactly:
 
-Each of these is a decision the course argues for somewhere. The model is where you see them
-together.
+```text
+    5'-3"   floor slab above grade
+  + 9'-6"   floor to ceiling  (the height of every pane of glass)
+  + 1'-3"   15" edge channel at roof
+  ---------
+   16'-0"   top of roof
+```
 
-| Convention | In the file | Source |
+And the plan closes too: three bays of **22'-0"** with a **5'-6"** cantilever at each end is
+**77'-0"**. Two independent closures on figures taken from unrelated sources is good evidence the
+numbers are right — and it is the check the gate script runs first.
+
+## Every dimension carries its source
+
+This is the model standard's *record the source and the date* rule applied to the model itself
+rather than to a spreadsheet. Open any element in Bonsai and there is a `Farnsworth_Provenance`
+property set on it:
+
+| Property | Example |
+| --- | --- |
+| `dimension_source` | `Columbia GSAPP; Britannica; ArchEyes` |
+| `confidence` | `A` |
+| `note` | `77'-0" x 28'-0", 15" structural depth` |
+
+Confidence is one of three grades, and nothing else:
+
+| | | In the model |
 | --- | --- | --- |
-| Storey names | `1st Storey`, `Roof` — not `Ground`, not `Level 1` | [CORENET X level naming]({{ '/ifc-sg/' | relative_url }}) |
-| One `IfcSite`, named for the block | `IfcSite` Name = `Main Block` | Block mechanism |
-| Geo-referencing | `IfcProjectedCRS` EPSG:3414, SVY21 / Singapore TM, vertical datum SHD | Project coordinates |
-| True North | `IfcMapConversion` rotated 8° | Project coordinates |
-| Correct entity + subtype | Every element classified and given a predefined type | Correct IFC entities |
-| Types before elements | 3 wall types, 2 slab types, door and window types, each with material layers | Model standard |
-| Real openings | 20 `IfcOpeningElement`, each voiding one wall and filled by one door or window | Stage 03 gate |
-| Household shelter data | Construction method, internal length, internal width — from **conceptual** stage | IFC+SG model content |
-| Main entrance flagged | `D01` carries *Main Entrance* — required from **schematic** | IFC+SG model content |
-| Grid exported | `IfcGrid` with U and V axes | Export gridlines to all storeys |
-| Simplified geometry | Doors and windows are sized panels, not ironmongery | Design Gateway guidance |
+| **A** | Cross-checked, arithmetically self-consistent, agreed by most sources | 18 elements |
+| **B** | Widely published, but sources differ; the alternatives are recorded | 7 elements |
+| **C** | Derived by the author from A-grade figures and proportional logic — plausible, unverified | 15 elements |
 
-## Open it in Bonsai
+<div class="warn" markdown="1">
+#### This model is not a survey, and says so
 
-{: .steps}
-1. **Download** the file above.
-2. **Blender → `File` → `Open IFC Project`**, or drag the `.ifc` into the viewport.
-3. **Look at `Properties → Project Overview → Spatial Decomposition`.** Two storeys with real names and elevations, everything contained.
-4. **Select a wall** and check `Object Information` — it has a type, and the type has material layers that sum to its thickness.
-5. **Select a door** and follow its opening to the host wall. That relationship is the thing to internalise; it is what makes a schedule possible.
-6. **Try Push/Pull on a wall.** It refuses. Correctly.
+The HABS measured drawings were **not reachable** from the machine that built this file, so every
+dimension came from published secondary sources — and those sources contradict each other. The
+build script records the contradictions in full. The headlines:
 
-Verified to load in **Blender 5.2 with Bonsai 0.8.5**: 65 mesh objects, both storeys, all
-relationships intact.
+| | Used | Also published |
+| --- | --- | --- |
+| Slab width | 28'-0" | 29'-0" |
+| Bay spacing | 22'-0" | 20'-0" — cannot close to 77'-0" with a credible cantilever |
+| Terrace width | 22'-0" | 23'-0" |
+| Core size | 20'-0" × 8'-0" | 10'-0" × 28'-0"; 32'-0" × 8'-0" |
 
-## Check it yourself
+Everything about the terrace's position relative to the house is **grade C**: it comes from
+photographs and description, not from a plan. HABS sheet 3 settles it.
 
-`check_bungalow.py` runs **158 checks** and exits non-zero on any failure, so it works as a CI gate.
-It is the [model standard's]({{ '/standards/' | relative_url }}) five-minute checking pass, written
-down:
-
-```text
-python exercises/reference-model/check_bungalow.py
-```
-
-It tests, among others: one project, one site, millimetre units, EPSG:3414 with SHD, a True North
-rotation, every storey name against the CORENET X naming pattern, every element contained in a
-storey, every wall and slab typed with a summing material layer set, every opening voiding exactly
-one host and filled exactly once, every door and window marked, every space named and numbered, the
-household shelter's conceptual-stage data, exactly one main entrance, a grid with axes in both
-directions, geometry that produces without error, nothing above roof level, and no `X-` working
-geometry left in the file.
-
-Point it at your own model when you reach the Stage 03 gate:
-
-```text
-python exercises/reference-model/check_bungalow.py my-bungalow.ifc
-```
-
-Most of it will fail on a first attempt. That is the point — each failure names a rule you have not
-yet applied, and the rules are the course.
-
-## What it deliberately does not do
-
-Honesty about a reference model matters more than completeness, because the gaps are where a learner
-would otherwise assume the model is authoritative.
-
-- **The roof is flat.** The brief asks for a 25–30° pitch. Developing the roof — thickness, eaves, gutter, the wall-head junction — is [Stage 04]({{ '/stages/design-development/' | relative_url }}) work, and handing it over finished would remove the most instructive junction in the project. The eaves overhang is there; the pitch is yours.
-- **Doors and windows are sized panels.** No ironmongery, no lining profiles, no glazing build-up. This is not laziness: CORENET X's file-size practice asks for *design intent and simplified geometry* at the Design Gateway, and says plainly that over-modelling increases file size without improving the submission outcome.
-- **No structure, no services.** One discipline, one block. Coordination and clash triage need a second model, which is [Stage 04]({{ '/stages/design-development/' | relative_url }}).
-- **`IFCSG_Demo` is not a real property set name.** IFC+SG parameter *names* are carried in a property set deliberately named as a demonstration, because the authoritative set names come from the [IFC+SG Excel Mapping File](https://info.corenet.gov.sg/ifc-sg/requirements---submission/ifc-sg-excel-mapping-file), which you must consult rather than inherit from a teaching model.
-- **The coordinates are an example.** SVY21 easting 33000, northing 39000, SHD +15.400 — plausible, and not a real plot. Real georeferencing comes from a licensed land surveyor.
-- **It is not a submission.** It demonstrates conventions. It has not been through a gateway, a checker, or a QP.
-
-## Why it is not derived from a Revit sample export
-
-The obvious shortcut would be to take a published sample IFC — Autodesk's Revit sample projects are
-the usual candidate — and adapt it. That was considered and rejected, for a reason worth stating.
-
-A Revit IFC export carries Revit's conventions into the file: storeys named `Level 1` and `Level 2`,
-`IfcWallStandardCase` where IFC4 prefers `IfcWall`, and property sets shaped by the exporter's own
-mapping. Those conventions are not wrong in their own context — but `Level 1` is on the *invalid*
-side of CORENET X's level-naming table, and the whole point of this model is to show what the
-Singapore conventions look like when they are applied from the first entity rather than corrected
-afterwards.
-
-Autodesk also publishes its samples as `.rvt`, not `.ifc`, so any comparison would be with an export
-someone else configured. Starting from IfcOpenShell's API — the same API Bonsai's own operators call
-— means every attribute in the file was set deliberately and can be traced to a line in a script you
-can read.
-
-If you want the comparison, make it yourself: export any Revit model to IFC, open both in the same
-viewer, and look at the storey names first.
-
-## Using it in the course
-
-**Do not open it and copy.** Build your own; the difficulty is the lesson. Use this one three ways:
-
-- **As a target.** Stuck on how an opening should relate to its host, or what a material layer set looks like in practice? Open the reference and inspect that one relationship.
-- **As a checker.** Run `check_bungalow.py` against your model at each gate.
-- **As an argument.** The plan is one answer to the brief, not the answer. It scores well on cross-ventilation and level access and badly on GFA against target. Find where it is wrong and do better — and record the reason, which is [Stage 02's]({{ '/stages/concept-design/' | relative_url }}) actual deliverable.
-
-<div class="note" markdown="1">
-#### Rebuilding it
-
-```text
-python exercises/reference-model/build_bungalow.py
-python exercises/reference-model/check_bungalow.py
-```
-
-The script is about 500 lines with the plan held as data at the top — wall centrelines, space
-rectangles, door and window schedules. Change a room dimension there and the whole model, including
-its openings and space areas, rebuilds consistently. That is worth doing once, because it makes the
-relationship between a schedule and a model concrete in a way that dragging geometry never does.
-
-Licensed GPL-3.0-or-later, matching Bonsai.
+**This is an exercise, not a defect.** Correcting a grade-C figure against a measured drawing, and
+watching the change propagate through the model and the schedules, is
+[Stage 04]({{ '/stages/design-development/' | relative_url }}) doing exactly what Design Development
+is for. The build script is parametric: every dimension lives in one `DIMS` table at the top, so a
+correction is a one-line edit and a re-run.
 </div>
+
+## Running the gate
+
+```bash
+python exercises/reference-model/build_farnsworth.py
+python exercises/reference-model/check_farnsworth.py
+```
+
+244 checks, in three groups that matter more than the rest, because they are the ones a
+hand-modelled copy of this house usually fails:
+
+| Group | What it proves |
+| --- | --- |
+| **CLOSURE** | The plan and section close exactly in feet. If yours does not, you rounded something. |
+| **FRAME** | Eight columns, on the right lines, *outboard of the slab edge*. The moment a column passes through a slab, the building stops being the building. |
+| **SOURCE** | Every element with geometry carries a source and a valid confidence grade. A dimension without a source is not a dimension. |
+
+Point it at your own model to check your work:
+
+```bash
+python exercises/reference-model/check_farnsworth.py my-model.ifc
+```
+
+## The conventions it demonstrates
+
+| Convention | In the file |
+| --- | --- |
+| Author in the building's own units | Feet and inches throughout the script, stored as millimetres. Metric-first authoring invents precision the building never had |
+| Correct entity, correct subtype | `IfcCurtainWall` aggregating `IfcPlate` and `IfcMember` — not a wall with a glass material |
+| Types before instances | Every slab, column, beam, plate, mullion and wall comes from a type carrying its material or layer set |
+| Structure told the truth | Columns stop at 16'-0" and stand outboard of the slabs, because that is how they were welded |
+| One thing punctures the roof | The flue is an `IfcChimney` and it is the only element above 16'-0" |
+| Quantities, not guesses | Every space carries `Qto_SpaceBaseQuantities`, so "how much glass" is a query rather than a measurement |
+| Provenance on the element | `Farnsworth_Provenance` travels with the geometry, not in a side document that will be lost |
+
+## Known simplifications
+
+Honest ones, at Design Development level of detail:
+
+- **Pane rhythm is derived, not measured.** Five 11'-0" panes on the long elevations, four 7'-0"
+  panes on the ends. The overall glass area is right; the joint positions are grade C.
+- **No mechanical services.** The house has a plenum and radiant floor heating; neither is modelled.
+- **No furniture beyond the wardrobe.** The Mies-designed pieces are separately protected as designs.
+- **True North is left at zero.** The building's real bearing is on HABS sheet 1, and this script has
+  not seen it. Rather than invent a rotation, the model declares none — and the gate does not test
+  for one.
+- **Georeferencing is approximate.** EPSG:26916 (NAD83 / UTM 16N) puts the model on the real site,
+  read off a map. Do not quote those coordinates as survey data.
