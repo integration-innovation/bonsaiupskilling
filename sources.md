@@ -254,6 +254,57 @@ you have obtained from NAS, or measure a surviving one yourself. It is not somet
 download this afternoon. The open Singapore data covers **site and context** — which is what
 [Stage 01]({{ '/stages/pre-design/' | relative_url }}) needs — and not buildings.
 
+## If the goal is an IFC+SG and VAF showcase
+
+This deserves its own answer, because the constraints pull against each other and it is better to
+see that early than to discover it at Stage 03.
+
+Three requirements, and **you can have any two**:
+
+| | |
+| --- | --- |
+| **Postmodern** | The movement runs roughly 1965–1995 |
+| **Royalty-free drawings** | Measured drawings you may legally work from |
+| **IFC+SG / VAF showcase** | Household shelter, CORENET X storey naming, SVY21, GFA as `IfcSpace`, barrier-free, VAF components and resource grades |
+
+**Postmodern + royalty-free drawings is empty.** No postmodern architect's drawings are out of
+copyright, and none will be for decades. The single postmodern building in HABS — the
+[Vanna Venturi House](https://www.loc.gov/item/pa4102/), PA-6776 — carries 9 photographs, 4 data
+pages and 2 caption pages, and **no measured drawings**. You can model the building (it predates
+1990, so no US architectural copyright) and you may use those photographs and that written history.
+You cannot work from a free measured drawing, because none exists.
+
+**Postmodern + IFC+SG is a poor fit.** IFC+SG is a Singapore submission standard. Its earliest data
+requirement is the **household shelter** — construction method and internal dimensions, demanded
+from *conceptual* stage. An American house cannot have one, will not be georeferenced to SVY21, and
+will not exercise the GFA-as-`IfcSpace` rule the way a real submission does. A famous foreign
+building showcases IFC+SG **badly**, and it does so in exactly the way the Farnsworth model in this
+course currently does.
+
+**Singapore postmodernism exists but is not free.** [William Lim](https://www.docomomo.sg/people-and-organisations/william-lim)
+pursued a "socio-political postmodernism" — fragmented plans, layered space, rotated structural
+grids — through St Andrew's Junior College (1978), Tampines North Community Centre (1989) and
+Marine Parade Community Building (1999). Lim died in 2023, so those drawings are protected until
+roughly **2093**.
+
+<div class="big-note" markdown="1">
+
+### The resolution: for an IFC+SG showcase, fame is a liability
+
+A regulatory-data showcase does not need a canonical building. It needs a **representative one**
+that actually triggers the requirements — a household shelter, a real GFA calculation, a barrier-free route,
+a storey structure a checker will read.
+
+**A building you design yourself has no copyright problem at all**, because you hold the copyright.
+It can be as postmodern as you like — fragmented plan, rotated grids, layered volumes, colour — and
+it can carry every IFC+SG parameter and every VAF component honestly.
+
+That is the one option that satisfies **postmodern**, **royalty-free** and **IFC+SG / VAF**
+simultaneously. The cost is that it is not a famous building, and the exercise of correcting a model
+against a measured survey has to come from somewhere else.
+
+</div>
+
 ## If you want to change this course's building
 
 Two candidates, depending on what you want the course to teach.
