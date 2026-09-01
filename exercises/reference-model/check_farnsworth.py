@@ -60,6 +60,10 @@ def close(a: float, b: float, tol: float = TOL) -> bool:
     return abs(a - b) <= tol
 
 
+def ft_m(feet: float) -> float:
+    return feet * FT
+
+
 def feet(m: float) -> str:
     total = m / FT
     f_ = int(abs(total))
@@ -270,11 +274,75 @@ def main(path: Path) -> int:
     check(1400 <= sqft <= 1650,
           "Enclosed area is within the published ~1,500 sq ft", f"{sqft:.0f} sq ft")
 
+    # -------------------------------------------------- CLOSURE: the paving module
+    # The travertine is 2'-9" x 2'-0", derived from 220 pieces on the terrace.
+    # If that derivation is right, every principal dimension is a whole number
+    # of pavers -- six closures, and they are the reason the figure is trusted.
+    PL, PW = 2.75, 2.0
+    for label, feet_, module in (
+        ("77'-0\" slab length", 77, PL), ("55'-0\" enclosure", 55, PL),
+        ("22'-0\" structural bay", 22, PL), ("5'-6\" cantilever", 5.5, PL),
+        ("28'-0\" slab width", 28, PW), ("22'-0\" terrace width", 22, PW),
+    ):
+        n = feet_ / module
+        check(abs(n - round(n)) < 1e-9,
+              f"CLOSURE {label} is a whole number of pavers", f"{n:g}")
+
+    coverings = {c.Name: c for c in f.by_type("IfcCovering")}
+    check(len(coverings) == 2, "Travertine modelled as a covering per plane",
+          str(len(coverings)))
+    expected_pieces = {"A-Finishes-Floor-Travertine": 392,
+                       "A-Finishes-Terrace-Travertine": 220}
+    for name, want in expected_pieces.items():
+        check(name in coverings, f"{name} present")
+        if name in coverings:
+            ps = psets_of(coverings[name]).get("Farnsworth_Paving", {})
+            check(ps.get("pieces_total") == want,
+                  f"CLOSURE {name} lays up in {want} pieces",
+                  str(ps.get("pieces_total")))
+            check(abs((ps.get("module_long_mm") or 0) / 1000.0 - PL * FT) < TOL,
+                  f"{name} module is 2'-9\" long")
+            check(abs((ps.get("module_short_mm") or 0) / 1000.0 - PW * FT) < TOL,
+                  f"{name} module is 2'-0\" across")
+
+    # The 220 figure is the published one. It is what the derivation was built
+    # from, so it failing here means the terrace size has been edited without
+    # revisiting the module.
+    if "A-Finishes-Terrace-Travertine" in coverings:
+        ps = psets_of(coverings["A-Finishes-Terrace-Travertine"]).get("Farnsworth_Paving", {})
+        check(ps.get("pieces_long") == 20 and ps.get("pieces_short") == 11,
+              "Terrace lays up 20 x 11, as the published piece count requires",
+              f"{ps.get('pieces_long')} x {ps.get('pieces_short')}")
+
+    # ------------------------------------------------- the only openable windows
+    windows = f.by_type("IfcWindow")
+    check(len(windows) == 2, "Exactly two operable windows in the whole house",
+          str(len(windows)))
+    for w in windows:
+        lo_, hi_ = world_bounds(settings, w)
+        check(close(lo_[0], ft_m(77), 0.01) or close(hi_[0], ft_m(77), 0.01),
+              f"{w.Name} is in the east wall", f"x {hi_[0] / FT:.2f} ft")
+        vent = psets_of(w).get("Farnsworth_Ventilation", {})
+        check(vent.get("operable") is True, f"{w.Name} is recorded as operable")
+        check("hopper" in str(vent.get("operation", "")).lower(),
+              f"{w.Name} records its operation", str(vent.get("operation")))
+
+    doors = f.by_type("IfcDoor")
+    check(len(doors) == 1, "One entrance", str(len(doors)))
+
     # -------------------------------------------------------------------- grid
-    grids = f.by_type("IfcGrid")
-    check(len(grids) == 1, "One grid")
-    if grids:
-        g = grids[0]
+    grids = {g.Name: g for g in f.by_type("IfcGrid")}
+    check(len(grids) == 2, "Two grids: the structure, and the paving it obeys",
+          str(len(grids)))
+    check("A-Grid-Paving" in grids, "The paving module is modelled as a grid")
+    if "A-Grid-Paving" in grids:
+        pg = grids["A-Grid-Paving"]
+        check(len(pg.UAxes) == 29, "Paving grid has 29 lines across 28 bays of 2'-9\"",
+              str(len(pg.UAxes)))
+        check(len(pg.VAxes) == 15, "Paving grid has 15 lines across 14 bays of 2'-0\"",
+              str(len(pg.VAxes)))
+    if "A-Grid" in grids:
+        g = grids["A-Grid"]
         check([a.AxisTag for a in g.UAxes] == ["1", "2", "3", "4"],
               "Grid U axes 1-4 on the column lines")
         check([a.AxisTag for a in g.VAxes] == ["A", "B"],

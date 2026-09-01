@@ -207,7 +207,7 @@ Run this before every gate. It catches most of what a formal model check would.
 - The export opens in an IFC viewer that is not Blender, at the right size and orientation.
 
 Most of that list is already automated. `check_farnsworth.py`, shipped with the
-[reference model]({{ '/reference-model/' | relative_url }}), runs 247 checks over any IFC you point it
+[reference model]({{ '/reference-model/' | relative_url }}), runs 286 checks over any IFC you point it
 at and exits non-zero on failure — use it from Stage 03 onward.
 
 From Stage 04, add Bonsai's own model-checking tools as well: an **IDS** file expresses these rules

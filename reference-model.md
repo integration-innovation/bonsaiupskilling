@@ -1,7 +1,7 @@
 ---
 layout: default
 title: The reference model
-strap: Mies van der Rohe's Farnsworth House as IFC4 — every dimension carrying its source, and a 247-check gate you can run.
+strap: Mies van der Rohe's Farnsworth House as IFC4 — every dimension carrying its source, and a 286-check gate you can run.
 permalink: /reference-model/
 ---
 
@@ -90,11 +90,13 @@ Nothing here is legal advice. If you are publishing commercially, check it yours
 | Beams | 4 — 15" edge channels, the white band you read as the edge of each plane |
 | Curtain walls | 4 — one per elevation, aggregating **19 glass plates** and **24 mullions** |
 | Walls | 6 — the primavera core, and nothing else in the building |
+| Coverings | 2 — the travertine, floor and terrace, carrying its module and piece count |
+| Windows | **2** — the only operable openings in the entire house |
 | Chimney | 1 — the flue, the only element that punctures the roof plane |
 | Stairs · Door · Furniture | 2 · 1 · 1 |
 | Spaces | 9 — seven internal zones, the west porch and the terrace |
 | Storeys | `1st Storey_Terrace` (+610), `1st Storey` (+1600), `Roof` (+4877) |
-| Grid | 1–4 on the column lines, A–B on the column rows |
+| Grids | 2 — 1–4 / A–B on the column lines, and the travertine paving module |
 | Extent | −38 to 77 ft east, −22 to 29 ft north, 0 to 18 ft up |
 | Enclosed area | **1,517 sq ft** (140.9 m²) against a published figure of about 1,500 |
 | Glass | **1,544 sq ft** (143.4 m²) of single-glazed plate, 9'-6" floor to ceiling |
@@ -124,6 +126,30 @@ and an 8'-0" kitchen run to the north. There are no internal doors except the co
     Bw  Bathroom W    U  Utility    Be  Bathroom E
 ```
 
+## The travertine module, which turns out to be the building's module
+
+The lower terrace is documented as 55'-0" × 22'-0" carrying **220 pieces** of travertine. Laid as a
+regular grid, 220 factors into only four candidates — and three of them are absurd shapes
+(11'-0" × 6", 5'-6" × 1'-0", 1'-0" × 5'-6"). The fourth is **20 × 11 pieces of 2'-9" × 2'-0"**.
+
+Take that module back to the building and every principal dimension is a whole number of pavers:
+
+| | |
+| --- | --- |
+| 77'-0" slab length | **28** pavers |
+| 55'-0" glazed enclosure | **20** pavers |
+| 22'-0" structural bay | **8** pavers |
+| 5'-6" cantilever | **2** pavers |
+| 28'-0" slab width | **14** pavers |
+| 22'-0" terrace width | **11** pavers |
+
+Six exact closures on a figure derived from a piece count is not proof, and the module is graded
+**B** accordingly — but it is a great deal more than a guess, and the gate tests all six. The main
+slab lays up in **392** pavers and the terrace in **220**, which is where the derivation started.
+
+This is what "the whole building is governed by one module" means in practice. It is not a stylistic
+observation; it is a stone size, and the steel was set out from it.
+
 ## The section, which is the point
 
 Three dimensions from three different sources, and they close exactly:
@@ -139,6 +165,21 @@ Three dimensions from three different sources, and they close exactly:
 And the plan closes too: three bays of **22'-0"** with a **5'-6"** cantilever at each end is
 **77'-0"**. Two independent closures on figures taken from unrelated sources is good evidence the
 numbers are right — and it is the check the gate script runs first.
+
+## Two windows, and why they matter
+
+The house has exactly **two operable windows** — small bottom-hung hoppers in the east wall at the
+sleeping end. With the west entrance doors open, they are the entire cross-ventilation strategy of a
+fully-glazed, uninsulated, un-airconditioned building in an Illinois summer. There was also an
+electric exhaust fan set into the kitchen floor.
+
+Contemporaries reported that it was not enough, and Dr Farnsworth said so at the time.
+
+They are modelled as real `IfcWindow` elements carrying a `Farnsworth_Ventilation` property set, and
+the gate checks that there are exactly two and that both record their operation. That is deliberate:
+it is very easy to model this house as an elegant glass box and never notice that you have modelled
+a building nobody can open. **Habitable** is one of the [brief's]({{ '/brief/' | relative_url }})
+four success criteria for exactly this reason.
 
 ## Every dimension carries its source
 
@@ -191,7 +232,7 @@ python exercises/reference-model/build_farnsworth.py
 python exercises/reference-model/check_farnsworth.py
 ```
 
-247 checks, in three groups that matter more than the rest, because they are the ones a
+286 checks, in three groups that matter more than the rest, because they are the ones a
 hand-modelled copy of this house usually fails:
 
 | Group | What it proves |
@@ -226,6 +267,14 @@ Honest ones, at Design Development level of detail:
 
 - **Pane rhythm is derived, not measured.** Five 11'-0" panes on the long elevations, four 7'-0"
   panes on the ends. The overall glass area is right; the joint positions are grade C.
+- **Travertine is one covering per plane, not 612 pavers.** The module and the piece count are
+  carried as data. Cutting the stone is a Stage 05 question, not a Design Development one.
+- **The porch screens are not modelled.** Dr Farnsworth had the west porch screened *after*
+  completion, so it does not belong in a Design Development model. It belongs in
+  [Stage 07]({{ '/stages/completion/' | relative_url }}) as an as-built variation — which is
+  precisely the kind of change the course asks you to record rather than absorb.
+- **The curtain track is not modelled.** MoMA's drawings show a ceiling detail for a track that
+  would have divided the space into three rooms. The drapery was never installed.
 - **No mechanical services.** The house has a plenum and radiant floor heating; neither is modelled.
 - **No furniture beyond the wardrobe.** The Mies-designed pieces are separately protected as designs.
 - **True North is left at zero.** The building's real bearing is on HABS sheet 1, and this script has

@@ -117,7 +117,7 @@ number that will eventually disagree with the model, usually in front of an auth
 </div>
 
 Run the check from the [reference model]({{ '/reference-model/' | relative_url }}) against your own
-file — `python exercises/reference-model/check_farnsworth.py my-farnsworth.ifc`. It tests 247 rules
+file — `python exercises/reference-model/check_farnsworth.py my-farnsworth.ifc`. It tests 286 rules
 drawn from this course's model standard, and most of them will fail on a first attempt. Each failure
 names a rule you have not yet applied.
 

@@ -21,7 +21,9 @@ sets out all three positions.
 
 Builds the complete Stage 04 model as IFC4: eight W8×48 columns, floor and roof planes at 15"
 structural depth, four curtain walls aggregating 19 glass plates and 24 mullions, a six-partition
-primavera core, the flue, two travertine flights, nine spaces and a grid on the column lines.
+primavera core, the travertine as a covering carrying its 2'-9" × 2'-0" module, the two hopper
+windows that are the house's only operable openings, the flue, two travertine flights, nine spaces,
+and two grids — the column lines and the paving module they follow.
 
 ```bash
 python exercises/reference-model/build_farnsworth.py
@@ -37,7 +39,7 @@ edit and a re-run.
 
 ## `reference-model/check_farnsworth.py`
 
-The gate. 247 checks, exits non-zero on any failure, so it works in CI.
+The gate. 286 checks, exits non-zero on any failure, so it works in CI.
 
 ```bash
 python exercises/reference-model/check_farnsworth.py            # the reference model
@@ -51,6 +53,9 @@ Three groups matter more than the rest:
 - **FRAME** — eight columns, on the right lines, outboard of the slab edge. The moment a column
   passes through a slab, the building stops being the building.
 - **SOURCE** — every element with geometry declares where its dimensions came from.
+
+CLOSURE now includes the paving: the travertine module is derived from the 220 pieces documented on
+the terrace, and the gate tests that all six principal dimensions are whole numbers of pavers.
 
 ## `01-massing/build_massing.py`
 

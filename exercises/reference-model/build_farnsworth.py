@@ -183,6 +183,12 @@ DIMS: dict[str, tuple[float, str, str, str]] = {
                       "20'-0\" service core"),
     "core_width":    (ft(8),      "best-attested of three figures",       "B",
                       "8'-0\" service core"),
+    "paver_long":    (ft(2, 9),   "derived: 220 pieces on a 55' x 22' terrace", "B",
+                      "2'-9\" travertine, laid along the 77' axis"),
+    "paver_short":   (ft(2),      "derived: 220 pieces on a 55' x 22' terrace", "B",
+                      "2'-0\" travertine, laid across the 28' axis"),
+    "paver_thick":   (ft(0, 1.25), "1-1/4\" travertine pavers, widely published", "A",
+                      "set with 1/16\" joints"),
 }
 
 
@@ -209,6 +215,25 @@ PORCH_L = D("porch_length")
 ENC_L = D("enclosure_len")
 CORE_L = D("core_length")
 CORE_W = D("core_width")
+PAVER_L, PAVER_W, PAVER_T = D("paver_long"), D("paver_short"), D("paver_thick")
+
+# The travertine module is the module of the building, and it is not a
+# coincidence that has to be taken on trust -- it is forced by arithmetic.
+#
+# The lower terrace is documented as 55'-0" x 22'-0" carrying 220 pieces of
+# travertine. Laid as a regular grid, 220 factors into only four candidates, and
+# three of them are absurd shapes (11'-0" x 6", 5'-6" x 1'-0", 1'-0" x 5'-6").
+# The fourth is 20 x 11 pieces of 2'-9" x 2'-0", and every principal dimension
+# of the building is then a whole number of them:
+#
+#     77'-0" slab length   = 28 pavers      28'-0" slab width  = 14 pavers
+#     55'-0" enclosure     = 20 pavers      22'-0" terrace     = 11 pavers
+#     22'-0" structural bay =  8 pavers
+#      5'-6" cantilever     =  2 pavers
+#
+# Six exact closures on a figure derived from a piece count is not proof, but it
+# is a great deal more than a guess -- so the module is graded B, and the gate
+# tests every one of those closures.
 
 CEILING = FFL + CLEAR_H          # 4.4958 m = 14'-9"
 ROOF_TOP = CEILING + CHANNEL     # 4.8768 m = 16'-0" exactly
@@ -243,7 +268,15 @@ GLASS_T = ft(0, 0.25)
 # panes of 7'-0". The west wall carries the entrance, so its run is split.
 LONG_DIVS = [ENC_X0 + i * ft(11) for i in range(6)]
 END_DIVS = [ENC_Y0 + i * ft(7) for i in range(5)]
-DOOR_Y0, DOOR_Y1 = ft(15, 9), ft(19, 3)    # 3'-6" leaf in the west wall
+DOOR_Y0, DOOR_Y1 = ft(15, 9), ft(19, 3)    # the west entrance, a pair of leaves
+
+# The only two operable windows in the entire house: small bottom-hung hoppers
+# in the east wall, at the sleeping end. With the entrance doors open they are
+# the whole of the cross-ventilation, and contemporaries reported that it was
+# not enough. They are the reason "habitable" is one of the brief's four
+# success criteria.
+HOPPERS = [("V01", ft(7), ft(10, 6)), ("V02", ft(17, 6), ft(21))]
+HOPPER_SILL, HOPPER_H = ft(6, 6), ft(1, 6)
 
 GRID_U = [("1", COL_X[0]), ("2", COL_X[1]), ("3", COL_X[2]), ("4", COL_X[3])]
 GRID_V = [("A", ENC_Y0), ("B", ENC_Y1)]
@@ -437,6 +470,7 @@ def build() -> ifcopenshell.file:
             ("Travertine", "stone"),
             ("Precast concrete plank", "concrete"),
             ("Primavera plywood", "wood"),
+            ("Teak", "wood"),
             ("Plate glass", "glass"),
             ("Reinforced concrete", "concrete"),
         ]
@@ -495,6 +529,16 @@ def build() -> ifcopenshell.file:
 
     door_type = api.root.create_entity(
         f, "IfcDoorType", predefined_type="DOOR", name="DR-GLASS-1067")
+    door_type.OperationType = "DOUBLE_DOOR_SINGLE_SWING"
+
+    hopper_type = api.root.create_entity(
+        f, "IfcWindowType", predefined_type="WINDOW", name="WN-HOPPER-1067")
+    hopper_type.PartitioningType = "SINGLE_PANEL"
+
+    floor_cov_type = api.root.create_entity(
+        f, "IfcCoveringType", predefined_type="FLOORING", name="FIN-TRAVERTINE-32")
+    api.material.assign_material(
+        f, products=[floor_cov_type], type="IfcMaterial", material=materials["Travertine"])
 
     types = {
         "core": core_type, "cw": cw_type, "plate": plate_type,
@@ -733,10 +777,10 @@ def build() -> ifcopenshell.file:
         f, product=wardrobe, matrix=matrix((ft(63), ft(19), FFL)), is_si=True)
     api.spatial.assign_container(f, products=[wardrobe], relating_structure=storey)
     api.material.assign_material(
-        f, products=[wardrobe], type="IfcMaterial", material=materials["Primavera plywood"])
+        f, products=[wardrobe], type="IfcMaterial", material=materials["Teak"])
     stage_pset(f, wardrobe, status="provisional")
-    provenance(f, wardrobe, "freestanding wardrobe screens the bed", "C",
-               "indicative; the house has no internal doors except the core")
+    provenance(f, wardrobe, "teak wardrobe; the core is primavera, this is not", "C",
+               "indicative size; the house has no internal doors except the core")
 
     # ---- the two flights
     # Grade to terrace, then terrace to porch. Broad, low and detached from the
@@ -776,6 +820,77 @@ def build() -> ifcopenshell.file:
     # Terrace to porch: six 6.5" risers, travelling north, 8'-0" wide.
     stair("A-Stairs-F2", (ft(6), ft(-6, 6), TERR_FFL), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0),
           ft(8), 6, (FFL - TERR_FFL) / 6.0, ft(1, 1))
+
+    # ---- the travertine, as a real finish with a real module
+    # Modelled as one IfcCovering per plane rather than as several hundred
+    # pavers. At Design Development the module is information, not geometry --
+    # the piece count belongs in a quantity, and cutting stone is Stage 05.
+    for name, host, r, base in (
+        ("A-Finishes-Floor-Travertine", storey,
+         (0.0, ENC_Y0, SLAB_L, ENC_Y1), FFL),
+        ("A-Finishes-Terrace-Travertine", terrace_storey,
+         (TERR_X0, TERR_Y0, TERR_X1, TERR_Y1), TERR_FFL),
+    ):
+        cov = api.root.create_entity(
+            f, "IfcCovering", predefined_type="FLOORING", name=name)
+        poly = rect(*r)
+        rep = api.geometry.add_slab_representation(
+            f, context=body, depth=PAVER_T, polyline=poly)
+        api.geometry.assign_representation(f, product=cov, representation=rep)
+        api.geometry.edit_object_placement(
+            f, product=cov, matrix=matrix((0.0, 0.0, base - PAVER_T)), is_si=True)
+        api.type.assign_type(f, related_objects=[cov], relating_type=floor_cov_type)
+        api.spatial.assign_container(f, products=[cov], relating_structure=host)
+
+        nx = round((r[2] - r[0]) / PAVER_L)
+        ny = round((r[3] - r[1]) / PAVER_W)
+        qto = api.pset.add_qto(f, product=cov, name="Qto_CoveringBaseQuantities")
+        api.pset.edit_qto(f, qto=qto, properties={
+            "GrossArea": round(area_of(poly), 3),
+            "Width": round(PAVER_T, 4),
+        })
+        pset = api.pset.add_pset(f, product=cov, name="Farnsworth_Paving")
+        api.pset.edit_pset(f, pset=pset, properties={
+            "module_long_mm": round(PAVER_L * 1000.0, 1),
+            "module_short_mm": round(PAVER_W * 1000.0, 1),
+            "joint_mm": round(ft(0, 0.0625) * 1000.0, 2),
+            "pieces_long": nx,
+            "pieces_short": ny,
+            "pieces_total": nx * ny,
+        })
+        stage_pset(f, cov)
+        provenance(f, cov, DIMS["paver_long"][1], "B",
+                   "2'-9\" x 2'-0\" x 1-1/4\", 1/16\" joints")
+
+    # ---- the two hopper windows, and there are only two
+    for mark, y0, y1 in HOPPERS:
+        win = api.root.create_entity(
+            f, "IfcWindow", predefined_type="WINDOW", name=f"A-Windows-{mark}")
+        win.OverallWidth = (y1 - y0) * 1000.0
+        win.OverallHeight = HOPPER_H * 1000.0
+        win.Tag = mark
+        prof = b.rect_profile(f"WN-{mark}", y1 - y0, GLASS_T)
+        rep = b.extrude(prof, HOPPER_H)
+        api.geometry.assign_representation(f, product=win, representation=rep)
+        api.geometry.edit_object_placement(
+            f, product=win,
+            matrix=matrix((ENC_X1, (y0 + y1) / 2.0, FFL + HOPPER_SILL),
+                          xdir=(0.0, 1.0, 0.0)),
+            is_si=True)
+        api.type.assign_type(f, related_objects=[win], relating_type=hopper_type)
+        api.spatial.assign_container(f, products=[win], relating_structure=storey)
+        pset = api.pset.add_pset(f, product=win, name="Pset_WindowCommon")
+        api.pset.edit_pset(f, pset=pset, properties={
+            "Reference": mark, "IsExternal": True})
+        vent = api.pset.add_pset(f, product=win, name="Farnsworth_Ventilation")
+        api.pset.edit_pset(f, pset=vent, properties={
+            "operable": True,
+            "operation": "Bottom-hung hopper, opens inward",
+            "note": "One of only two operable windows in the house",
+        })
+        stage_pset(f, win)
+        provenance(f, win, "two small bottom-hung hoppers at the east end", "C",
+                   "existence and type well attested; size and position derived")
 
     # ---- spaces
     for number, name, long_name, r, height, external in SPACES:
@@ -819,7 +934,25 @@ def build() -> ifcopenshell.file:
             f, p1=np.array([ft(-6), y, 0.0]), p2=np.array([SLAB_L + ft(6), y, 0.0]),
             grid_axis=axis, is_si=True)
 
+    # ---- the paving grid, which is the same grid as the structure
+    paving = api.root.create_entity(f, "IfcGrid", name="A-Grid-Paving")
+    api.spatial.assign_container(f, products=[paving], relating_structure=storey)
+    for i in range(round(SLAB_L / PAVER_L) + 1):
+        axis = api.grid.create_grid_axis(
+            f, grid=paving, axis_tag=f"P{i + 1:02d}", uvw_axes="UAxes")
+        api.grid.create_axis_curve(
+            f, p1=np.array([i * PAVER_L, ENC_Y0, 0.0]),
+            p2=np.array([i * PAVER_L, ENC_Y1, 0.0]), grid_axis=axis, is_si=True)
+    for j in range(round(SLAB_W / PAVER_W) + 1):
+        axis = api.grid.create_grid_axis(
+            f, grid=paving, axis_tag=f"Q{j + 1:02d}", uvw_axes="VAxes")
+        api.grid.create_axis_curve(
+            f, p1=np.array([0.0, j * PAVER_W, 0.0]),
+            p2=np.array([SLAB_L, j * PAVER_W, 0.0]), grid_axis=axis, is_si=True)
+
     print(f"  curtain wall: {plates} plates, {mullions} mullions")
+    print(f"  paving: {round(SLAB_L / PAVER_L)} x {round(SLAB_W / PAVER_W)} "
+          f"= {round(SLAB_L / PAVER_L) * round(SLAB_W / PAVER_W)} pavers on the main slab")
     return f
 
 
@@ -839,6 +972,7 @@ if __name__ == "__main__":
     model.write(str(OUT))
     print(f"wrote {OUT}")
     for cls in ("IfcSlab", "IfcColumn", "IfcBeam", "IfcCurtainWall", "IfcPlate",
-                "IfcMember", "IfcWall", "IfcDoor", "IfcChimney", "IfcFurniture",
-                "IfcStair", "IfcSpace", "IfcBuildingStorey", "IfcGrid"):
+                "IfcMember", "IfcWall", "IfcCovering", "IfcDoor", "IfcWindow",
+                "IfcChimney", "IfcFurniture", "IfcStair", "IfcSpace",
+                "IfcBuildingStorey", "IfcGrid"):
         print(f"  {cls:20} {len(model.by_type(cls))}")

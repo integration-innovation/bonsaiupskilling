@@ -45,23 +45,30 @@ check to site with you; without measurements this stage is fiction with confiden
 *Step-by-step detail for every operation below is in the [modelling recipes]({{ '/modelling/' | relative_url }}); the data each one has to carry is in [IFC+SG and CORENET X]({{ '/ifc-sg/' | relative_url }}).*
 
 {: .steps}
-1. **Branch the as-built model.** From the last approved construction revision, to `export/FARN-A-AB-AB01-<date>.ifc`. The construction revisions stay exactly as they were — they are the record of what was instructed, which is a different question from what was built.
+1. **Record the porch screens as a variation.** Dr Farnsworth had the west porch screened after the
+   house was finished — an addition nobody drew at Design Development, made because the building as
+   designed was unusable at dusk in an Illinois summer. Model it, and be strict about what kind of
+   change it is: not a defect, not a design development, but a client-instructed variation arising
+   from a performance shortfall. Log it with that reasoning. Half the arguments at completion are
+   about which of those three words applies.
 
-2. **Walk the building and record deviations.** Measure. Every difference between model and reality gets a row: element, drawing dimension, measured dimension, difference, and — crucially — **how you know**. Tape, laser, survey report or contractor's statement are four different levels of confidence and the register should say which.
+2. **Branch the as-built model.** From the last approved construction revision, to `export/FARN-A-AB-AB01-<date>.ifc`. The construction revisions stay exactly as they were — they are the record of what was instructed, which is a different question from what was built.
 
-3. **Judge the scripted deviation.** *One opening is 150 mm off its drawn position.* Is that a defect to be rectified, or an as-built condition to be accepted? Decide on evidence — does it breach a requirement, affect a clearance, or change anything the client cares about? — record the reasoning, and only then update the model or raise the defect. Deciding by feel here is how a defects list becomes a negotiation.
+3. **Walk the building and record deviations.** Measure. Every difference between model and reality gets a row: element, drawing dimension, measured dimension, difference, and — crucially — **how you know**. Tape, laser, survey report or contractor's statement are four different levels of confidence and the register should say which.
 
-4. **Update only what was verified.** This is the rule that makes an as-built model worth having. If it was measured, change it. If it was assumed, leave it and mark the assumption. A model where the verified and the assumed are indistinguishable is worth less than no model, because it will be trusted.
+4. **Judge the scripted deviation.** *One opening is 150 mm off its drawn position.* Is that a defect to be rectified, or an as-built condition to be accepted? Decide on evidence — does it breach a requirement, affect a clearance, or change anything the client cares about? — record the reasoning, and only then update the model or raise the defect. Deciding by feel here is how a defects list becomes a negotiation.
 
-5. **Mark the provenance.** Every element gets a property saying whether its as-built state is `verified`, `assumed` or `unchanged`. Three values. The client's facility manager, in four years, will care about nothing else.
+5. **Update only what was verified.** This is the rule that makes an as-built model worth having. If it was measured, change it. If it was assumed, leave it and mark the assumption. A model where the verified and the assumed are indistinguishable is worth less than no model, because it will be trusted.
 
-6. **Attach the asset information.** For every maintainable item — sanitary fittings, kitchen appliances, the roof covering, the external doors and windows, any equipment — record type, manufacturer, model, installation date, warranty period and expiry, and a reference to the O&M document. Put it on the element as properties, not in a spreadsheet next to it.
+6. **Mark the provenance.** Every element gets a property saying whether its as-built state is `verified`, `assumed` or `unchanged`. Three values. The client's facility manager, in four years, will care about nothing else.
 
-7. **Check the spatial structure one last time.** Every element in a storey; every space named, numbered and measured against the as-built condition; every type still used; every opening still hosted. Run the IDS from Stage 04, plus any as-built rules you have added.
+7. **Attach the asset information.** For every maintainable item — sanitary fittings, kitchen appliances, the roof covering, the external doors and windows, any equipment — record type, manufacturer, model, installation date, warranty period and expiry, and a reference to the O&M document. Put it on the element as properties, not in a spreadsheet next to it.
 
-8. **Produce the as-built drawings and schedules.** Generated from the as-built model, marked as as-built, with a revision. Final space schedule with measured areas, final door and window schedules, final finish schedule.
+8. **Check the spatial structure one last time.** Every element in a storey; every space named, numbered and measured against the as-built condition; every type still used; every opening still hosted. Run the IDS from Stage 04, plus any as-built rules you have added.
 
-9. **Assemble the handover package.** Not just the IFC:
+9. **Produce the as-built drawings and schedules.** Generated from the as-built model, marked as as-built, with a revision. Final space schedule with measured areas, final door and window schedules, final finish schedule.
+
+10. **Assemble the handover package.** Not just the IFC:
 
    - the as-built IFC, and the drawing set as PDF;
    - the asset register as CSV, readable without any BIM software;
@@ -70,7 +77,7 @@ check to site with you; without measurements this stage is fiction with confiden
    - a **model information summary**: what the model contains, what it does not, what is verified, what is assumed, and what the client should not infer from it;
    - an archive manifest listing every file, its date, its revision and its checksum.
 
-10. **Hand over and record it.** Date, recipient, contents, and the client's acknowledgement. A handover with no record is a handover that will happen again, from memory, in a worse mood.
+11. **Hand over and record it.** Date, recipient, contents, and the client's acknowledgement. A handover with no record is a handover that will happen again, from memory, in a worse mood.
 
 <div class="warn" markdown="1">
 #### As-built BIM is an Additional Service

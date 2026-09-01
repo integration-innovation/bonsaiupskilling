@@ -30,9 +30,9 @@ Roughly 35–45 focused hours over 11–12 weeks.
 | `vaf.md` | The SIA Value Articulation Framework captured — components, stages, resource grades |
 | `ifc-sg.md` | IFC+SG data requirements and CORENET X's twelve General Modelling Practices |
 | `glossary.md` | Terms, in the sense this course uses them |
-| `reference-model.md` | The Farnsworth House as downloadable IFC4, its 247-check gate, and why it is free to ship |
+| `reference-model.md` | The Farnsworth House as downloadable IFC4, its 286-check gate, and why it is free to ship |
 | `stages/` | The eight stage pages |
-| `exercises/` | Reference scripts, including the model builder and its 247-check gate |
+| `exercises/` | Reference scripts, including the model builder and its 286-check gate |
 | `_layouts/`, `_data/`, `assets/` | The site itself — plain Jekyll, no theme gem, one stylesheet |
 
 ## Running it locally

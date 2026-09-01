@@ -74,13 +74,16 @@ which is what Pre-Design is.
 | Terrace | **55'-0" × 22'-0"**, one step down at 2'-0" above grade |
 | External envelope | single-glazed plate glass, floor to ceiling, on all four sides |
 | Frame | 8 × W8×48 wide flange, welded, **outboard of the slab edges** |
+| Paving | travertine, **2'-9" × 2'-0" × 1¼"**, 1/16" joints — 392 pieces on the floor, 220 on the terrace |
+| Operable openings | **two** bottom-hung hoppers in the east wall, and the entrance doors. That is all |
 
 **Programme:** living · dining · kitchen · sleeping · two bathrooms · utility · fireplace ·
 covered west porch · lower terrace. **No internal doors except the core's.**
 
-**The module:** everything obeys it. Three bays of 22'-0" plus two 5'-6" cantilevers is 77'-0"
-exactly; 5'-3" plus 9'-6" plus 1'-3" is 16'-0" exactly. If your model does not close, you have
-rounded something.
+**The module:** everything obeys it, and it is a stone. The travertine paver is 2'-9" × 2'-0", and
+the slab is 28 pavers by 14. Three bays of 22'-0" (8 pavers each) plus two 5'-6" cantilevers (2
+each) is 77'-0" exactly; 5'-3" plus 9'-6" plus 1'-3" is 16'-0" exactly. If your model does not
+close, you have rounded something.
 
 ## Success criteria
 
@@ -92,7 +95,10 @@ every stage against them.
 2. **Dry.** The floor clears the design flood level you established at Stage 01 — or you have said
    in writing, at the stage it was decided, by how much it does not.
 3. **Habitable.** Cross-ventilation and solar gain are addressed in the model and in the register,
-   not left to the occupant. The real house was criticised for both.
+   not left to the occupant. The real house has **two** operable windows and a fan in the kitchen
+   floor, in a fully glazed, uninsulated, un-airconditioned building; Dr Farnsworth said at the time
+   that it was not enough. It is very easy to model an elegant glass box and never notice you have
+   modelled a building nobody can open.
 4. **The module holds.** Plan and section close exactly in feet at every gate. A gate that passes
    with a rounded dimension has not passed.
 
