@@ -64,6 +64,10 @@ copyright is administered by Artists Rights Society (ARS), New York / VG Bild-Ku
 
 So: **the building is free, the survey of it is free, the architect's drawings of it are not.**
 
+The same three-way split applies to every architect, and the answers differ:
+[which drawings you can actually use]({{ '/sources/' | relative_url }}) works through
+Wright, Le Corbusier, Aalto, Japan and Singapore with the sources checked.
+
 </div>
 
 <div class="warn" markdown="1">

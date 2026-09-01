@@ -29,6 +29,7 @@ Roughly 35–45 focused hours over 11–12 weeks.
 | `sia-mapping.md` | The SIA Scope of Service Matrix, the four roles, and the eight stages |
 | `vaf.md` | The SIA Value Articulation Framework captured — components, stages, resource grades |
 | `ifc-sg.md` | IFC+SG data requirements and CORENET X's twelve General Modelling Practices |
+| `sources.md` | Which master architects' drawings are royalty-free, which are not, and how to tell |
 | `glossary.md` | Terms, in the sense this course uses them |
 | `reference-model.md` | The Farnsworth House as downloadable IFC4, its 286-check gate, and why it is free to ship |
 | `stages/` | The eight stage pages |

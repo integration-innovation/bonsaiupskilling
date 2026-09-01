@@ -55,6 +55,10 @@ The same restriction applies to the redrawn plans and sections that circulate on
 websites: those are derivative works of the original drawings, and being freely visible is not the
 same as being freely usable.
 
+The `sources.md` page in this repository sets out the equivalent position for other architects —
+which drawings are genuinely royalty-free, which are administered estates, and how the three
+questions (building, drawing, photograph) come apart.
+
 **Other photographs.** Photographs of the house that are *not* part of the HABS record — press,
 magazine, and modern architectural photography — are separately protected, whoever owns the
 building. No such photograph is reproduced here, and you should not add one without checking its
