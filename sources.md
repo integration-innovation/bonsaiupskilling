@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Drawings you can actually use
-strap: Which master architects' drawings are royalty-free, which are not, and how to tell the difference — with the sources checked.
+strap: Which master architects' drawings are royalty-free, which are not, and how to tell — by movement, with every source checked.
 permalink: /sources/
 ---
 
@@ -163,22 +163,129 @@ That is excellent for **site and context** — which is exactly what
 [Stage 01]({{ '/stages/pre-design/' | relative_url }}) needs — and no use at all for building
 drawings.
 
+## By movement, since the style matters
+
+### Modernism — well covered, and free
+
+The key move is to stop looking for the *architect's* drawings and look for the *survey*. A HABS
+drawing is a new work by a government surveyor, so it is public domain **even when the architect is
+still firmly in copyright**. That is exactly why this course can ship a Farnsworth model while
+Mies's own drawings remain licensed through ARS.
+
+| Building | Architect | Survey | Free drawings |
+| --- | --- | --- | --- |
+| [**Eames House**](https://www.loc.gov/pictures/item/ca4169/) (Case Study House No. 8, 1949) | Charles & Ray Eames | HABS | **13 measured drawings**, 33 data pages |
+| [**Lovell Beach House**](https://www.loc.gov/resource/hhh.ca0448.sheet/) (1926) | R. M. Schindler | HABS | **10 measured drawings** |
+| [**Schindler House**](https://www.loc.gov/pictures/item/ca0254/) (1922) | R. M. Schindler | HABS | **6 measured drawings** |
+| [**Farnsworth House**](https://www.loc.gov/pictures/item/il0323/) (1951) | Mies van der Rohe | HABS | 8 measured drawings |
+
+Schindler is doubly clear: he died in **1953**, so his own drawings are out of copyright as well.
+
+Modernists whose drawings have expired outright (died 1955 or earlier):
+
+| Architect | Died | Work |
+| --- | --- | --- |
+| Peter Behrens | 1940 | AEG Turbine Factory (1909) — taught Mies, Gropius *and* Le Corbusier |
+| **Giuseppe Terragni** | **1943** | **Casa del Fascio, Como (1932–36)** — canonical Italian Rationalism, public domain since 2013 |
+| Erik Gunnar Asplund | 1940 | Stockholm Public Library, Woodland Cemetery |
+| Robert Mallet-Stevens | 1945 | |
+| Erich Mendelsohn | 1953 | Einstein Tower |
+| R. M. Schindler | 1953 | |
+| Hannes Meyer | 1954 | Bauhaus director after Gropius |
+| Auguste Perret | 1954 | Reinforced-concrete pioneer |
+
+### Postmodernism — the buildings are free, the drawings are not
+
+This is the one place with no good answer, and it will stay that way for decades:
+
+| Architect | Died | Drawings free from |
+| --- | --- | --- |
+| James Stirling | 1992 | 2062 |
+| Charles Moore | 1993 | 2063 |
+| Aldo Rossi | 1997 | 2067 |
+| Philip Johnson | 2005 | 2075 |
+| Michael Graves | 2015 | 2085 |
+| Robert Venturi | 2018 | 2088 |
+
+**But two things rescue it.**
+
+First, **the buildings themselves are free to model**. Almost all canonical postmodernism predates
+1 December 1990 — Vanna Venturi House (1964), Piazza d'Italia (1978), the Portland Building (1982),
+the AT&T Building (1984) — so none of them is protected as an architectural work in the US.
+
+Second, HABS reached the movement. The
+[**Vanna Venturi House**](https://www.loc.gov/item/pa4102/) — *"the first significant Post Modern
+building constructed in the United States"* — was recorded by HABS in 2009–10 as **HABS PA-6776**.
+
+<div class="warn" markdown="1">
+Be precise about what that record contains: **9 photographs, 4 data pages and 2 photo caption
+pages — and no measured drawings.** HABS documented it photographically and historically, not
+dimensionally.
+
+So for postmodernism you get free *photographs* and a free *written history* of the canonical
+building, and you measure or derive the rest yourself. You do not get a free set of plans.
+</div>
+
+### Singapore — legally promising, practically hard
+
+There is **no open, online, royalty-free measured-drawing source for Singapore architecture.**
+What exists is a strong legal position and a weak access position.
+
+**The legal position is good for colonial-era work.** Singapore's
+[black-and-white bungalows](https://www.roots.gov.sg/stories-landing/stories/black-and-white-houses-in-singapore/story)
+— roughly 500 survive, most built **1903–1928** — were designed by the British administration's
+**Public Works Department**. They are government works. Under the
+[Copyright Act 2021](https://sso.agc.gov.sg/Act/CA2021) government copyright runs **70 years from
+publication**, so plans from the 1900s–1920s are almost certainly expired. **R. A. J. Bidwell**, who
+shaped the type, died in **1918**, so the author term expired in 1988 as well.
+
+**The access position is the problem.** The National Archives' Building Control Division collection
+holds about **246,000 plans from 1884 to 1969** — but **only a handful have been digitised**. The
+rest are on microfilm and readable only in the Archives Reading Room in person, with a Request
+Administration Fee for digital copies, and access conditions displayed per item.
+
+| | |
+| --- | --- |
+| [NAS Maps and Building Plans](https://www.nas.gov.sg/archivesonline/maps_building_plans/advanced-search) | Searchable catalogue; mostly not digitised; copies on request, fee payable |
+| [Singapore Open Data Licence](https://data.gov.sg/open-data-licence) | **Genuinely free** — worldwide, perpetual, royalty-free. data.gov.sg, [OneMap](https://www.onemap.gov.sg/), SLA |
+
+So: a Singapore bungalow *is* a legitimate royalty-free subject if you work from a pre-war PWD plan
+you have obtained from NAS, or measure a surviving one yourself. It is not something you can
+download this afternoon. The open Singapore data covers **site and context** — which is what
+[Stage 01]({{ '/stages/pre-design/' | relative_url }}) needs — and not buildings.
+
 ## If you want to change this course's building
 
-The strongest fully-free alternative is the **Robie House**, and it is arguably better documented
-than the one this course uses:
+Two candidates, depending on what you want the course to teach.
+
+**If you want Modernism specifically — the Eames House.** Case Study House No. 8, 1949: the same
+year as Farnsworth, the same palette of steel and glass, and the exact opposite philosophy. Mies
+welded a one-off and overran a $58,400 budget to $74,000. The Eameses bolted together
+off-the-shelf industrial catalogue parts — standard steel sections, standard window modules — and
+put the frame up in a day and a half.
+
+| | Eames House | Farnsworth House |
+| --- | --- | --- |
+| HABS measured drawings | **13** | 8 |
+| Structure | Bolted, catalogue steel | Welded, bespoke steel |
+| Module | Standard window units | 2'-9" travertine |
+| Cost story | Economy as a design method | 30% overrun, then litigation |
+
+Running them **as a pair** would be the strongest version of this course. Two houses, one year, one
+material, opposite answers to what a building costs — and both fully public domain through HABS.
+
+**If you want the cleanest rights position — the Robie House.**
 
 | | Robie House | Farnsworth House |
 | --- | --- | --- |
 | HABS measured drawings | **25** | 8 |
 | Architect's own drawings | **Free** — Wasmuth 1910 | Protected until ~2040 |
-| Structure | Steel-reinforced masonry, famous cantilevers | Welded steel frame |
-| Teaching value | Complex plan, roof geometry, art glass | One room, pure module |
+| Style | Prairie School, not Modernism | Modernism |
 
 Robie is **double-sourced**: a public-domain government survey *and* the architect's own
-public-domain publication. That is as clean as this ever gets, and it would let the course compare
-a drawing Wright made with a drawing a surveyor made of the same building — which is a genuinely
-good exercise about what a measured drawing is *for*.
+public-domain publication. That would let the course compare a drawing Wright made with a drawing a
+surveyor made of the same building — a genuinely good exercise about what a measured drawing is
+*for*. It is not, however, a modernist building.
 
 <div class="warn" markdown="1">
 #### And the rule that makes all of this mostly moot
