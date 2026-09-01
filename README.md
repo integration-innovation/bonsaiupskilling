@@ -32,8 +32,9 @@ Roughly 35–45 focused hours over 11–12 weeks.
 | `sources.md` | Which master architects' drawings are royalty-free, which are not, and how to tell |
 | `glossary.md` | Terms, in the sense this course uses them |
 | `reference-model.md` | The Farnsworth House as downloadable IFC4, its 286-check gate, and why it is free to ship |
+| `servant-house.md` | The course's own building: a household shelter as a Kahn servant tower, and the IFC+SG / VAF example |
 | `stages/` | The eight stage pages |
-| `exercises/` | Reference scripts, including the model builder and its 286-check gate |
+| `exercises/` | Reference scripts: two model builders and their 286- and 322-check gates |
 | `_layouts/`, `_data/`, `assets/` | The site itself — plain Jekyll, no theme gem, one stylesheet |
 
 ## Running it locally

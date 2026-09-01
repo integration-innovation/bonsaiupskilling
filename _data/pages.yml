@@ -10,8 +10,11 @@ start:
     strap: The Farnsworth House
 reference:
   - url: /reference-model/
-    title: Reference model
-    strap: Farnsworth, built as IFC4
+    title: Farnsworth model
+    strap: Measurement and provenance
+  - url: /servant-house/
+    title: Servant and Served House
+    strap: The IFC+SG and VAF example
   - url: /modelling/
     title: Modelling recipes
     strap: Fifteen operations, as reference

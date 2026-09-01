@@ -57,6 +57,27 @@ Three groups matter more than the rest:
 CLOSURE now includes the paving: the travertine module is derived from the 220 pieces documented on
 the terrace, and the gate tests that all six principal dimensions are whole numbers of pavers.
 
+## `reference-model/build_servant_house.py`
+
+Builds the course's own building — the **Servant and Served House** — as IFC4 at Stage 03: two
+reinforced-concrete servant towers, a glazed served volume between them, a full-height light well,
+and a household shelter sized to SCDF's 2023 requirements at 1500 × 3200 internal, 4.800 m², inside
+250mm walls that run to roof level.
+
+```bash
+python exercises/reference-model/build_servant_house.py
+python exercises/reference-model/check_servant_house.py
+```
+
+The parti is Louis Kahn's servant-and-served distinction, which is a *concept* and therefore free
+under 17 U.S.C. §102(b) — no drawing by anyone was consulted or traced. The building is an original
+design and the course owns it outright.
+
+**322 checks.** Four groups matter: **SHELTER** (within SCDF's limits, carrying its data, and the
+declared internal dimensions multiply out to the space's own NetFloorArea), **TOWER** (every tower
+wall exists on every storey), **CORENET** (level naming, one site, SVY21, SHD, True North) and
+**VAF** (every element names the component it serves).
+
 ## `01-massing/build_massing.py`
 
 Builds a reference massing for [Stage 02](https://integration-innovation.github.io/bonsaiupskilling/stages/concept-design/):

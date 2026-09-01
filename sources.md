@@ -289,7 +289,15 @@ roughly **2093**.
 
 <div class="big-note" markdown="1">
 
-### The resolution: for an IFC+SG showcase, fame is a liability
+### This is now settled — see [the Servant and Served House]({{ '/servant-house/' | relative_url }})
+
+The course took this route. Its second worked example is designed for the course and owned by it,
+with the household shelter as a Louis Kahn **servant tower** — an idea, and therefore free, under
+[17 U.S.C. §102(b)](https://www.law.cornell.edu/uscode/text/17/102).
+
+The rest of this section explains why.
+
+### For an IFC+SG showcase, fame is a liability
 
 A regulatory-data showcase does not need a canonical building. It needs a **representative one**
 that actually triggers the requirements — a household shelter, a real GFA calculation, a barrier-free route,
