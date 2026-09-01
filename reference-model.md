@@ -37,24 +37,48 @@ will not close.
 
 <div class="big-note" markdown="1">
 
-**The building is free to model, publish and teach from.** The US
-[Architectural Works Copyright Protection Act](https://www.copyright.gov/circs/circ41.pdf) took
-effect on **1 December 1990** and does not reach works constructed before that date. The Farnsworth
-House was completed in 1951, so as *architecture* it carries no US copyright that a model of it
-could infringe.
+This has **three different answers**, and collapsing them into one is how people get it wrong.
 
-**The measured record is public domain.** The Historic American Buildings Survey documented the
-house as **HABS IL-1105** — 32 photographs, **8 measured drawings**, 54 data pages — held by the
-Library of Congress. HABS documentation is prepared by the US National Park Service and is a work of
-the United States Government: no known restrictions on publication.
+**1 · The building — free.** The US
+[Architectural Works Copyright Protection Act](https://www.copyright.gov/circs/circ41.pdf) took
+effect on **1 December 1990** and does not reach works constructed before that date. The house was
+completed in 1951, so as *architecture* it carries no US copyright that a model of it could
+infringe.
+
+**2 · The HABS record — free, all of it.** The Historic American Buildings Survey documented the
+house as **HABS IL-1105**: **8 measured drawings**, **32 photographs**, 54 data pages. Everything
+transmitted to HABS is placed in the public domain as a condition of the transfer, and the Library
+of Congress rights advisory reads *"no known restrictions on publication"*. That includes the
+photographs — this is the one photographic source of the house you can use freely.
 
 - [Survey record](https://www.loc.gov/pictures/item/il0323/)
 - [The eight measured drawings](https://www.loc.gov/resource/hhh.il0323.sheet)
 
-**Photographs are a different question.** Photographs of the house are usually still in copyright,
-and being of a public-domain building does not change that. This course therefore ships *geometry
-and drawings you generate yourself*, never photographs.
+**3 · Mies's own drawings — not free, and the 1990 rule does not help.** Architectural drawings are
+protected as *pictorial and graphic works* under
+[17 U.S.C. §102(a)(5)](https://copyright.uslegal.com/enumerated-categories-of-copyrightable-works/architectural-plans-drawings-and-models/),
+**separately from the building they describe**, and the AWCPA never removed that — the Second
+Circuit has held that pre-1990 plans remain protected as pictorial works. The Farnsworth drawings
+are in the [Mies van der Rohe Archive at MoMA](https://www.moma.org/collection/works/784) and their
+copyright is administered by Artists Rights Society (ARS), New York / VG Bild-Kunst, Bonn.
 
+So: **the building is free, the survey of it is free, the architect's drawings of it are not.**
+
+</div>
+
+<div class="warn" markdown="1">
+#### Why this model is clear of all three
+
+**Dimensions are facts.** Recording that a bay is 22'-0" and putting `22'-0"` in a table is not
+copying a drawing. This model reproduces no drawing of any kind: it is built from published
+dimensions, and every one of them is attributed.
+
+That is also the rule for your own work on this course. Read the HABS drawings, take the
+*dimensions* off them, and model from those. Do not trace a Mies drawing, and do not paste one into
+your submission — including the redrawn plans and sections that circulate on architecture websites,
+which are derivative works of exactly the drawings you may not copy.
+
+Nothing here is legal advice. If you are publishing commercially, check it yourself.
 </div>
 
 ## What is in it

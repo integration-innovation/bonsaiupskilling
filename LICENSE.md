@@ -34,16 +34,31 @@ was completed in 1951, so as an architectural work it carries no US copyright th
 could infringe. The reference model and the massing script are therefore released under the same
 GPL-3.0-or-later terms as the rest of `exercises/`.
 
-**The measured record.** The house is documented as **HABS IL-1105** — 32 photographs, 8 measured
-drawings and 54 data pages — held by the Library of Congress. Historic American Buildings Survey
-documentation is prepared by the US National Park Service and is a work of the United States
-Government: public domain, with no known restrictions on publication. The course links to it and
-asks you to fetch it; it is not mirrored here.
+**The HABS record.** The house is documented as **HABS IL-1105** — 8 measured drawings, 32
+photographs and 54 data pages — held by the Library of Congress. Historic American Buildings Survey
+documentation is prepared by the US National Park Service, and everything transmitted to HABS is
+placed in the public domain as a condition of the transfer; the Library of Congress rights advisory
+reads "no known restrictions on publication". **This covers the HABS photographs as well as the
+HABS drawings.** The course links to the collection and asks you to fetch it; it is not mirrored
+here.
 
-**Photographs.** Photographs of the house are a separate copyright from the house itself and are
-generally still protected, whoever owns the building. **No photographs of the Farnsworth House are
-reproduced in this repository or on this site**, and you should not add any without checking their
-licence. Where the course needs an image, it uses geometry you generate yourself.
+**Mies's own drawings — a separate and live copyright.** Architectural drawings are protected as
+pictorial and graphic works under 17 U.S.C. §102(a)(5), independently of the building they depict,
+and the AWCPA's pre-1990 cut-off does not release them. The Farnsworth House drawings are held in
+the Mies van der Rohe Archive at the Museum of Modern Art, and their copyright is administered by
+Artists Rights Society (ARS), New York / VG Bild-Kunst, Bonn; reproduction is handled by Art
+Resource or Scala. **No Mies drawing is reproduced, traced or redrawn in this repository**, and
+neither the reference model nor the massing script derives from one. They are built from published
+dimensions, which are facts and not subject to copyright.
+
+The same restriction applies to the redrawn plans and sections that circulate on architecture
+websites: those are derivative works of the original drawings, and being freely visible is not the
+same as being freely usable.
+
+**Other photographs.** Photographs of the house that are *not* part of the HABS record — press,
+magazine, and modern architectural photography — are separately protected, whoever owns the
+building. No such photograph is reproduced here, and you should not add one without checking its
+licence.
 
 **Furniture.** The Mies-designed furniture associated with the house is protected separately as
 design, and is deliberately not modelled.

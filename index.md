@@ -12,7 +12,7 @@ One house. One IFC model. Eight stages of the SIA Architect's Scope of Service, 
 first site question to the last defect — modelled in **Blender**, **Bonsai** and
 **Bonsai Sketch Mode**, and free to work through at your own pace.
 
-The house is Mies van der Rohe's **Edith Farnsworth House**: measured, public domain, and
+The house is Mies van der Rohe's **Edith Farnsworth House**: measured, out of copyright, and
 unforgiving about dimensions that do not close.
 
 </div>

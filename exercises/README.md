@@ -4,12 +4,18 @@ Reference scripts. Nothing in the course *requires* them — every stage can be 
 the Sketch tab — but they are useful for two things: rebuilding a stage baseline quickly, and
 proving that your written decisions actually reproduce the model.
 
-All of them model the **Edith Farnsworth House** (Mies van der Rohe, Plano, Illinois, 1945–51). The
-building is out of copyright — the US Architectural Works Copyright Protection Act does not reach
-works constructed before 1 December 1990 — and its measured record,
-[HABS IL-1105](https://www.loc.gov/resource/hhh.il0323.sheet), is a public-domain US Government
-work. See the [reference model page](https://integration-innovation.github.io/bonsaiupskilling/reference-model/)
-for the full licensing position.
+All of them model the **Edith Farnsworth House** (Mies van der Rohe, Plano, Illinois, 1945–51).
+
+The building is out of copyright — the US Architectural Works Copyright Protection Act does not
+reach works constructed before 1 December 1990 — and the whole of its survey record,
+[HABS IL-1105](https://www.loc.gov/resource/hhh.il0323.sheet), is public domain, photographs
+included.
+
+**Mies's own drawings are a different matter and are still protected**, separately from the
+building, as pictorial works. These scripts reproduce no drawing: they are built from published
+dimensions, which are facts. Take dimensions off the HABS sheets; do not trace anything. The
+[reference model page](https://integration-innovation.github.io/bonsaiupskilling/reference-model/)
+sets out all three positions.
 
 ## `reference-model/build_farnsworth.py`
 

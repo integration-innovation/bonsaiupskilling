@@ -22,25 +22,42 @@ visible, nothing is buried in a cavity, and the whole thing is governed by one
 module. It is also legally safe to model, publish and hand to students -- see
 LICENSING below.
 
-LICENSING
----------
-The building itself is not a copyright constraint. The Architectural Works
-Copyright Protection Act took effect 1 December 1990 and does not reach works
-constructed before that date, so the Farnsworth House as *architecture* carries
-no US copyright that a model of it could infringe.
+LICENSING -- THREE DIFFERENT ANSWERS, DO NOT COLLAPSE THEM
+----------------------------------------------------------
+"Is the Farnsworth House free to use" has no single answer. The building, the
+HABS record and Mies's own drawings sit in three different places.
 
-Photographs are a separate matter and are usually still in copyright -- this
-course therefore ships geometry and drawings, not photographs.
+1. THE BUILDING -- free.
+   The Architectural Works Copyright Protection Act took effect 1 December 1990
+   and does not reach works constructed before that date, so the house as
+   *architecture* carries no US copyright that a model of it could infringe.
 
-The authoritative dimensional record is the Historic American Buildings Survey,
-HABS IL-1105 (32 photographs, 8 measured drawings, 54 data pages), held by the
-Library of Congress. HABS documentation is prepared by the US National Park
-Service and is a work of the United States Government: public domain, no known
-restrictions on publication. That is the source this model should ultimately be
-corrected against.
+2. THE HABS RECORD -- free, all of it.
+   Historic American Buildings Survey HABS IL-1105: 8 measured drawings, 32
+   photographs, 54 data pages. Everything transmitted to HABS is placed in the
+   public domain as a condition of the transfer, and the Library of Congress
+   rights advisory reads "no known restrictions on publication". That covers the
+   photographs as well as the drawings -- this is the one photographic source of
+   the house that can be used freely.
 
-    https://www.loc.gov/pictures/item/il0323/          survey record
-    https://www.loc.gov/resource/hhh.il0323.sheet      the 8 measured drawings
+       https://www.loc.gov/pictures/item/il0323/       survey record
+       https://www.loc.gov/resource/hhh.il0323.sheet   the 8 measured drawings
+
+3. MIES'S OWN DRAWINGS -- NOT free, and the pre-1990 rule does not help.
+   Architectural drawings are protected as pictorial and graphic works under
+   17 U.S.C. 102(a)(5), separately from the building they describe, and that
+   protection was never removed by the AWCPA -- the Second Circuit has held that
+   pre-1990 plans remain protected as pictorial works. The Farnsworth drawings
+   are in the Mies van der Rohe Archive at MoMA and their copyright is
+   administered by Artists Rights Society (ARS), New York / VG Bild-Kunst, Bonn.
+   Reproduction goes through Art Resource or Scala. Do not trace them, do not
+   redraw them, and do not paste them into course material.
+
+The distinction that matters for this script: DIMENSIONS ARE FACTS. Measuring
+that a bay is 22'-0" and writing 22'-0" in a table is not copying a drawing, and
+that is the only thing this model does. It reproduces no drawing of any kind.
+
+None of the above is legal advice. If you are publishing commercially, check it.
 
 DIMENSIONAL PROVENANCE -- READ THIS BEFORE TRUSTING A NUMBER
 ------------------------------------------------------------

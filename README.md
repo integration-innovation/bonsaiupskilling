@@ -5,7 +5,7 @@ stages of the SIA Architect's Scope of Service**, using Blender, [Bonsai](https:
 and [Bonsai Sketch Mode](https://github.com/integrations-space/BonsaiSketch).
 
 The building is Mies van der Rohe's **Edith Farnsworth House** (Plano, Illinois, 1945–51) — chosen
-because it is measured, in the public domain, and governed by a module strict enough that a
+because it is measured, out of copyright, and governed by a module strict enough that a
 modelling error shows up as a dimension that will not close.
 
 **→ [integration-innovation.github.io/bonsaiupskilling](https://integration-innovation.github.io/bonsaiupskilling)**

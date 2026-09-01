@@ -102,8 +102,13 @@ Real projects fail in the gaps, so this brief has some on purpose:
 
 - **No measured drawings in the repository.** The authoritative set is
   [HABS IL-1105](https://www.loc.gov/resource/hhh.il0323.sheet) at the Library of Congress — eight
-  measured drawings, public domain. Fetching them, reading them and *correcting the model against
-  them* is a Stage 04 exercise, not something handed to you.
+  measured drawings, and the whole survey is public domain. Fetching them, reading them and
+  *correcting the model against them* is a Stage 04 exercise, not something handed to you.
+
+  Take **dimensions** off those sheets, not linework. Mies's own drawings are still in copyright as
+  pictorial works even though the building is not, and so are the redrawn plans that circulate on
+  architecture websites. The [reference model]({{ '/reference-model/' | relative_url }}) page
+  explains why the two things are different.
 - **No agreed flood datum.** You establish it in Stage 01 and carry it as a project constraint.
 - **No consultant team.** In Stage 01 you decide which consultants this project needs — and,
   crucially, which services are *not* in an architect's basic scope and therefore have to be
