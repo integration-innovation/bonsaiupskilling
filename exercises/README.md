@@ -78,7 +78,7 @@ frame from public-domain HABS IL-1105 — as **concept only**, no drawing traced
 household shelter stands where Wright would have put the hearth, and because everything else is on
 steel, it is the only part of the house that touches the ground.
 
-**1,093 checks** across the three models. The ones worth stealing: setbacks and coverage are
+**1,581 checks** across the three models. The ones worth stealing: setbacks and coverage are
 measured *from the geometry*, the shelter's declared internal size must multiply out to its own
 NetFloorArea, the shelter's walls must start at z=0, and a Concept model containing doors **fails**.
 

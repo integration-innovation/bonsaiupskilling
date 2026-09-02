@@ -21,7 +21,7 @@ household shelter as the thing the whole plan turns about.
 
 Built by **[build_gcb_house.py](https://github.com/integration-innovation/bonsaiupskilling/blob/main/exercises/reference-model/build_gcb_house.py)**,
 checked by **[check_gcb_house.py](https://github.com/integration-innovation/bonsaiupskilling/blob/main/exercises/reference-model/check_gcb_house.py)** —
-**1,093 checks** across all three.
+**1,581 checks** across all three.
 
 ```bash
 python exercises/reference-model/build_gcb_house.py --all
@@ -160,6 +160,41 @@ is organised around *and stands on*.
 Two wings rise to a second storey; two stay single and become **roof terraces** — which is where the
 stepped, horizontal massing comes from.
 
+## The shelter's protection — and the failure that produced it
+
+<div class="warn" markdown="1">
+#### The elevated design left the shelter unprotected, and nobody noticed
+
+The shelter must be shielded by a minimum clear distance to the nearest enclosing external face:
+**2.0 m** on the wall carrying the door, **2.7 m** on the three walls without one.
+
+At **1st Storey** the four wings wrap the core, and the shelter clears those distances several times
+over — 12.4 m to the east, 7.2 m west and south, 10.7 m north.
+
+At **ground level** it cleared them on **no side at all**.
+
+Lifting the house 1.8 m on a steel frame — the move the whole design rests on — leaves the shelter
+tower standing alone in an open undercroft with nothing around it on any side. The plan complied.
+The section did not. **The first version of this model shipped that way.**
+</div>
+
+The fix is a **protective plinth**: four 200 mm reinforced-concrete walls at ground level, enclosing
+plant and store, set at the required distances.
+
+| Face | Clear | Required | |
+| --- | --- | --- | --- |
+| East — the door side | **2.20 m** | 2.0 m | ✅ |
+| West | **2.78 m** | 2.7 m | ✅ |
+| South | **2.78 m** | 2.7 m | ✅ |
+| North | **2.88 m** | 2.7 m | ✅ |
+
+Everything outside the plinth stays open undercroft, so the cross-ventilation and the floating
+reading survive. **The house floats; it lands on one solid base; and that base is what protects the
+shelter.** The regulation did not spoil the idea — it completed it.
+
+The gate now measures all four distances from the geometry **at ground level**, which is where the
+failure was and where a plan-only check would never have looked.
+
 ## The shelter, against SCDF 2023
 
 | | Model | Requirement | |
@@ -180,6 +215,33 @@ stepped, horizontal massing comes from.
 | **SHELTER** | The shelter's walls must start at **z = 0**. Not at the floor plane the rest of the house stands on. This is the check that catches a shelter drawn as a room instead of built as a tower |
 | **PINWHEEL** | The wings must not share face lines. A pinwheel that has drifted into a cross has lost the idea it was built on |
 | **STAGE** | A Concept model containing doors **fails**. You cannot detail your way past a decision you have not made |
+| **MATERIAL** | Every built element must declare a material. This caught two real defects at once: the doors had none, and the driveway had no type |
+| **DEMOLITION** | The existing bungalow must be present and marked at Concept, and **absent** afterwards |
+
+## Context, and the building already on the plot
+
+A model with no context cannot be checked against its site. This one carries terrain, the estate
+road, the plot boundary at the **GCB maximum of 1.8 m**, a driveway, **three neighbouring plots** as
+context masses, and **five mature trees** — which on a GCB plot are often the reason a house is
+shaped as it is.
+
+The neighbours are `IfcBuildingElementProxy` carrying `in_scope: false`, never `IfcBuilding`. They
+are not ours to design, and the model should say so rather than leave a reader to guess.
+
+<div class="big-note" markdown="1">
+
+### The old bungalow is modelled, then demolished
+
+A GCB plot almost always already has a house on it. This one does — at **Concept**, where the site
+plan has to show what is there, marked `TO BE DEMOLISHED` with `design_status: superseded`.
+
+By **Design Development** it is gone.
+
+That is not tidying up. **A demolition nobody modelled is a demolition nobody priced**, and it is
+the clearest possible demonstration of what a stage transition actually means: something that was
+true at Stage 02 is not true at Stage 04, and the model records both.
+
+</div>
 
 ## What is in it
 
@@ -189,7 +251,10 @@ stepped, horizontal massing comes from.
 | Slabs · Roof | 11 · 1, stepping with the massing, under a 1.8 m eave |
 | Walls | 14 — the shelter tower, the core, and four partitions. Everything else is glass |
 | Curtain walls · Plates | 42 · 42 (Design Development onward) |
+| Mullions · Shading fins | 84 · 44 — vertical fins on the faces that take low sun |
+| Balustrades · Stairs · Floor finishes | 8 · 2 · 8 |
 | Doors | 7 |
+| Context | Terrain, road, boundary wall, driveway, 3 neighbours, 5 trees |
 | Spaces | 18 — 16 rooms and terraces, plus **two GFA spaces** |
 | Storeys | `1st Storey` (+1800), `2nd Storey` (+5400), `Roof` (+9000) |
 | Grid | A–G × 1–7 on the 3.6 m module |

@@ -35,7 +35,7 @@ Roughly 35–45 focused hours over 11–12 weeks.
 | `pinwheel-house.md` | A Good Class Bungalow through three stages: Wright's pinwheel, Mies's elevated steel, the shelter at the pivot |
 | `servant-house.md` | The alternative parti: a household shelter as a Kahn servant tower |
 | `stages/` | The eight stage pages |
-| `exercises/` | Reference scripts: three model builders and their 286-, 322- and 1,093-check gates |
+| `exercises/` | Reference scripts: three model builders and their 286-, 322- and 1,581-check gates |
 | `_layouts/`, `_data/`, `assets/` | The site itself — plain Jekyll, no theme gem, one stylesheet |
 
 ## Running it locally
