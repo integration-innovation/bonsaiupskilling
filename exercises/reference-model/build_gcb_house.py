@@ -143,10 +143,59 @@ CORE = (16.8, 16.8, 24.0, 24.0)
 #   walls 250mm  ->  gross 2.0 x 3.7
 HS = (16.8, 16.8, 18.8, 20.5)
 HS_CLEAR = 2.700
+HS_DOOR_FACE = "E"           # the door is in the east wall
+
+# PROTECTION TO THE SHELTER, and why the first version of this design failed it.
+#
+# The shelter must be shielded by a minimum clear distance to the nearest
+# enclosing external face: 2.0 m on the wall carrying the door, 2.7 m on the
+# three walls without one.
+#
+# At 1st Storey the four wings wrap the core and the shelter clears those
+# distances several times over. At GROUND level it did not clear them at all.
+# Lifting the house on a steel frame -- the move the whole design rests on --
+# leaves the shelter tower standing alone in an open undercroft with nothing
+# around it on any side. Elegant, and non-compliant.
+#
+# The fix is a protective plinth: a low reinforced-concrete enclosure at ground
+# level, wrapping the tower at the required distances and housing plant and
+# store. The rest of the undercroft stays open, so the cross-ventilation and
+# the floating reading survive. The house floats; it lands on one solid base;
+# and that base is what protects the shelter.
+HS_PROTECT_DOOR = 2.000
+HS_PROTECT_OTHER = 2.700
+PLINTH = (14.0, 14.0, 21.0, 23.4)   # clears 2.80 / 2.80 / 2.20 / 2.90
+T_PLINTH = 0.200
 
 # Four wings, each turned a quarter from the last. None aligns with another:
 # that offset is the whole of the pinwheel, and it is what stops the plan
 # reading as a cross.
+# ------------------------------------------------------------------- context --
+# A model with no context is a model that cannot be checked against its site.
+PLOT_ORIGIN = (0.0, 0.0)
+ROAD_DEPTH = 7.0             # the estate road, along the south boundary
+BOUNDARY_WALL_H = 1.800      # GCB maximum
+DRIVEWAY = (18.0, -0.2, 23.0, 14.0)
+
+# Neighbouring GCB plots, as simplified context masses. Not our building, and
+# the model says so: they are IfcBuildingElementProxy, never IfcBuilding.
+#  name: (x0, y0, x1, y1, height)
+NEIGHBOURS = [
+    ("Context-Plot-W", -34.0, 4.0, -6.0, 32.0, 9.0),
+    ("Context-Plot-E", 46.0, 6.0, 74.0, 34.0, 9.0),
+    ("Context-Plot-N", 6.0, 50.0, 34.0, 78.0, 9.0),
+]
+
+# Mature trees, which on a GCB plot are often the reason a house is shaped as it
+# is. Crown radius, trunk height. Kept clear of the building.
+TREES = [(6.0, 6.0, 4.5), (34.0, 8.0, 3.5), (6.0, 34.0, 4.0),
+         (34.0, 34.0, 5.0), (20.0, 36.5, 3.0)]
+
+# The bungalow already standing on the plot. It exists at Concept, because the
+# site plan has to show what is there; it is gone by Design Development, because
+# by then it has been demolished. That is the whole point of modelling it.
+EXISTING = (12.0, 12.0, 28.0, 26.0, 8.0)
+
 #  name: (x0, y0, x1, y1, storeys)
 WINGS = {
     "N": (16.8, 24.0, 27.6, 31.2, "12"),   # living, and bedrooms above
@@ -406,7 +455,10 @@ def build(stage_key: str) -> ifcopenshell.file:
     materials = {n: api.material.add_material(f, name=n, category=c) for n, c in [
         ("Reinforced concrete", "concrete"), ("Structural steel", "steel"),
         ("Glass", "glass"), ("Concrete blockwork", "block"),
-        ("Cement plaster", "plaster"), ("Timber decking", "wood")]}
+        ("Cement plaster", "plaster"), ("Timber decking", "wood"),
+        ("Fair-faced concrete", "concrete"), ("Anodised aluminium", "aluminium"),
+        ("Granite paving", "stone"), ("Asphalt", "bitumen"),
+        ("Topsoil and turf", "soil"), ("Planting", "vegetation")]}
 
     types = {}
     types["HS"] = api.root.create_entity(f, "IfcWallType", predefined_type="SOLIDWALL",
@@ -436,9 +488,15 @@ def build(stage_key: str) -> ifcopenshell.file:
                                       name="GL-PLATE")
     api.material.assign_material(f, products=[plate_t], type="IfcMaterial",
                                  material=materials["Glass"])
-    door_t = {w: api.root.create_entity(f, "IfcDoorType", predefined_type="DOOR",
-                                        name=f"DR-{int(w * 1000)}")
-              for w in sorted({d[3] for d in DOORS})}
+    door_t = {}
+    for w in sorted({d[3] for d in DOORS}):
+        dt = api.root.create_entity(f, "IfcDoorType", predefined_type="DOOR",
+                                    name=f"DR-{int(w * 1000)}")
+        # A door with no material cannot be scheduled, priced or specified.
+        api.material.assign_material(
+            f, products=[dt], type="IfcMaterial",
+            material=materials["Timber decking" if w < 1.2 else "Glass"])
+        door_t[w] = dt
 
     # ---- the shelter tower and what little else is solid
     walls = {}
@@ -524,6 +582,66 @@ def build(stage_key: str) -> ifcopenshell.file:
             psets_for(f, c, stage, status,
                       vaf={"component": "Structure", "resource_grade": "Architect"},
                       verified=verified(c.Name))
+    # ---- the protective plinth: what makes the shelter compliant at ground
+    # Four 200mm RC walls at the required clear distances, enclosing plant and
+    # store. Everything outside them stays open undercroft.
+    px0, py0, px1, py1 = PLINTH
+    plinth_lines = [("S", (px0, py0), (px1, py0)), ("E", (px1, py0), (px1, py1)),
+                    ("N", (px1, py1), (px0, py1)), ("W", (px0, py1), (px0, py0))]
+    for tag, a, b in plinth_lines:
+        w = api.root.create_entity(f, "IfcWall", predefined_type="SOLIDWALL",
+                                   name=f"A-Walls-Plinth-{tag}")
+        ca, cb = centred(a, b, T_PLINTH)
+        rep = api.geometry.create_2pt_wall(
+            f, element=w, context=body, p1=ca, p2=cb, elevation=0.0,
+            height=UNDERCROFT, thickness=T_PLINTH, is_si=True)
+        api.geometry.assign_representation(f, product=w, representation=rep)
+        api.type.assign_type(f, related_objects=[w], relating_type=types["CORE"])
+        api.spatial.assign_container(f, products=[w], relating_structure=storeys["1"])
+        pc = api.pset.add_pset(f, product=w, name="Pset_WallCommon")
+        api.pset.edit_pset(f, pset=pc, properties={"IsExternal": True,
+                                                    "LoadBearing": True})
+        psets_for(f, w, stage, status,
+                  sg={"Construction Method": "Cast in-situ"},
+                  vaf={"component": "Structure", "resource_grade": "Architect"},
+                  verified=verified("HS"))
+
+    plinth_slab = api.root.create_entity(f, "IfcSlab", predefined_type="BASESLAB",
+                                         name="A-Slabs-Plinth")
+    rep = api.geometry.add_slab_representation(
+        f, context=body, depth=0.300, polyline=rect_poly(PLINTH))
+    api.geometry.assign_representation(f, product=plinth_slab, representation=rep)
+    api.geometry.edit_object_placement(
+        f, product=plinth_slab, matrix=placement((0, 0, -0.300)), is_si=True)
+    api.type.assign_type(f, related_objects=[plinth_slab], relating_type=slab_t)
+    api.spatial.assign_container(f, products=[plinth_slab],
+                                 relating_structure=storeys["1"])
+    psets_for(f, plinth_slab, stage, status,
+              vaf={"component": "Structure", "resource_grade": "Architect"},
+              verified="verified" if asbuilt else None)
+
+    plant = api.root.create_entity(f, "IfcSpace", predefined_type="INTERNAL",
+                                   name="Plant and Store")
+    plant.LongName = "Plant and store, within the shelter's protective plinth"
+    plant.CompositionType = "ELEMENT"
+    poly = inset_rect(PLINTH, T_PLINTH)
+    rep = api.geometry.add_slab_representation(
+        f, context=body, depth=UNDERCROFT - 0.1, polyline=poly)
+    api.geometry.assign_representation(f, product=plant, representation=rep)
+    api.geometry.edit_object_placement(f, product=plant, matrix=placement((0, 0, 0.0)),
+                                       is_si=True)
+    api.aggregate.assign_object(f, products=[plant], relating_object=storeys["1"])
+    pc = api.pset.add_pset(f, product=plant, name="Pset_SpaceCommon")
+    api.pset.edit_pset(f, pset=pc, properties={"IsExternal": False, "Reference": "00"})
+    q = api.pset.add_qto(f, product=plant, name="Qto_SpaceBaseQuantities")
+    api.pset.edit_qto(f, qto=q, properties={"NetFloorArea": round(area_of(poly), 3),
+                                             "FinishCeilingHeight": UNDERCROFT - 0.1})
+    psets_for(f, plant, stage, status,
+              sg={"Space Name": "Plant and Store", "Area": round(area_of(poly), 2),
+                  "HS Protection Door Side": HS_PROTECT_DOOR,
+                  "HS Protection Other Sides": HS_PROTECT_OTHER},
+              vaf={"component": "Space Planning", "resource_grade": "Architect"})
+
     # ---- the glazed envelope: glass between structure, set back under the eaves
     plates = 0
     if detailed:
@@ -655,6 +773,217 @@ def build(stage_key: str) -> ifcopenshell.file:
                       "AGF_Use Quantum": round(area, 2)},
                   vaf={"component": "Regulatory", "resource_grade": "Architect"})
 
+    # ---- detail: mullions, balustrades, the stair and the shading fins
+    # A model with no detail cannot be read as a design. These decide how the
+    # building looks, and they belong in Design Development, not in a rendering.
+    if detailed:
+        mull_t = api.root.create_entity(f, "IfcMemberType", predefined_type="MULLION",
+                                        name="MULL-ALU-50X150")
+        api.material.assign_material(f, products=[mull_t], type="IfcMaterial",
+                                     material=materials["Anodised aluminium"])
+        rail_t = api.root.create_entity(f, "IfcRailingType", predefined_type="BALUSTRADE",
+                                        name="BAL-STEEL-1000")
+        api.material.assign_material(f, products=[rail_t], type="IfcMaterial",
+                                     material=materials["Structural steel"])
+        fin_t = api.root.create_entity(f, "IfcShadingDeviceType",
+                                       predefined_type="USERDEFINED",
+                                       name="FIN-ALU-VERTICAL")
+        fin_t.ElementType = "Vertical shading fin"
+        api.material.assign_material(f, products=[fin_t], type="IfcMaterial",
+                                     material=materials["Anodised aluminium"])
+
+        n_m = n_f = 0
+        for sk in ("1", "2"):
+            for ((ax, ay), (bx, by)) in external_faces(sk):
+                (dx, dy), span = direction((ax, ay), (bx, by))
+                for tpos in (0.0, 1.0):
+                    n_m += 1
+                    mx, my = ax + (bx - ax) * tpos, ay + (by - ay) * tpos
+                    m = api.root.create_entity(f, "IfcMember", predefined_type="MULLION",
+                                               name=f"A-Mullions-L{sk}-{n_m:03d}")
+                    rep = api.geometry.add_slab_representation(
+                        f, context=body, depth=STOREY_H - 0.250,
+                        polyline=box(0.050, 0.150))
+                    api.geometry.assign_representation(f, product=m, representation=rep)
+                    api.geometry.edit_object_placement(
+                        f, product=m,
+                        matrix=placement((mx, my, STOREY_Z[sk]), (dx, dy)), is_si=True)
+                    api.type.assign_type(f, related_objects=[m], relating_type=mull_t)
+                    api.spatial.assign_container(f, products=[m],
+                                                 relating_structure=storeys[sk])
+                    psets_for(f, m, stage, status,
+                              vaf={"component": "Envelope",
+                                   "resource_grade": "Architect"})
+                # vertical fins where the sun comes in low: the east and west faces
+                if abs(dy) > 0.5:
+                    for k in (1, 2):
+                        n_f += 1
+                        fx = ax + (bx - ax) * (k / 3.0)
+                        fy = ay + (by - ay) * (k / 3.0)
+                        fin = api.root.create_entity(
+                            f, "IfcShadingDevice", predefined_type="USERDEFINED",
+                            name=f"A-Shading-L{sk}-{n_f:03d}")
+                        rep = api.geometry.add_slab_representation(
+                            f, context=body, depth=STOREY_H - 0.250,
+                            polyline=box(0.040, 0.450))
+                        api.geometry.assign_representation(f, product=fin,
+                                                           representation=rep)
+                        api.geometry.edit_object_placement(
+                            f, product=fin,
+                            matrix=placement((fx, fy, STOREY_Z[sk]), (dx, dy)),
+                            is_si=True)
+                        api.type.assign_type(f, related_objects=[fin],
+                                             relating_type=fin_t)
+                        api.spatial.assign_container(f, products=[fin],
+                                                     relating_structure=storeys[sk])
+                        psets_for(f, fin, stage, status,
+                                  vaf={"component": "Envelope",
+                                       "resource_grade": "Architect"})
+
+        for name, rect in (("Terrace-S", WINGS["S"][:4]), ("Terrace-W", WINGS["W"][:4])):
+            x0, y0, x1, y1 = rect
+            for tag, a, b in (("S", (x0, y0), (x1, y0)), ("E", (x1, y0), (x1, y1)),
+                              ("N", (x1, y1), (x0, y1)), ("W", (x0, y1), (x0, y0))):
+                r = api.root.create_entity(f, "IfcRailing", predefined_type="BALUSTRADE",
+                                           name=f"A-Railings-{name}-{tag}")
+                (dx, dy), span = direction(a, b)
+                rep = api.geometry.add_slab_representation(
+                    f, context=body, depth=1.000, polyline=box(span, 0.050))
+                api.geometry.assign_representation(f, product=r, representation=rep)
+                api.geometry.edit_object_placement(
+                    f, product=r,
+                    matrix=placement(((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, L2), (dx, dy)),
+                    is_si=True)
+                api.type.assign_type(f, related_objects=[r], relating_type=rail_t)
+                api.spatial.assign_container(f, products=[r],
+                                             relating_structure=storeys["2"])
+                psets_for(f, r, stage, status,
+                          vaf={"component": "Envelope", "resource_grade": "Architect"})
+
+        for sk, base, top in (("1", 0.0, L1), ("2", L1, L2)):
+            st = api.root.create_entity(f, "IfcStair",
+                                        predefined_type="STRAIGHT_RUN_STAIR",
+                                        name=f"A-Stairs-L{sk}")
+            rep = api.geometry.add_slab_representation(
+                f, context=body, depth=top - base,
+                polyline=[(19.2, 21.0), (23.4, 21.0), (23.4, 23.4), (19.2, 23.4)])
+            api.geometry.assign_representation(f, product=st, representation=rep)
+            api.geometry.edit_object_placement(
+                f, product=st, matrix=placement((0, 0, base)), is_si=True)
+            api.spatial.assign_container(f, products=[st], relating_structure=storeys[sk])
+            api.material.assign_material(f, products=[st], type="IfcMaterial",
+                                         material=materials["Fair-faced concrete"])
+            pc = api.pset.add_pset(f, product=st, name="Pset_StairCommon")
+            api.pset.edit_pset(f, pset=pc, properties={"NumberOfRiser": 10,
+                                                        "IsExternal": sk == "1"})
+            psets_for(f, st, stage, status,
+                      vaf={"component": "Space Planning", "resource_grade": "Architect"},
+                      verified=verified("Slab"))
+
+        cov_t = api.root.create_entity(f, "IfcCoveringType", predefined_type="FLOORING",
+                                       name="FIN-GRANITE-20")
+        api.material.assign_material(f, products=[cov_t], type="IfcMaterial",
+                                     material=materials["Granite paving"])
+        for sk in ("1", "2"):
+            for i, r in enumerate(footprint(sk), start=1):
+                c = api.root.create_entity(f, "IfcCovering", predefined_type="FLOORING",
+                                           name=f"A-Finishes-L{sk}-{i:02d}")
+                rep = api.geometry.add_slab_representation(
+                    f, context=body, depth=0.020, polyline=rect_poly(r))
+                api.geometry.assign_representation(f, product=c, representation=rep)
+                api.geometry.edit_object_placement(
+                    f, product=c, matrix=placement((0, 0, STOREY_Z[sk])), is_si=True)
+                api.type.assign_type(f, related_objects=[c], relating_type=cov_t)
+                api.spatial.assign_container(f, products=[c],
+                                             relating_structure=storeys[sk])
+                psets_for(f, c, stage, status,
+                          vaf={"component": "Envelope", "resource_grade": "Architect"},
+                          verified="assumed" if asbuilt else None)
+
+    # ---- the site: terrain, road, boundary, driveway, neighbours, trees
+    def site_thing(cls, name, poly, base, depth, material, pdt=None):
+        kw = {"predefined_type": pdt} if pdt else {}
+        e = api.root.create_entity(f, cls, name=name, **kw)
+        rep = api.geometry.add_slab_representation(
+            f, context=body, depth=depth, polyline=poly)
+        api.geometry.assign_representation(f, product=e, representation=rep)
+        api.geometry.edit_object_placement(
+            f, product=e, matrix=placement((0, 0, base)), is_si=True)
+        api.spatial.assign_container(f, products=[e], relating_structure=site)
+        api.material.assign_material(f, products=[e], type="IfcMaterial",
+                                     material=materials[material])
+        psets_for(f, e, stage, status,
+                  vaf={"component": "Site", "resource_grade": "Architect"})
+        return e
+
+    site_thing("IfcGeographicElement", "X-Site-Terrain",
+               [(-40.0, -12.0), (80.0, -12.0), (80.0, 80.0), (-40.0, 80.0)],
+               -0.300, 0.300, "Topsoil and turf", pdt="TERRAIN")
+    site_thing("IfcGeographicElement", "X-Site-Road",
+               [(-40.0, -ROAD_DEPTH), (80.0, -ROAD_DEPTH), (80.0, -0.5), (-40.0, -0.5)],
+               -0.020, 0.100, "Asphalt", pdt="USERDEFINED")
+    drive = site_thing("IfcSlab", "A-Site-Driveway", rect_poly(DRIVEWAY), 0.0, 0.120,
+                       "Granite paving", pdt="BASESLAB")
+    api.type.assign_type(f, related_objects=[drive], relating_type=slab_t)
+
+    for tag, a, b in (("S1", (0.0, 0.0), (17.5, 0.0)), ("S2", (23.5, 0.0), (PLOT, 0.0)),
+                      ("E", (PLOT, 0.0), (PLOT, PLOT)), ("N", (PLOT, PLOT), (0.0, PLOT)),
+                      ("W", (0.0, PLOT), (0.0, 0.0))):
+        w = api.root.create_entity(f, "IfcWall", predefined_type="SOLIDWALL",
+                                   name=f"A-Walls-Boundary-{tag}")
+        ca, cb = centred(a, b, 0.150)
+        rep = api.geometry.create_2pt_wall(
+            f, element=w, context=body, p1=ca, p2=cb, elevation=0.0,
+            height=BOUNDARY_WALL_H, thickness=0.150, is_si=True)
+        api.geometry.assign_representation(f, product=w, representation=rep)
+        api.type.assign_type(f, related_objects=[w], relating_type=types["INT"])
+        api.spatial.assign_container(f, products=[w], relating_structure=site)
+        pc = api.pset.add_pset(f, product=w, name="Pset_WallCommon")
+        api.pset.edit_pset(f, pset=pc, properties={"IsExternal": True,
+                                                    "LoadBearing": False})
+        psets_for(f, w, stage, status,
+                  sg={"Boundary Wall Height": BOUNDARY_WALL_H * 1000},
+                  vaf={"component": "Site", "resource_grade": "Architect"})
+
+    for name, x0, y0, x1, y1, h in NEIGHBOURS:
+        e = site_thing("IfcBuildingElementProxy", f"X-{name}",
+                       [(x0, y0), (x1, y0), (x1, y1), (x0, y1)], 0.0, h,
+                       "Concrete blockwork")
+        api.pset.edit_pset(
+            f, pset=api.pset.add_pset(f, product=e, name="Context"),
+            properties={"role": "Neighbouring building, context only",
+                        "in_scope": False})
+
+    for i, (cx, cy, r) in enumerate(TREES, start=1):
+        n = 12
+        crown = [(cx + r * math.cos(2 * math.pi * k / n),
+                  cy + r * math.sin(2 * math.pi * k / n)) for k in range(n)]
+        site_thing("IfcGeographicElement", f"X-Site-Tree-{i:02d}", crown, 3.0, 6.0,
+                   "Planting", pdt="USERDEFINED")
+
+    # ---- the bungalow already standing on the plot
+    # It exists at Concept, because the site plan must show what is there. It is
+    # gone by Design Development, because by then it has been demolished. A
+    # demolition nobody modelled is a demolition nobody priced.
+    if stage_key == "concept":
+        x0, y0, x1, y1, h = EXISTING
+        old_b = api.root.create_entity(f, "IfcBuildingElementProxy",
+                                       name="Z-Existing-Bungalow")
+        rep = api.geometry.add_slab_representation(
+            f, context=body, depth=h, polyline=[(x0, y0), (x1, y0), (x1, y1), (x0, y1)])
+        api.geometry.assign_representation(f, product=old_b, representation=rep)
+        api.geometry.edit_object_placement(f, product=old_b,
+                                           matrix=placement((0, 0, 0.0)), is_si=True)
+        api.spatial.assign_container(f, products=[old_b], relating_structure=site)
+        api.material.assign_material(f, products=[old_b], type="IfcMaterial",
+                                     material=materials["Concrete blockwork"])
+        api.pset.edit_pset(
+            f, pset=api.pset.add_pset(f, product=old_b, name="Demolition"),
+            properties={"status": "TO BE DEMOLISHED",
+                        "note": "Existing bungalow. Demolished before Stage 04."})
+        psets_for(f, old_b, stage, "superseded",
+                  vaf={"component": "Site", "resource_grade": "Architect"})
+
     # ---- grid, on the module the whole plan turns about
     grid = api.root.create_entity(f, "IfcGrid", name="A-Grid")
     api.spatial.assign_container(f, products=[grid], relating_structure=storeys["1"])
@@ -684,7 +1013,10 @@ if __name__ == "__main__":
         model.write(str(out))
         print(f"wrote {out.name}")
         for cls in ("IfcColumn", "IfcSlab", "IfcRoof", "IfcWall", "IfcCurtainWall",
-                    "IfcPlate", "IfcDoor", "IfcSpace", "IfcBuildingStorey", "IfcGrid"):
+                    "IfcPlate", "IfcMember", "IfcShadingDevice", "IfcRailing",
+                    "IfcStair", "IfcCovering", "IfcDoor", "IfcSpace",
+                    "IfcGeographicElement", "IfcBuildingElementProxy",
+                    "IfcBuildingStorey", "IfcGrid"):
             n = len(model.by_type(cls))
             if n:
                 print(f"    {cls:20} {n}")

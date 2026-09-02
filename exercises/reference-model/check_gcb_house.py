@@ -55,6 +55,8 @@ GCB_MAX_COVERAGE, GCB_SETBACK, GCB_MAX_STOREYS = 40.0, 3.0, 2
 # SCDF Technical Requirements for Household Shelters 2023.
 HS_MIN_WIDTH, HS_MAX_LENGTH, HS_MAX_AREA = 1200, 4000, 4.8
 HS_MIN_HEIGHT, HS_MAX_HEIGHT = 2400, 3900
+# Clear distance from the shelter wall to the nearest enclosing external face.
+HS_PROTECT_DOOR, HS_PROTECT_OTHER = 2.000, 2.700
 
 PLOT = 40.0
 
@@ -111,6 +113,9 @@ def run(path: Path, results: list) -> None:
         check(bool(VALID_STOREY.match(name)),
               f"CORENET storey {name!r} matches level naming", name)
 
+    stage_now = psets(f.by_type("IfcBuilding")[0]).get(
+        "Bonsai_Upskilling", {}).get("project_stage", "")
+
     # ---------------------------------------------------------------- GCB
     site = f.by_type("IfcSite")[0]
     sg = psets(site).get("IFCSG_Demo", {})
@@ -131,10 +136,21 @@ def run(path: Path, results: list) -> None:
           f"GCB at most {GCB_MAX_STOREYS} storeys", str(len(habitable)))
 
     # Setbacks, measured from the model rather than asserted.
+    # Only the building counts. Terrain, road, neighbours, trees and the
+    # boundary wall all sit outside the plot on purpose, and folding them into
+    # the extent would silently turn this check into a no-op.
+    def in_building(product):
+        for rel in (product.ContainedInStructure or []):
+            if rel.RelatingStructure.is_a("IfcBuildingStorey"):
+                return True
+        return False
+
     lo = np.array([1e9] * 3)
     hi = np.array([-1e9] * 3)
     for p in f.by_type("IfcProduct"):
         if not p.Representation or p.is_a("IfcSpace") or p.is_a("IfcGrid"):
+            continue
+        if not in_building(p) or (p.Name and "Boundary" in p.Name):
             continue
         try:
             a, b = bounds(p)
@@ -181,6 +197,75 @@ def run(path: Path, results: list) -> None:
         t = ifcopenshell.util.element.get_type(w)
         check(t is not None and "HS-250-RC" in (t.Name or ""),
               f"SHELTER {w.Name} uses the 250mm RC type", (t.Name if t else "none"))
+
+    # --------------------------------- SHELTER: protection at EVERY level
+    # The distances are met at 1st Storey because the wings wrap the core. At
+    # ground the house is on stilts, so nothing wraps anything -- and the first
+    # version of this design failed here without noticing. The plinth is what
+    # fixes it, so the plinth is what gets tested.
+    plinth = [w for w in f.by_type("IfcWall") if w.Name and "Plinth" in w.Name]
+    check(len(plinth) == 4, "SHELTER protective plinth encloses the tower on four sides",
+          str(len(plinth)))
+    if hs_walls and plinth:
+        hlo = np.min([bounds(w)[0] for w in hs_walls], axis=0)
+        hhi = np.max([bounds(w)[1] for w in hs_walls], axis=0)
+        plo = np.min([bounds(w)[0] for w in plinth], axis=0)
+        phi = np.max([bounds(w)[1] for w in plinth], axis=0)
+        check(plo[2] < 1e-6, "SHELTER plinth starts at ground", f"{plo[2]:.2f} m")
+        for face, clear, need in (
+                ("east, the door side", phi[0] - hhi[0], HS_PROTECT_DOOR),
+                ("west", hlo[0] - plo[0], HS_PROTECT_OTHER),
+                ("south", hlo[1] - plo[1], HS_PROTECT_OTHER),
+                ("north", phi[1] - hhi[1], HS_PROTECT_OTHER)):
+            check(clear >= need - 1e-6,
+                  f"SHELTER protected {need} m on the {face}", f"{clear:.2f} m")
+
+    # ------------------------------------------------------ SITE: the context
+    ctx = [p for p in f.by_type("IfcBuildingElementProxy")
+           if psets(p).get("Context", {}).get("in_scope") is False]
+    check(len(ctx) >= 3, "SITE neighbouring plots are modelled as context",
+          str(len(ctx)))
+    for c in ctx:
+        check(c.is_a("IfcBuildingElementProxy"),
+              f"SITE {c.Name} is a proxy, not an IfcBuilding")
+    geo = {g.Name: g for g in f.by_type("IfcGeographicElement")}
+    check(any("Terrain" in n for n in geo), "SITE terrain is modelled")
+    check(any("Road" in n for n in geo), "SITE the estate road is modelled")
+    check(sum("Tree" in n for n in geo) >= 3, "SITE mature trees are modelled",
+          str(sum("Tree" in n for n in geo)))
+    bwalls = [w for w in f.by_type("IfcWall") if w.Name and "Boundary" in w.Name]
+    check(bool(bwalls), "SITE the plot boundary is modelled", str(len(bwalls)))
+    for w in bwalls:
+        h = psets(w).get("IFCSG_Demo", {}).get("Boundary Wall Height")
+        check(h is not None and h <= 1800,
+              f"GCB {w.Name} boundary wall <= 1.8 m", f"{h} mm")
+
+    # ------------------------------------------- DEMOLITION: the old bungalow
+    existing = [p for p in f.by_type("IfcBuildingElementProxy")
+                if p.Name and "Existing" in p.Name]
+    if stage_now.startswith("02"):
+        check(len(existing) == 1,
+              "DEMOLITION the existing bungalow is shown at Concept", str(len(existing)))
+        for e in existing:
+            d = psets(e).get("Demolition", {})
+            check(d.get("status") == "TO BE DEMOLISHED",
+                  "DEMOLITION it is marked for demolition", str(d.get("status")))
+            check(psets(e).get("Bonsai_Upskilling", {}).get("design_status") == "superseded",
+                  "DEMOLITION its design status is superseded")
+    else:
+        check(not existing,
+              "DEMOLITION the existing bungalow is gone after Concept",
+              f"{len(existing)} still present")
+
+    # ------------------------------------------------- MATERIAL: what it is made of
+    unmaterialled = []
+    for p in f.by_type("IfcProduct"):
+        if not p.Representation or p.is_a("IfcSpace") or p.is_a("IfcOpeningElement"):
+            continue
+        if ifcopenshell.util.element.get_material(p) is None:
+            unmaterialled.append(p.Name)
+    check(not unmaterialled, "MATERIAL every built element declares its material",
+          f"{len(unmaterialled)} without: " + ", ".join(unmaterialled[:4]))
 
     # ----------------------------------------------------------- PINWHEEL
     wings = {}
@@ -232,6 +317,11 @@ def run(path: Path, results: list) -> None:
     if stage.startswith("04") or stage.startswith("07"):
         check(bool(f.by_type("IfcDoor")), "STAGE the building has openings")
         check(bool(f.by_type("IfcCurtainWall")), "STAGE the building has its envelope")
+        for cls, label in (("IfcMember", "mullions"), ("IfcShadingDevice", "shading"),
+                           ("IfcRailing", "balustrades"), ("IfcStair", "stairs"),
+                           ("IfcCovering", "floor finishes")):
+            check(bool(f.by_type(cls)), f"DETAIL the model has {label}",
+                  str(len(f.by_type(cls))))
     if stage.startswith("07"):
         marked = [p for p in f.by_type("IfcProduct")
                   if psets(p).get("AsBuilt", {}).get("verification")]
@@ -247,6 +337,7 @@ def run(path: Path, results: list) -> None:
         for e in f.by_type(cls):
             check(ifcopenshell.util.element.get_type(e) is not None,
                   f"{e.Name} comes from a type")
+    del cls
     for o in f.by_type("IfcOpeningElement"):
         check(bool(o.VoidsElements), f"{o.Name} voids a host")
         check(bool(o.HasFillings), f"{o.Name} is filled")
